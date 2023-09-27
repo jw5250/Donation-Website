@@ -5,10 +5,10 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
   
 ## Team
 
-- MEMBER1
-- MEMBER2
-- MEMBER3
-- MEMBER4
+- Daniel Arcega
+- Justin Wu
+- John Li
+- Ricky Yang
 
 
 ## Prerequisites
