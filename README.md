@@ -8,7 +8,7 @@ An online U-Fund system built in Java 17=> and ___ _replace with other platform 
 - Daniel Arcega
 - Justin Wu (written by Justin Wu)
 - John Li
-- Ricky Yang
+- Ricky Yang 
 
 
 ## Prerequisites
