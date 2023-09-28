@@ -1,0 +1,23 @@
+commit bf53b6bed02410218e05bb09a7f05822e20f826c
+Author: Ricky Yang <ry8467@rit.edu>
+Date:   Wed Sep 27 21:55:57 2023 -0400
+
+    some commit message
+
+commit 8f8733d5ba583203e30e0f5a634ad0f5ae5e9b59
+Author: jw5250 <jw5250@rit.edu>
+Date:   Wed Sep 27 21:29:19 2023 -0400
+
+    I rewritten my name -Justin Wu
+
+commit 522a4fe4ff9398bdb9b8904fcb817e0bc47edcbe
+Author: dra7835 <dra7835@rit.edu>
+Date:   Wed Sep 27 19:43:10 2023 -0400
+
+    First commit. Team names added.
+
+commit 4b705e93858c79ed6408ce35c1d75dbb8d7ea9b0
+Author: github-classroom[bot] <66690702+github-classroom[bot]@users.noreply.github.com>
+Date:   Wed Sep 27 22:43:26 2023 +0000
+
+    Initial commit
