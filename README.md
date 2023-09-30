@@ -4,11 +4,10 @@
 An online U-Fund system built in Java 17=> and ___ _replace with other platform requirements_ ___
   
 ## Team
-
 - Daniel Arcega
 - Justin Wu (written by Justin Wu)
+- Ricky Yang 
 - John Li
-- Ricky Yang
 
 
 ## Prerequisites
