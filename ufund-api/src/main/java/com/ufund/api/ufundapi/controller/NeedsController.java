@@ -41,8 +41,8 @@ public class NeedsController {
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public NeedsController(NeedDAO heroDao) {
-        this.heroDao = heroDao;
+    public NeedsController(NeedDAO needDao) {
+        this.needDao = needDao;
     }
     /**
      * Responds to the GET request for a {@linkplain Hero hero} for the given id
