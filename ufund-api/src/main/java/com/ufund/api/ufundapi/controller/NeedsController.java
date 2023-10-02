@@ -29,7 +29,7 @@ import com.ufund.api.ufundapi.model.Need;
  */
 
 @RestController
-@RequestMapping("heroes")
+@RequestMapping("needs")
 public class NeedsController {
     private static final Logger LOG = Logger.getLogger(NeedsController.class.getName());
     private NeedDAO heroDao;
