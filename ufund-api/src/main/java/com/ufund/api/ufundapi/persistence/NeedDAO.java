@@ -53,7 +53,20 @@ public interface NeedDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Need createNeed(String name, String type, int cost, int quantity) throws IOException;
+    Need createNeed() throws IOException;
+
+    /**
+     * Creates and saves a {@linkplain Need need}
+     * 
+     * @param need {@linkplain Need need} object to be created and saved
+     * <br>
+     * Made a new need with a name, a type, a cost, and the amount available.
+     *
+     * @return new {@link Need need} if successful, false otherwise 
+     * 
+     * @throws IOException if an issue with underlying storage
+     */
+    Need createNeed(Need need) throws IOException;
 
     /**
      * Updates and saves a {@linkplain Need need}

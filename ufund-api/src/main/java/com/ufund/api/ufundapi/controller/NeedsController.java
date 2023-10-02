@@ -32,7 +32,7 @@ import com.ufund.api.ufundapi.model.Need;
 @RequestMapping("needs")
 public class NeedsController {
     private static final Logger LOG = Logger.getLogger(NeedsController.class.getName());
-    private NeedDAO heroDao;
+    private NeedDAO needDao;
 
     /**
      * Creates a REST API controller to reponds to requests
@@ -116,26 +116,26 @@ public class NeedsController {
         //return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
     /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
+     * Creates a {@linkplain Need hero} with the provided hero object
      * 
-     * @param hero - The {@link Hero hero} to create
+     * @param need - The {@link Need hero} to create
      * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
+     * @return ResponseEntity with created {@link Need need} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Need need} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Hero> createHero(@RequestBody Hero hero) {
-        LOG.info("POST /heroes " + hero);
+    public ResponseEntity<Need> createHero(@RequestBody Need need) {
+        LOG.info("POST /needs " + need);
         try{
-            System.out.println(hero.toString());//Need to add something that checks if a hero's id or name exists.
+            System.out.println(need.toString());//Need to add something that checks if a hero's id or name exists.
 
-            Hero newHero = heroDao.createHero(hero);
-            if(newHero == null){
+            Need newNeed = needDao.createNeed(need);
+            if(newNeed == null){
                 //Creates a hero with an id always greater than the previous greatest.
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{
-                return new ResponseEntity<Hero>(newHero, HttpStatus.CREATED);
+                return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);
             }
 
         }catch(IOException e){

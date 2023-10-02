@@ -162,16 +162,16 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need createNeed(String name, String type, int cost, int quantity) throws IOException {
+    public Need createNeed(Need need) throws IOException {
         synchronized(needs) {
             // We create a new need object because the id field is immutable
             // and we need to assign the next unique id
-            Need exists = getNeed(name);
+            Need exists = getNeed(need.getName());
 
             if(exists == null){
                 Need newNeed = exists;
-                if(name.equals("")){//Check if the ID is not defined.
-                    newNeed = new Need(name, type, cost, quantity);
+                if(need.getName().equals("")){//Check if the ID is not defined.
+                    newNeed = new Need(need.getName(), need.getType(), need.getCost(), need.getQuantity());
                 }
                 needs.put(newNeed.getName(),newNeed);
                 save(); // may throw an IOException
