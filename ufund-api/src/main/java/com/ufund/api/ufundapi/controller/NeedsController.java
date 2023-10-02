@@ -125,7 +125,7 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Need> createHero(@RequestBody Need need) {
+    public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try{
             System.out.println(need.toString());//Need to add something that checks if a hero's id or name exists.
