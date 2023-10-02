@@ -31,8 +31,8 @@ public class Need {
      * value, i.e. 0 for int
      */
     public Need(@JsonProperty("name") String name, @JsonProperty("type") String type,
-    @JsonProperty("id") int cost,
-    @JsonProperty("id") int quantity
+    @JsonProperty("cost") int cost,
+    @JsonProperty("quantity") int quantity
     ) {
         this.name = name;
         this.type = type;
