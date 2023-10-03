@@ -142,8 +142,6 @@ public class NeedsController {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        // Replace below with your implementation
-        //return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
     //Works
     /**
