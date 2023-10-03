@@ -116,9 +116,9 @@ public class NeedsController {
         //return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
     /**
-     * Creates a {@linkplain Need hero} with the provided hero object
+     * Creates a {@linkplain Need need} with the provided need object
      * 
-     * @param need - The {@link Need hero} to create
+     * @param need - The {@link Need need} to create
      * 
      * @return ResponseEntity with created {@link Need need} object and HTTP status of CREATED<br>
      * ResponseEntity with HTTP status of CONFLICT if {@link Need need} object already exists<br>
