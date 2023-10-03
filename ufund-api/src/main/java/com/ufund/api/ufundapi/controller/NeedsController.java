@@ -58,9 +58,9 @@ public class NeedsController {
     public ResponseEntity<Need> getNeed(@PathVariable String id) {
         LOG.info("GET /needs/" + id);
         try {
-            Need hero = needDao.getNeed(id);
-            if (hero != null)
-                return new ResponseEntity<Need>(hero,HttpStatus.OK);
+            Need need = needDao.getNeed(id);
+            if (need != null)
+                return new ResponseEntity<Need>(need,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -153,12 +153,12 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Need> updateHero(@RequestBody Need need) {
+    public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
         LOG.info("PUT /needs " + need);
         try{
-            Need updatedHero = needDao.updateNeed(need);
-            if(updatedHero != null){
-                return new ResponseEntity<Need>(updatedHero, HttpStatus.OK);
+            Need updatedNeed = needDao.updateNeed(need);
+            if(updatedNeed != null){
+                return new ResponseEntity<Need>(updatedNeed, HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -183,8 +183,8 @@ public class NeedsController {
     public ResponseEntity<Need> deleteNeed(@PathVariable String id) {
         LOG.info("DELETE /needs/" + id);
         try{
-            boolean heroFound = needDao.deleteNeed(id);
-            if(heroFound == true){
+            boolean needFound = needDao.deleteNeed(id);
+            if(needFound == true){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
