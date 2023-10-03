@@ -17,10 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
+
 import com.ufund.api.ufundapi.model.Need;
 
 /**
- * Handles the REST API requests for the Hero resource
+ * Handles the REST API requests for the Need resource
  * <p>
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
@@ -122,15 +123,15 @@ public class NeedsController {
      * ResponseEntity with HTTP status of CONFLICT if {@link Need need} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @PostMapping("")
+   @PostMapping("")
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try{
-            System.out.println(need.toString());//Need to add something that checks if a hero's id or name exists.
+            System.out.println(need.toString());//Need to add something that checks if a need's id or name exists.
 
             Need newNeed = needDao.createNeed(need);
             if(newNeed == null){
-                //Creates a hero with an id always greater than the previous greatest.
+                //Creates a need with an id always greater than the previous greatest.
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{
                 return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);
@@ -147,7 +148,7 @@ public class NeedsController {
     /**
      * Updates the {@linkplain Need need} with the provided {@linkplain Need need} object, if it exists
      * 
-     * @param hero The {@link Need need} to update
+     * @param need The {@link Need need} to update
      * 
      * @return ResponseEntity with updated {@link Need need} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
