@@ -114,12 +114,9 @@ public class NeedFileDAO implements NeedDAO {
         // or reading from the file
         Need[] needArray = objectMapper.readValue(new File(filename),Need[].class);
 
-        // Add each need to the tree map and keep track of the greatest id
+        // Add each need to the tree map
         for (Need need : needArray) {
             needs.put(need.getName(),need);
-            if (need.getName().compareTo(nextName) > 0){
-                nextName = need.getName();
-            }
         }
         // Make the next id one greater than the maximum from the file
         return true;
