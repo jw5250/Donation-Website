@@ -17,10 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
+
 import com.ufund.api.ufundapi.model.Need;
 
 /**
- * Handles the REST API requests for the Hero resource
+ * Handles the REST API requests for the Need resource
  * <p>
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
@@ -54,12 +55,12 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Hero> getHero(@PathVariable int id) {
-        LOG.info("GET /heroes/" + id);
+    public ResponseEntity<Need> getNeed(@PathVariable String name) {
+        LOG.info("GET /needs/" + name);
         try {
-            Hero hero = heroDao.getHero(id);
-            if (hero != null)
-                return new ResponseEntity<Hero>(hero,HttpStatus.OK);
+            Need need = needDao.getNeed(name);
+            if (need != null)
+                return new ResponseEntity<Need>(need,HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -77,11 +78,11 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Hero[]> getHeroes() {
-        LOG.info("GET /heroes");
+    public ResponseEntity<Need[]> getNeeds() {
+        LOG.info("GET /needs");
         try{
-            Hero[] heroes = heroDao.getHeroes();
-            return new ResponseEntity<Hero[]>(heroes, HttpStatus.OK);
+            Need[] needs = needDao.getNeeds();
+            return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -102,7 +103,8 @@ public class NeedsController {
      */
     @GetMapping("/")
     public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+        LOG.info("GET /needs/?name="+name);
+
         try{
             Need[] needs = needDao.searchNeeds(name);
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
@@ -126,11 +128,11 @@ public class NeedsController {
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try{
-            System.out.println(need.toString());//Need to add something that checks if a hero's id or name exists.
+            System.out.println(need.toString());//Need to add something that checks if a need's id or name exists.
 
             Need newNeed = needDao.createNeed(need);
             if(newNeed == null){
-                //Creates a hero with an id always greater than the previous greatest.
+                //Creates a need with an id always greater than the previous greatest.
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{
                 return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);
@@ -147,19 +149,19 @@ public class NeedsController {
     /**
      * Updates the {@linkplain Need need} with the provided {@linkplain Need need} object, if it exists
      * 
-     * @param hero The {@link Need need} to update
+     * @param need The {@link Need need} to update
      * 
      * @return ResponseEntity with updated {@link Need need} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Hero> updateHero(@RequestBody Hero hero) {
-        LOG.info("PUT /heroes " + hero);
+    public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
+        LOG.info("PUT /needs " + need);
         try{
-            Hero updatedHero = heroDao.updateHero(hero);
-            if(updatedHero != null){
-                return new ResponseEntity<Hero>(updatedHero, HttpStatus.OK);
+            Need updatedNeed = needDao.updateNeed(need);
+            if(updatedNeed != null){
+                return new ResponseEntity<Need>(updatedNeed, HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
@@ -167,8 +169,6 @@ public class NeedsController {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        // Replace below with your implementation
-        //return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
     /**
@@ -181,11 +181,11 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Hero> deleteHero(@PathVariable int id) {
-        LOG.info("DELETE /heroes/" + id);
+    public ResponseEntity<Need> deleteNeed(@PathVariable String name) {
+        LOG.info("DELETE /needs/" + name);
         try{
-            boolean heroFound = heroDao.deleteHero(id);
-            if(heroFound == true){
+            boolean needFound = needDao.deleteNeed(name);
+            if(needFound == true){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);

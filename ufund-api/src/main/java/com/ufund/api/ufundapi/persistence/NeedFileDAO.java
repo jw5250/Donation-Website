@@ -107,21 +107,16 @@ public class NeedFileDAO implements NeedDAO {
      */
     private boolean load() throws IOException {
         needs = new TreeMap<>();
-        String nextName = "";
 
         // Deserializes the JSON objects from the file into an array of needs
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
         Need[] needArray = objectMapper.readValue(new File(filename),Need[].class);
 
-        // Add each need to the tree map and keep track of the greatest id
+        // Add each need to the tree map
         for (Need need : needArray) {
             needs.put(need.getName(),need);
-            if (need.getName().compareTo(nextName) > 0){
-                nextName = need.getName();
-            }
         }
-        // Make the next id one greater than the maximum from the file
         return true;
     }
 
