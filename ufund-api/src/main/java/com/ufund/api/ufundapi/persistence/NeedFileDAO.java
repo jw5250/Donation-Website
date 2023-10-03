@@ -107,7 +107,6 @@ public class NeedFileDAO implements NeedDAO {
      */
     private boolean load() throws IOException {
         needs = new TreeMap<>();
-        String nextName = "";
 
         // Deserializes the JSON objects from the file into an array of needs
         // readValue will throw an IOException if there's an issue with the file
@@ -118,7 +117,6 @@ public class NeedFileDAO implements NeedDAO {
         for (Need need : needArray) {
             needs.put(need.getName(),need);
         }
-        // Make the next id one greater than the maximum from the file
         return true;
     }
 
