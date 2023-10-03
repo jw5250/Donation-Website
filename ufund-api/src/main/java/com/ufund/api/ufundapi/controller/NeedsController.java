@@ -55,7 +55,7 @@ public class NeedsController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Need> getNeed(@PathVariable String id) {
-        LOG.info("GET /heroes/" + id);
+        LOG.info("GET /needs/" + id);
         try {
             Need hero = needDao.getNeed(id);
             if (hero != null)

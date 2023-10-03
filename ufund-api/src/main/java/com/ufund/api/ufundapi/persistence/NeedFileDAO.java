@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-//import java.util.logging.Logger;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +24,7 @@ import com.ufund.api.ufundapi.model.Need;
  */
 @Component
 public class NeedFileDAO implements NeedDAO {
-    //private static final Logger LOG = Logger.getLogger(NeedFileDAO.class.getName());
+    private static final Logger LOG = Logger.getLogger(NeedFileDAO.class.getName());
     Map<String,Need> needs;   // Provides a local cache of the need objects
                                 // so that we don't need to read from the file
                                 // each time
