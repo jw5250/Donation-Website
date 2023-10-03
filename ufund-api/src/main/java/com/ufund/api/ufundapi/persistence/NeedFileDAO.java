@@ -169,10 +169,7 @@ public class NeedFileDAO implements NeedDAO {
             Need exists = getNeed(need.getName());
 
             if(exists == null){
-                Need newNeed = exists;
-                if(need.getName().equals("")){//Check if the ID is not defined.
-                    newNeed = new Need(need.getName(), need.getType(), need.getCost(), need.getQuantity());
-                }
+                Need newNeed = new Need(need.getName(), need.getType(), need.getCost(), need.getQuantity());
                 needs.put(newNeed.getName(),newNeed);
                 save(); // may throw an IOException
                 return newNeed;
