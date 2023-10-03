@@ -18,8 +18,6 @@ import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
 
-import ch.qos.logback.core.joran.util.StringToObjectConverter;
-
 import com.ufund.api.ufundapi.model.Need;
 
 /**
@@ -96,14 +94,12 @@ public class NeedsController {
      * Responds to the GET request for all {@linkplain Need needs} whose name contains
      * the text in name
      * 
-     * @param name The name parameter which contains the text used to find the {@link Need needs}
+     * @param name The name parameter which contains the text used to find the {@link Need need}
      * 
      * @return ResponseEntity with array of {@link Need need} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * <p>
-     * Example: Find all needs that contain the text "ma"
-     * GET http://localhost:8080/needs/?name=ma
      */
     @GetMapping("/")
     public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
