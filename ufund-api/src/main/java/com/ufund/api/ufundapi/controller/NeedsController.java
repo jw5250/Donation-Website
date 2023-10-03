@@ -17,6 +17,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.persistence.NeedDAO;
+
+import ch.qos.logback.core.joran.util.StringToObjectConverter;
+
 import com.ufund.api.ufundapi.model.Need;
 
 /**
@@ -103,7 +106,7 @@ public class NeedsController {
      * GET http://localhost:8080/needs/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Need[]> searchneeds(@RequestParam String name) {
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /needs/?name="+name);
         try{
             Need[] needs = needDao.searchNeeds(name);
