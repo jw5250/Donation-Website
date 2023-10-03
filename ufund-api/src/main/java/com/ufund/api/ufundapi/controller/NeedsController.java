@@ -103,11 +103,11 @@ public class NeedsController {
      * GET http://localhost:8080/heroes/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Hero[]> searchHeroes(@RequestParam String name) {
+    public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /heroes/?name="+name);
         try{
-            Hero[] heroes = heroDao.findHeroes(name);
-            return new ResponseEntity<Hero[]>(heroes, HttpStatus.OK);
+            Need[] needs = needDao.searchNeeds(name);
+            return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
