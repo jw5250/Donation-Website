@@ -1,6 +1,6 @@
 package com.ufund.api.ufundapi.model;
 
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 /**
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  */
 public class Need {
-    private static final Logger LOG = Logger.getLogger(Need.class.getName());
+    //private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
     // Package private for tests
     static final String STRING_FORMAT = "Need[name=%s, type=%s, cost=%d, quantity=%d]";
@@ -20,7 +20,7 @@ public class Need {
     @JsonProperty("quantity") private int quantity;
     /**
 
-     * Create a need with the given id and name
+     * Create a need with the given attributes
      * @param name The name of need
      * @param type The type of need
      * @param cost The cost of need

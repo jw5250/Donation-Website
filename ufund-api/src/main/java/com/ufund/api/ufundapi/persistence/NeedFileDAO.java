@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 import com.ufund.api.ufundapi.model.Need;
 
 /**
- * Implements the functionality for JSON file-based peristance for Heroes
+ * Implements the functionality for JSON file-based peristance for Needs
  * 
  * {@literal @}Component Spring annotation instantiates a single instance of this
  * class and injects the instance into other classes as needed
  * 
- * @author SWEN Faculty
  */
 @Component
 public class NeedFileDAO implements NeedDAO {
@@ -99,7 +98,6 @@ public class NeedFileDAO implements NeedDAO {
     /**
      * Loads {@linkplain Need needs} from the JSON file into the map
      * <br>
-     * Also sets next id to one more than the greatest id found in the file
      * 
      * @return true if the file was read successfully
      * 
@@ -121,7 +119,6 @@ public class NeedFileDAO implements NeedDAO {
                 nextName = need.getName();
             }
         }
-        // Make the next id one greater than the maximum from the file
         return true;
     }
 
@@ -129,7 +126,7 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getNeeds() {
+    public Need[] getCupboard() {
         synchronized(needs) {
             return getNeedsArray();
         }
@@ -164,8 +161,7 @@ public class NeedFileDAO implements NeedDAO {
     @Override
     public Need createNeed(Need need) throws IOException {
         synchronized(needs) {
-            // We create a new need object because the id field is immutable
-            // and we need to assign the next unique id
+            
             Need exists = getNeed(need.getName());
 
             if(exists == null){
