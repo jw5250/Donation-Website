@@ -20,7 +20,7 @@ public class Need {
     @JsonProperty("quantity") private int quantity;
     /**
 
-     * Create a need with the given id and name
+     * Create a need with the given attributes
      * @param name The name of need
      * @param type The type of need
      * @param cost The cost of need

@@ -29,7 +29,7 @@ import com.ufund.api.ufundapi.model.Need;
  */
 
 @RestController
-@RequestMapping("needs")
+@RequestMapping("cupboard")
 public class NeedsController {
     private static final Logger LOG = Logger.getLogger(NeedsController.class.getName());
     private NeedDAO needDao;
@@ -45,19 +45,19 @@ public class NeedsController {
         this.needDao = needDao;
     }
     /**
-     * Responds to the GET request for a {@linkplain Need need} for the given id
+     * Responds to the GET request for a {@linkplain Need need} for the given name
      * 
-     * @param id The id used to locate the {@link Need need}
+     * @param name The name used to locate the {@link Need need}
      * 
      * @return ResponseEntity with {@link Need need} object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<Need> getNeed(@PathVariable String id) {
-        LOG.info("GET /needs/" + id);
+    @GetMapping("/{name}")
+    public ResponseEntity<Need> getNeed(@PathVariable String name) {
+        LOG.info("GET /needs/" + name);
         try {
-            Need need = needDao.getNeed(id);
+            Need need = needDao.getNeed(name);
             if (need != null)
                 return new ResponseEntity<Need>(need,HttpStatus.OK);
             else
@@ -77,10 +77,10 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Need[]> getNeeds() {
-        LOG.info("GET /needs");
+    public ResponseEntity<Need[]> getCupboard() {
+        LOG.info("GET /cupboard");
         try{
-            Need[] needs = needDao.getNeeds();
+            Need[] needs = needDao.getCupboard();
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,11 +122,10 @@ public class NeedsController {
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
         LOG.info("POST /needs " + need);
         try{
-            System.out.println(need.toString());//Need to add something that checks if a need's id or name exists.
+            System.out.println(need.toString());//Need to add something that checks if a need's name exists.
 
             Need newNeed = needDao.createNeed(need);
             if(newNeed == null){
-                //Creates a need with an id always greater than the previous greatest.
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{
                 return new ResponseEntity<Need>(newNeed, HttpStatus.CREATED);
@@ -164,19 +163,19 @@ public class NeedsController {
     }
 
     /**
-     * Deletes a {@linkplain Need need} with the given id
+     * Deletes a {@linkplain Need need} with the given name
      * 
-     * @param id The id of the {@link Need need} to deleted
+     * @param name The name of the {@link Need need} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Need> deleteNeed(@PathVariable String id) {
-        LOG.info("DELETE /needs/" + id);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Need> deleteNeed(@PathVariable String name) {
+        LOG.info("DELETE /needs/" + name);
         try{
-            boolean needFound = needDao.deleteNeed(id);
+            boolean needFound = needDao.deleteNeed(name);
             if(needFound == true){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{
