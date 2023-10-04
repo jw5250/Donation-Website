@@ -4,7 +4,7 @@ import java.io.IOException;
 import com.ufund.api.ufundapi.model.Need;
 
 /**
- * Defines the interface for Hero object persistence
+ * Defines the interface for Need object persistence
  * 
  */
 
