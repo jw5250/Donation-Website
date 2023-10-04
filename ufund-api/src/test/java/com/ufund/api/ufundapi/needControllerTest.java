@@ -32,7 +32,7 @@ public class needControllerTest {
      * a mock Need DAO
      */
     @BeforeEach
-    public void setupneedController() {
+    public void setupNeedController() {
         mockNeedDAO = mock(NeedDAO.class);
         needController = new NeedsController(mockNeedDAO);
     }
@@ -170,7 +170,7 @@ public class needControllerTest {
      * @throws IOException
     */
     @Test
-    public void testgetCupboard() throws IOException { // getCupboard may throw IOException
+    public void testGetCupboard() throws IOException { // getCupboard may throw IOException
 
         Need[] Needs = new Need[2];
         Needs[0] = new Need("thing10", "type10", 9, 100);
