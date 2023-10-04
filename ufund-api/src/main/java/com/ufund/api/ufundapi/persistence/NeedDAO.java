@@ -16,7 +16,7 @@ public interface NeedDAO {
      * 
      * @throws IOException if an issue with underlying storage
      */
-    Need[] getNeeds() throws IOException;
+    Need[] getCupboard() throws IOException;
 
     /**
      * Finds all {@linkplain Need needs} whose name contains the given text

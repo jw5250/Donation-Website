@@ -77,10 +77,10 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Need[]> getNeeds() {
+    public ResponseEntity<Need[]> getCupboard() {
         LOG.info("GET /needs");
         try{
-            Need[] needs = needDao.getNeeds();
+            Need[] needs = needDao.getCupboard();
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

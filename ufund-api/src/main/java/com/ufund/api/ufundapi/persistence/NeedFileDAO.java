@@ -128,7 +128,7 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getNeeds() {
+    public Need[] getCupboard() {
         synchronized(needs) {
             return getNeedsArray();
         }
