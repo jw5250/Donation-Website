@@ -77,7 +77,7 @@ public class NeedsController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Need[]> getNeed() {
+    public ResponseEntity<Need[]> getNeeds() {
         LOG.info("GET /needs");
         try{
             Need[] needs = needDao.getNeeds();
