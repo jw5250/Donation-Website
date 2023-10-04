@@ -170,25 +170,25 @@ public class needControllerTest {
      * @throws IOException
     */
     @Test
-    public void testGetNeeds() throws IOException { // getNeeds may throw IOException
+    public void testGetCupboard() throws IOException { // getCupboard may throw IOException
 
         Need[] Needs = new Need[2];
         Needs[0] = new Need("thing10", "type10", 9, 100);
         Needs[1] = new Need("thing5", "type0", 1, 1040);
 
-        when(mockNeedDAO.getNeeds()).thenReturn(Needs);
+        when(mockNeedDAO.getCupboard()).thenReturn(Needs);
 
 
-        ResponseEntity<Need[]> response = needController.getNeeds();
+        ResponseEntity<Need[]> response = needController.getCupboard();
 
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertEquals(Needs,response.getBody());
 
-        doThrow(new IOException()).when(mockNeedDAO).getNeeds();
+        doThrow(new IOException()).when(mockNeedDAO).getCupboard();
 
 
-        response = needController.getNeeds();
+        response = needController.getCupboard();
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
