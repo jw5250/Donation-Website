@@ -26,7 +26,6 @@ import com.ufund.api.ufundapi.model.Need;
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
  * 
- * @author SWEN Faculty
  */
 
 @RestController
