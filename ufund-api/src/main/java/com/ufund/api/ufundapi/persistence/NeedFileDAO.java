@@ -51,8 +51,8 @@ public class NeedFileDAO implements NeedDAO {
      * 
      * @return  The array of {@link Need needs}, may be empty
      */
-    private Need[] getNeedsArray() {
-        return getNeedsArray(null);
+    private Need[] getCupboardArray() {
+        return getCupboardArray(null);
     }
 
     /**
@@ -64,7 +64,7 @@ public class NeedFileDAO implements NeedDAO {
      * 
      * @return  The array of {@link Need needs}, may be empty
      */
-    private Need[] getNeedsArray(String containsText) { // if containsText == null, no filter
+    private Need[] getCupboardArray(String containsText) { // if containsText == null, no filter
         ArrayList<Need> needArrayList = new ArrayList<>();
 
         for (Need need : needs.values()) {
@@ -86,7 +86,7 @@ public class NeedFileDAO implements NeedDAO {
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Need[] needArray = getNeedsArray();
+        Need[] needArray = getCupboardArray();
 
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
@@ -128,7 +128,7 @@ public class NeedFileDAO implements NeedDAO {
     @Override
     public Need[] getCupboard() {
         synchronized(needs) {
-            return getNeedsArray();
+            return getCupboardArray();
         }
     }
 
@@ -138,7 +138,7 @@ public class NeedFileDAO implements NeedDAO {
     @Override
     public Need[] searchNeeds(String containsText) {
         synchronized(needs) {
-            return getNeedsArray(containsText);
+            return getCupboardArray(containsText);
         }
     }
 
