@@ -55,7 +55,7 @@ public class NeedsController {
      */
     @GetMapping("/{name}")
     public ResponseEntity<Need> getNeed(@PathVariable String name) {
-        LOG.info("GET /needs/" + name);
+        LOG.info("GET /cupboard/" + name);
         try {
             Need need = needDao.getNeed(name);
             if (need != null)
@@ -100,7 +100,7 @@ public class NeedsController {
      */
     @GetMapping("/")
     public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
-        LOG.info("GET /needs/?name="+name);
+        LOG.info("GET /cupboard/?name="+name);
         try{
             Need[] needs = needDao.searchNeeds(name);
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
@@ -120,7 +120,7 @@ public class NeedsController {
      */
    @PostMapping("")
     public ResponseEntity<Need> createNeed(@RequestBody Need need) {
-        LOG.info("POST /needs " + need);
+        LOG.info("POST /cupboard " + need);
         try{
             System.out.println(need.toString());//Need to add something that checks if a need's name exists.
 
@@ -148,7 +148,7 @@ public class NeedsController {
      */
     @PutMapping("")
     public ResponseEntity<Need> updateNeed(@RequestBody Need need) {
-        LOG.info("PUT /needs " + need);
+        LOG.info("PUT /cupboard " + need);
         try{
             Need updatedNeed = needDao.updateNeed(need);
             if(updatedNeed != null){
@@ -173,7 +173,7 @@ public class NeedsController {
      */
     @DeleteMapping("/{name}")
     public ResponseEntity<Need> deleteNeed(@PathVariable String name) {
-        LOG.info("DELETE /needs/" + name);
+        LOG.info("DELETE /cupboard/" + name);
         try{
             boolean needFound = needDao.deleteNeed(name);
             if(needFound == true){
