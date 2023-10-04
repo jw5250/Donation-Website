@@ -15,12 +15,11 @@ import org.springframework.stereotype.Component;
 import com.ufund.api.ufundapi.model.Need;
 
 /**
- * Implements the functionality for JSON file-based peristance for Heroes
+ * Implements the functionality for JSON file-based peristance for Needs
  * 
  * {@literal @}Component Spring annotation instantiates a single instance of this
  * class and injects the instance into other classes as needed
  * 
- * @author SWEN Faculty
  */
 @Component
 public class NeedFileDAO implements NeedDAO {
