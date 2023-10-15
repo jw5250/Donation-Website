@@ -18,14 +18,14 @@ import com.ufund.api.ufundapi.model.Need;
  * Implements the functionality for JSON file-based peristance for Needs
  * 
  * {@literal @}Component Spring annotation instantiates a single instance of this
- * class and injects the instance into other classes as needed
+ * class and injects the instance into other classes as Needed
  * 
  */
 @Component
-public class NeedFileDAO implements NeedDAO {
+public class NeedFileDAO implements DataFileDAO<Need> {
     private static final Logger LOG = Logger.getLogger(NeedFileDAO.class.getName());
-    Map<String,Need> needs;   // Provides a local cache of the need objects
-                                // so that we don't need to read from the file
+    Map<String,Need> Needs;   // Provides a local cache of the Need objects
+                                // so that we don't Need to read from the file
                                 // each time
     private ObjectMapper objectMapper;  // Provides conversion between Need
                                         // objects and JSON text format written
@@ -43,60 +43,59 @@ public class NeedFileDAO implements NeedDAO {
     public NeedFileDAO(@Value("${needs.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        load();  // load the needs from the file
+        load();  // load the Needs from the file
     }
 
     /**
-     * Generates an array of {@linkplain Need needs} from the tree map
+     * Generates an array of {@linkplain Need Needs} from the tree map
      * 
-     * @return  The array of {@link Need needs}, may be empty
+     * @return  The array of {@link Need Needs}, may be empty
      */
     private Need[] getCupboardArray() {
         return getCupboardArray(null);
     }
 
     /**
-     * Generates an array of {@linkplain Need needs} from the tree map for any
-     * {@linkplain Need needs} that contains the text specified by containsText
+     * Generates an array of {@linkplain Need Needs} from the tree map for any
+     * {@linkplain Need Needs} that contains the text specified by containsText
      * <br>
-     * If containsText is null, the array contains all of the {@linkplain Need needs}
+     * If containsText is null, the array contains all of the {@linkplain Need Needs}
      * in the tree map
      * 
-     * @return  The array of {@link Need needs}, may be empty
+     * @return  The array of {@link Need Needs}, may be empty
      */
     private Need[] getCupboardArray(String containsText) { // if containsText == null, no filter
-        ArrayList<Need> needArrayList = new ArrayList<>();
+        ArrayList<Need> NeedArrayList = new ArrayList<>();
 
-        for (Need need : needs.values()) {
-            if (containsText == null || need.getName().contains(containsText)) {
-                needArrayList.add(need);
+        for (Need Need : Needs.values()) {
+            if (containsText == null || Need.getName().contains(containsText)) {
+                NeedArrayList.add(Need);
             }
         }
 
-        Need[] needArray = new Need[needArrayList.size()];
-        needArrayList.toArray(needArray);
-        return needArray;
+        Need[] NeedArray = new Need[NeedArrayList.size()];
+        NeedArrayList.toArray(NeedArray);
+        return NeedArray;
     }
 
     /**
-     * Saves the {@linkplain Need needs} from the map into the file as an array of JSON objects
+     * Saves the {@linkplain Need Needs} from the map into the file as an array of JSON objects
      * 
-     * @return true if the {@link Need needs} were written successfully
+     * @return true if the {@link Need Needs} were written successfully
      * 
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Need[] needArray = getCupboardArray();
-
+        Need[] NeedArray = getCupboardArray();
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
-        objectMapper.writeValue(new File(filename),needArray);
+        objectMapper.writeValue(new File(filename),NeedArray);
         return true;
     }
 
     /**
-     * Loads {@linkplain Need needs} from the JSON file into the map
+     * Loads {@linkplain Need Needs} from the JSON file into the map
      * <br>
      * 
      * @return true if the file was read successfully
@@ -104,19 +103,19 @@ public class NeedFileDAO implements NeedDAO {
      * @throws IOException when file cannot be accessed or read from
      */
     private boolean load() throws IOException {
-        needs = new TreeMap<>();
+        Needs = new TreeMap<>();
         String nextName = "";
 
-        // Deserializes the JSON objects from the file into an array of needs
+        // Deserializes the JSON objects from the file into an array of Needs
         // readValue will throw an IOException if there's an issue with the file
         // or reading from the file
-        Need[] needArray = objectMapper.readValue(new File(filename),Need[].class);
+        Need[] NeedArray = objectMapper.readValue(new File(filename),Need[].class);
 
-        // Add each need to the tree map and keep track of the greatest id
-        for (Need need : needArray) {
-            needs.put(need.getName(),need);
-            if (need.getName().compareTo(nextName) > 0){
-                nextName = need.getName();
+        // Add each Need to the tree map and keep track of the greatest id
+        for (Need Need : NeedArray) {
+            Needs.put(Need.getName(),Need);
+            if (Need.getName().compareTo(nextName) > 0){
+                nextName = Need.getName();
             }
         }
         return true;
@@ -126,8 +125,8 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getCupboard() {
-        synchronized(needs) {
+    public Need[] getDataArray() {
+        synchronized(Needs) {
             return getCupboardArray();
         }
     }
@@ -136,8 +135,8 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] searchNeeds(String containsText) {
-        synchronized(needs) {
+    public Need[] searchDataArray(String containsText) {
+        synchronized(Needs) {
             return getCupboardArray(containsText);
         }
     }
@@ -146,10 +145,10 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need getNeed(String name) {
-        synchronized(needs) {
-            if (needs.containsKey(name))
-                return needs.get(name);
+    public Need getData(String name) {
+        synchronized(Needs) {
+            if (Needs.containsKey(name))
+                return Needs.get(name);
             else
                 return null;
         }
@@ -159,14 +158,14 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need createNeed(Need need) throws IOException {
-        synchronized(needs) {
+    public Need createData(Need Need) throws IOException {
+        synchronized(Needs) {
             
-            Need exists = getNeed(need.getName());
+            Need exists = getData(Need.getName());
 
             if(exists == null){
-                Need newNeed = new Need(need.getName(), need.getType(), need.getCost(), need.getQuantity());
-                needs.put(newNeed.getName(),newNeed);
+                Need newNeed = new Need(Need.getName(), Need.getType(), Need.getCost(), Need.getQuantity());
+                Needs.put(newNeed.getName(),newNeed);
                 save(); // may throw an IOException
                 return newNeed;
             }else{
@@ -179,14 +178,14 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need updateNeed(Need need) throws IOException {
-        synchronized(needs) {
-            if (needs.containsKey(need.getName()) == false)
-                return null;  // need does not exist
+    public Need updateData(Need Need) throws IOException {
+        synchronized(Needs) {
+            if (Needs.containsKey(Need.getName()) == false)
+                return null;  // Need does not exist
 
-            needs.put(need.getName(),need);
+            Needs.put(Need.getName(),Need);
             save(); // may throw an IOException
-            return need;
+            return Need;
         }
     }
 
@@ -194,10 +193,10 @@ public class NeedFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public boolean deleteNeed(String name) throws IOException {
-        synchronized(needs) {
-            if (needs.containsKey(name)) {
-                needs.remove(name);
+    public boolean deleteData(String name) throws IOException {
+        synchronized(Needs) {
+            if (Needs.containsKey(name)) {
+                Needs.remove(name);
                 return save();
             }
             else
