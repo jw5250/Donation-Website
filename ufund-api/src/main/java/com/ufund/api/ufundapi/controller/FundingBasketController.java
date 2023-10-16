@@ -17,9 +17,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.ufund.api.ufundapi.persistence.FundingBasketFileDAO;
-import com.ufund.api.ufundapi.persistence.NeedDAO;
 
 import com.ufund.api.ufundapi.model.Need;
+
+import com.ufund.api.ufundapi.model.FundingBasket;
 
 /**
  * Handles the REST API requests for the Need resource
@@ -55,10 +56,10 @@ public class FundingBasketController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{name}")
-    public ResponseEntity<Need> getNeed(@PathVariable String name) {
+    public ResponseEntity<Need> getFundingBasket(@PathVariable String name) {
         LOG.info("GET /fundingbasket/" + name);
         try {
-            Need need = fundingBasketDAO.getNeed(name);
+            Need need = fundingBasketDAO.getData(name);
             if (need != null)
                 return new ResponseEntity<Need>(need,HttpStatus.OK);
             else
@@ -78,10 +79,10 @@ public class FundingBasketController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Need[]> getCupboard() {
+    public ResponseEntity<Need[]> getFundingBasket() {
         LOG.info("GET /fundingbasket");
         try{
-            Need[] needs = fundingBasketDAO.getCupboard();
+            Need[] needs = fundingBasketDAO.getDataArray();
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -103,7 +104,7 @@ public class FundingBasketController {
     public ResponseEntity<Need[]> searchNeeds(@RequestParam String name) {
         LOG.info("GET /fundingbasket/?name="+name);
         try{
-            Need[] needs = fundingBasketDAO.searchNeeds(name);
+            Need[] needs = fundingBasketDAO.searchDataArray(name);
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
         }catch(IOException e){
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -120,12 +121,12 @@ public class FundingBasketController {
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
    @PostMapping("")
-    public ResponseEntity<Need> createNeed(@RequestBody Need need) {
+    public ResponseEntity<Need> addFundingBasket(@RequestBody Need need) {
         LOG.info("POST /fundingbasket " + need);
         try{
             System.out.println(need.toString());//Need to add something that checks if a need's name exists.
 
-            Need newNeed = fundingBasketDAO.createNeed(need);
+            Need newNeed = fundingBasketDAO.createData(need);
             if(newNeed == null){
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{
@@ -151,7 +152,7 @@ public class FundingBasketController {
     public ResponseEntity<Need> deleteNeed(@PathVariable String name) {
         LOG.info("DELETE /fundingbasket/" + name);
         try{
-            boolean needFound = fundingBasketDAO.deleteNeed(name);
+            boolean needFound = fundingBasketDAO.deleteData(name);
             if(needFound == true){
                 return new ResponseEntity<>(HttpStatus.OK);
             }else{

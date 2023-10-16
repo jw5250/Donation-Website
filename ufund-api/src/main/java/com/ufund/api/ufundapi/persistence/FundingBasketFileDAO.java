@@ -22,7 +22,7 @@ import com.ufund.api.ufundapi.model.Need;
  * 
  */
 @Component
-public class FundingBasketFileDAO implements NeedDAO {
+public class FundingBasketFileDAO implements DataFileDAO<Need> {
     private static final Logger LOG = Logger.getLogger(FundingBasketFileDAO.class.getName());
     Map<String,Need> needs;   // Provides a local cache of the need objects
                                 // so that we don't need to read from the file
@@ -126,7 +126,7 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getCupboard() {
+    public Need[] getDataArray() {
         synchronized(needs) {
             return getCupboardArray();
         }
@@ -136,7 +136,7 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] searchNeeds(String containsText) {
+    public Need[] searchDataArray(String containsText) {
         synchronized(needs) {
             return getCupboardArray(containsText);
         }
@@ -146,7 +146,7 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need getNeed(String name) {
+    public Need getData(String name) {
         synchronized(needs) {
             if (needs.containsKey(name))
                 return needs.get(name);
@@ -159,10 +159,10 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need createNeed(Need need) throws IOException {
+    public Need createData(Need need) throws IOException {
         synchronized(needs) {
             
-            Need exists = getNeed(need.getName());
+            Need exists = getData(need.getName());
 
             if(exists == null){
                 Need newNeed = new Need(need.getName(), need.getType(), need.getCost(), need.getQuantity());
@@ -179,7 +179,7 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public Need updateNeed(Need need) throws IOException {
+    public Need updateData(Need need) throws IOException {
         synchronized(needs) {
             if (needs.containsKey(need.getName()) == false)
                 return null;  // need does not exist
@@ -194,7 +194,7 @@ public class FundingBasketFileDAO implements NeedDAO {
     ** {@inheritDoc}
      */
     @Override
-    public boolean deleteNeed(String name) throws IOException {
+    public boolean deleteData(String name) throws IOException {
         synchronized(needs) {
             if (needs.containsKey(name)) {
                 needs.remove(name);
