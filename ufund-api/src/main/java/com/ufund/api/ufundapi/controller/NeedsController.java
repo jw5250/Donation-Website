@@ -3,10 +3,8 @@ package com.ufund.api.ufundapi.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
-import com.ufund.api.ufundapi.persistence.NeedFileDAO;
 
 import com.ufund.api.ufundapi.model.Need;
 
@@ -34,7 +32,7 @@ public class NeedsController extends controllerInterface<Need> {
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public NeedsController(NeedFileDAO needDao) {
+    public NeedsController(DataFileDAO<Need> needDao) {
         super(needDao, Logger.getLogger(NeedsController.class.getName()));
         //this.needDao = needDao;
     }

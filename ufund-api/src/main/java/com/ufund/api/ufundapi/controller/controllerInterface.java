@@ -14,10 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ufund.api.ufundapi.model.Need;
-import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
-import com.ufund.api.ufundapi.persistence.UserFileDAO;
 //Seems like annotations in interface method declarations can be inherited. Neat
 public abstract class controllerInterface<T> {
     private DataFileDAO<T> dataDao;//Null
@@ -26,9 +23,9 @@ public abstract class controllerInterface<T> {
         dataDao = d;
         LOG = l;
     }
-
+    //Does not pass IOexception test (Checked exception is invalid for this method)
     @GetMapping("/{name}")
-    public ResponseEntity<T> getData(@PathVariable String name){
+    public ResponseEntity<T> getData(@PathVariable String name) throws IOException{
         LOG.info("GET /cupboard/" + name);
         try {
             T User = dataDao.getData(name);
@@ -44,7 +41,7 @@ public abstract class controllerInterface<T> {
     }
     
     @DeleteMapping("/{name}")
-    public ResponseEntity<T> deleteData(@PathVariable String name){
+    public ResponseEntity<T> deleteData(@PathVariable String name) throws IOException{
         LOG.info("DELETE /cupboard/" + name);
         try{
             boolean UserFound = dataDao.deleteData(name);
@@ -53,15 +50,14 @@ public abstract class controllerInterface<T> {
             }else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-
         }catch(IOException e){
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+    //Does not pass IOexception test (Checked exception is invalid for this method)
     @GetMapping("/")
-    public ResponseEntity<T[]> searchDataArray(@RequestParam String name){
+    public ResponseEntity<T[]> searchDataArray(@RequestParam String name) throws IOException{
         LOG.info("GET /cupboard/?name="+name);
         try{
             T[] needs = dataDao.searchDataArray(name);
@@ -71,9 +67,9 @@ public abstract class controllerInterface<T> {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    //Does not pass IOexception test (Checked exception is invalid for this method)
     @GetMapping("")
-    public ResponseEntity<T[]> getDataArray(){
+    public ResponseEntity<T[]> getDataArray() throws IOException{
         LOG.info("GET /data");
         try{
             T[] needs = dataDao.getDataArray();
@@ -84,7 +80,7 @@ public abstract class controllerInterface<T> {
     }
     
     @PutMapping("")
-    public ResponseEntity<T> updateData(@RequestBody T need){
+    public ResponseEntity<T> updateData(@RequestBody T need) throws IOException{
         LOG.info("PUT /data " + need);
         try{
             T updatedUser = dataDao.updateData(need);
@@ -100,7 +96,7 @@ public abstract class controllerInterface<T> {
     }
     
     @PostMapping("")
-    public ResponseEntity<T> createData(@RequestBody T need){
+    public ResponseEntity<T> createData(@RequestBody T need) throws IOException{
         LOG.info("POST /data " + need);
         try{
             T newData = dataDao.createData(need);

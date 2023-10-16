@@ -40,6 +40,7 @@ public class NeedFileDAO implements DataFileDAO<Need> {
      * 
      * @throws IOException when file cannot be accessed or read from
      */
+     //Is the ObjectMapper automatically inserted?
     public NeedFileDAO(@Value("${needs.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
@@ -125,7 +126,7 @@ public class NeedFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getDataArray() {
+    public Need[] getDataArray()throws IOException  {
         synchronized(Needs) {
             return getCupboardArray();
         }
@@ -135,7 +136,7 @@ public class NeedFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] searchDataArray(String containsText) {
+    public Need[] searchDataArray(String containsText)throws IOException {
         synchronized(Needs) {
             return getCupboardArray(containsText);
         }
@@ -145,7 +146,7 @@ public class NeedFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need getData(String name) {
+    public Need getData(String name) throws IOException  {
         synchronized(Needs) {
             if (Needs.containsKey(name))
                 return Needs.get(name);
