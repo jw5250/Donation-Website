@@ -73,7 +73,7 @@ public class Need {
 
     /**
      * Sets the cost of the need - necessary for JSON object to Java object deserialization
-     * @param cost The name of the hero
+     * @param cost The name of the Need
      */
     public void setCost(int cost) {this.cost = cost;}
 
@@ -85,7 +85,7 @@ public class Need {
 
     /**
      * Sets the quantity of the need - necessary for JSON object to Java object deserialization
-     * @param quantity The quantity of the hero
+     * @param quantity The quantity of the Need
      */
     public void setQuantity(int quantity) {this.quantity = quantity;}
 
