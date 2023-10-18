@@ -65,7 +65,7 @@ public class FundingBasketController {
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        catch(Exception e) {//IOException e does work
+        catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -84,7 +84,7 @@ public class FundingBasketController {
         try{
             Need[] needs = fundingBasketDAO.getDataArray();
             return new ResponseEntity<Need[]>(needs, HttpStatus.OK);
-        }catch(Exception e){//IOException e does work
+        }catch(IOException e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

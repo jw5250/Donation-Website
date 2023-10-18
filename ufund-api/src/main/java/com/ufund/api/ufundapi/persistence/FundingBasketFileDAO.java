@@ -51,7 +51,7 @@ public class FundingBasketFileDAO implements DataFileDAO<Need> {
      * 
      * @return  The array of {@link Need needs}, may be empty
      */
-    private Need[] getCupboardArray() {
+    private Need[] getCupboardArray() throws IOException {
         return getCupboardArray(null);
     }
 
@@ -64,7 +64,7 @@ public class FundingBasketFileDAO implements DataFileDAO<Need> {
      * 
      * @return  The array of {@link Need needs}, may be empty
      */
-    private Need[] getCupboardArray(String containsText) { // if containsText == null, no filter
+    private Need[] getCupboardArray(String containsText)  throws IOException{ // if containsText == null, no filter
         ArrayList<Need> needArrayList = new ArrayList<>();
 
         for (Need need : needs.values()) {
@@ -126,7 +126,7 @@ public class FundingBasketFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getDataArray() {
+    public Need[] getDataArray()  throws IOException{
         synchronized(needs) {
             return getCupboardArray();
         }
@@ -136,7 +136,7 @@ public class FundingBasketFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] searchDataArray(String containsText) {
+    public Need[] searchDataArray(String containsText)  throws IOException{
         synchronized(needs) {
             return getCupboardArray(containsText);
         }
@@ -146,7 +146,7 @@ public class FundingBasketFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need getData(String name) {
+    public Need getData(String name)  throws IOException{
         synchronized(needs) {
             if (needs.containsKey(name))
                 return needs.get(name);
