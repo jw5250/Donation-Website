@@ -154,7 +154,13 @@ public class FundingBasketControllerTest {
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
-    
+    /**
+     * This function tests if the delete function of the REST api works. Test for:
+     * The response code after a successful deletion.
+     * The response code given an entity isn't there.
+     * The server response given an IOexception.
+     * @throws IOException
+    */
     @Test
     public void testDeleteData() throws IOException {
 
