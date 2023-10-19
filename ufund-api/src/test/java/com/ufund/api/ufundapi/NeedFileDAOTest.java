@@ -83,8 +83,20 @@ public class NeedFileDAOTest {
         assertArrayEquals(testArray, testResult, "testDeleteNeed");
     }
     @Test
-    public void testCreateNeed() {}
+    public void testCreateNeed() throws IOException{
+        Need testNeed = new Need("Garden", "funding", 5000, 5);
+        Need testResult = needFileDAO.createData(testNeed);
+        testResult = needFileDAO.getData("Garden");
+        assertNotNull(testResult, "testCreateNeed: null result");
+        assertEquals(testNeed,testResult, "testCreateNeed: not matching");
+    }
     @Test
-    public void testUpdateNeed() {}
+    public void testUpdateNeed() throws IOException{
+        Need testNeed = new Need("Art", "funding", 6000, 3);
+        needFileDAO.updateData(testNeed);
+        Need testResult = needFileDAO.getData("Art");
+
+        assertEquals(testNeed,testResult, "testUpdateNeed");
+    }
 
 }
