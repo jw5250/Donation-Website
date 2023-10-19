@@ -23,7 +23,7 @@ import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.persistence.NeedFileDAO;
 
 /**
- * Test class for NeedFileDAOTest.
+ * Test class for NeedFileDAO.java.
  * 
  * @author Daniel Arcega
  */

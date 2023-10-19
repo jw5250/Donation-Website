@@ -22,19 +22,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.persistence.NeedFileDAO;
 
+/**
+ * Test class for Need.java file.
+ * 
+ * @author Daniel Arcega
+ */
 @Tag("Model-tier")
 public class NeedTest {
-    Need testNeed; 
+    Need testNeed;
+    
+    /**
+     * Before each test, create dummy need to run tests on
+     */
     @BeforeEach
     public void setupNeed() {
         testNeed = new Need("Art", "funding", 10000, 5);
     }
+
+    /**
+     * Test function for "getName()" function
+     * Asserts that the name of the test Need is correctly returned
+     */
     @Test
     public void testGetName(){
         String testName = testNeed.getName();
         assertEquals("Art", testName, "testGetName");
     }
 
+    /**
+     * Test function for "setName()" function
+     * Asserts that the test Need has its name correctly changed and stored
+     */
     @Test
     public void testSetName(){
         String testName = "Sculpture";
@@ -42,6 +60,10 @@ public class NeedTest {
         assertEquals(testName, testNeed.getName(), "testSetName");
     }
 
+    /**
+     * Test function for Need's "toString()" function
+     * Asserts that the test Need's proper string formation is returned
+     */
     @Test
     public void testToString(){
         String testString = "Need[name=Art, type=funding, cost=10000, quantity=5]";
