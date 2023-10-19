@@ -22,11 +22,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.persistence.NeedFileDAO;
 
+/**
+ * Test class for NeedFileDAOTest.
+ * 
+ * @author Daniel Arcega
+ */
 @Tag("Persistence-tier")
 public class NeedFileDAOTest {
     NeedFileDAO needFileDAO;
     Need[] testNeeds;
     ObjectMapper mockObjectMapper;
+
+    /**
+     * Before running each test function, create a dummy Need array
+     * to act as a source for the CuT to work on
+     * 
+     * @throws IOException
+     */
     @BeforeEach
     public void setupNeedFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
@@ -42,6 +54,13 @@ public class NeedFileDAOTest {
                 .thenReturn(testNeeds);
         needFileDAO = new NeedFileDAO("none.txt",mockObjectMapper);
     }   
+
+    /**
+     * Tests "getCupboardArray()" function
+     * Asserts that the function returns the correct objects in the correct order.
+     * 
+     * @throws IOException
+     */
     @Test
     public void testGetCupboardArray() throws IOException{
         Need[] testArray = new Need[3];
@@ -53,6 +72,13 @@ public class NeedFileDAOTest {
 
         assertArrayEquals(testArray, testResult, "testGetCupboardArray");
     }
+
+    /**
+     * Tests "getCupboardArray(String containsString)" function
+     * Asserts that the function returns the correct Needs that match the parameter
+     * 
+     * @throws IOException
+     */
     @Test
     public void testSearchCupboard() throws IOException{
         Need[] testArray = new Need[2];
@@ -63,6 +89,13 @@ public class NeedFileDAOTest {
 
         assertArrayEquals(testArray, testResult, "testSearchCupboardArray");
     }
+
+    /**
+     * Tests "getNeed()" function
+     * Asserts that the function returns the correct object
+     * 
+     * @throws IOException
+     */
     @Test
     public void testGetNeed() throws IOException{
         Need testNeed = new Need("Art", "funding", 10000, 5);
@@ -71,6 +104,13 @@ public class NeedFileDAOTest {
         assertEquals(testNeed,testResult, "testGetNeed");
     }
     
+    /**
+     * Tests "deleteNeed()" function
+     * Asserts that the named Need is deleted and the resulting Need array does not
+     *  contain it anymore.
+     * 
+     * @throws IOException
+     */
     @Test
     public void testDeleteNeed() throws IOException{
         Need[] testArray = new Need[2];
@@ -82,6 +122,13 @@ public class NeedFileDAOTest {
         Need[] testResult = needFileDAO.getDataArray(); 
         assertArrayEquals(testArray, testResult, "testDeleteNeed");
     }
+
+    /**
+     * Tests "createNeed()" function
+     * Asserts that the created Need is properly stored in the array of Needs.
+     * 
+     * @throws IOException
+     */
     @Test
     public void testCreateNeed() throws IOException{
         Need testNeed = new Need("Garden", "funding", 5000, 5);
@@ -90,6 +137,13 @@ public class NeedFileDAOTest {
         assertNotNull(testResult, "testCreateNeed: null result");
         assertEquals(testNeed,testResult, "testCreateNeed: not matching");
     }
+
+    /**
+     * Tests "updateNeed()" function
+     * Asserts that the given need is properly updated in the Need array.
+     * 
+     * @throws IOException
+     */
     @Test
     public void testUpdateNeed() throws IOException{
         Need testNeed = new Need("Art", "funding", 6000, 3);
