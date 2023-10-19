@@ -34,10 +34,18 @@ public class NeedTest {
         String testName = testNeed.getName();
         assertEquals("Art", testName, "testGetName");
     }
+
     @Test
     public void testSetName(){
         String testName = "Sculpture";
         testNeed.setName(testName);
         assertEquals(testName, testNeed.getName(), "testSetName");
+    }
+
+    @Test
+    public void testToString(){
+        String testString = "Need[name=Art, type=funding, cost=10000, quantity=5]";
+        String testResult = testNeed.toString();
+        assertEquals(testString,testResult, "testToString");
     }
 }
