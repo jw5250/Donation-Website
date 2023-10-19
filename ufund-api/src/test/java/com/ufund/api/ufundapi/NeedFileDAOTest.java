@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -60,12 +61,27 @@ public class NeedFileDAOTest {
 
         Need[] testResult = needFileDAO.searchDataArray("r");
 
-        assertArrayEquals(testArray, testResult, "testGetCupboardArray");
+        assertArrayEquals(testArray, testResult, "testSearchCupboardArray");
     }
     @Test
-    public void testGetNeed() {}
+    public void testGetNeed() throws IOException{
+        Need testNeed = new Need("Art", "funding", 10000, 5);
+        Need testResult = needFileDAO.getData("Art");
+
+        assertEquals(testNeed,testResult, "testGetNeed");
+    }
+    
     @Test
-    public void testDeleteNeed() {}
+    public void testDeleteNeed() throws IOException{
+        Need[] testArray = new Need[2];
+        testArray[0] = new Need("Art", "funding", 10000, 5);
+        testArray[1] = new Need("Teachers", "volunteer", 0, 10);
+
+        assertTrue(needFileDAO.deleteData("null"),"testDeleteNeed");
+
+        Need[] testResult = needFileDAO.getDataArray(); 
+        assertArrayEquals(testArray, testResult, "testDeleteNeed");
+    }
     @Test
     public void testCreateNeed() {}
     @Test
