@@ -48,9 +48,8 @@ public class NeedFileDAOTest {
         testNeeds[1] = new Need("Teachers", "volunteer", 0, 10);
         testNeeds[2] = new Need("null", "null", 0, 0);
 
-        File dummy = new File("none.txt");
         when(mockObjectMapper
-            .readValue("none.txt",Need[].class))
+            .readValue(new File("none.txt"),Need[].class))
                 .thenReturn(testNeeds);
         needFileDAO = new NeedFileDAO("none.txt",mockObjectMapper);
     }   
