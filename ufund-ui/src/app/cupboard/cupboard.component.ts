@@ -16,7 +16,7 @@ export class CupboardComponent {
     private location: Location
   ) {}
 
-  createNeed(): {
-    
+  createNeed(name: String, type: String, cost: Number, quantity: Number ): void{
+      const need  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
   }
 }
