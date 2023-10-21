@@ -42,7 +42,6 @@ public class NeedFileDAOTest {
     @BeforeEach
     public void setupNeedFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
-
         testNeeds = new Need[3];
         testNeeds[0] = new Need("Art", "funding", 10000, 5);
         testNeeds[1] = new Need("Teachers", "volunteer", 0, 10);
@@ -62,15 +61,14 @@ public class NeedFileDAOTest {
      */
     @Test
     public void testGetCupboardArray() throws IOException{
-        Need[] testGet = new Need[3];
-        testGet[0] = new Need("Art", "funding", 10000, 5);
-        testGet[1] = new Need("Teachers", "volunteer", 0, 10);
-        testGet[2] = new Need("null", "null", 0, 0);
-        
+        Need[] testArray = new Need[3];
+        testArray[0] = new Need("Art", "funding", 10000, 5);
+        testArray[1] = new Need("Teachers", "volunteer", 0, 10);
+        testArray[2] = new Need("null", "null", 0, 0);
+
         Need[] testResult = needFileDAO.getDataArray();
-        assertArrayEquals(testGet, testResult, "testGetCupboardArray");
-        //assertEquals(testGet[1], testResult[1], "testGetCupboardArray");
-        //assertEquals(testGet[2], testResult[2], "testGetCupboardArray");
+
+        assertArrayEquals(testArray, testResult, "testGetCupboardArray");
     }
 
     /**
