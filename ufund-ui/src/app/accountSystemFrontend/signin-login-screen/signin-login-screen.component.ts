@@ -15,18 +15,36 @@ export class SigninLoginScreenComponent {
     private userService: UserService,
     private messanger: MessageService
   ) {}
+  //Used so this component can communicate with those that use it.
   @Output() person : EventEmitter<User> = new EventEmitter<User>();
+  //The input for the sign in name
   @Input() signInName?:string = undefined;
+  //The input for the log in name.
   @Input() logInName?:string = undefined;
+  //The user's data.
   user? : User = undefined;
+
+  signInErrorMessage : string = "";
+  logInErrorMessage : string = "";
+
+  //Create a new account in the database.
   signIn(): void {
+    this.signInErrorMessage = "";
     if(this.signInName != undefined){
-      this.userService.addData({name : this.signInName, isManager : false} as User)
+      //Prevent names with whitespace from existing because of how this stuff is interpreted.
+      if(this.signInName.indexOf(" ") == -1){
+        
+        this.userService.addData({name : this.signInName, isManager : false, fundingBasket : []} as User)
         .subscribe();
+      }else{
+        this.signInErrorMessage = "No whitespace is allowed in names.";
+      }
       this.signInName = undefined;
     }
   }
+  //Access some account in the database.
   logIn(): void {
+    this.logInErrorMessage = "";
     if (this.logInName != undefined) {
       this.userService.getData(this.logInName)
         .subscribe((user) => {
@@ -36,12 +54,13 @@ export class SigninLoginScreenComponent {
             this.messanger.add("Found account:" + user.name);
           }else{
             this.messanger.add("Invalid account!");
+            this.logInErrorMessage = "Account does not exist.";
           }
         });
     }
     this.logInName = undefined;
   }
-  //Screen will now render nothing but the PUT method is broken.
+  //Log out of the account
   logOut(): void{
     if(this.user == undefined){
       return;

@@ -55,7 +55,6 @@ public class UserFileDAOTest {
         when(mockObjectMapper
             .readValue(new File("none.txt"),User[].class))
                 .thenReturn(testUsers);
-        //Throws a nullpointer exception because it's assumes some file always exists.
         UserFileDAO = new UserFileDAO("none.txt", mockObjectMapper);
     }
 

@@ -64,7 +64,7 @@ public class UserTest {
         assertEquals(testName, testUser.getName(), "testSetName");
     }
 
-/**
+    /**
      * Test function for "equals()" function
      * Test if two users have equal names.
      */

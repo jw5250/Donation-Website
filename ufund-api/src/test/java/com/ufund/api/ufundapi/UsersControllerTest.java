@@ -119,6 +119,8 @@ public class UsersControllerTest {
 
 
 
+
+
         doThrow(new IOException()).when(mockDataDAO).createData(Data);
 
         response = DataController.createData(Data);
