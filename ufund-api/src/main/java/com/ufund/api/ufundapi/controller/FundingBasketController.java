@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.ufund.api.ufundapi.persistence.DataFileDAO;
 import com.ufund.api.ufundapi.persistence.FundingBasketFileDAO;
 
 import com.ufund.api.ufundapi.model.Need;
@@ -32,7 +33,7 @@ import com.ufund.api.ufundapi.model.FundingBasket;
 
 @RestController
 @RequestMapping("FundingBasket")
-public class FundingBasketController {
+public class FundingBasketController /*  extends controllerInterface<FundingBasket> */ {
     private static final Logger LOG = Logger.getLogger(NeedsController.class.getName());
     private FundingBasketFileDAO fundingBasketDAO;
 
@@ -44,6 +45,17 @@ public class FundingBasketController {
      * This dependency is injected by the Spring Framework
      */
     public FundingBasketController(FundingBasketFileDAO fundingBasketDAO) {
+        this.fundingBasketDAO = fundingBasketDAO;
+    }
+    /**
+     * Creates a REST API controller to reponds to requests
+     * 
+     * @param fundingBasketDAO The {@link UserDAO User Data Access Object} to perform CRUD operations
+     * <br>
+     * This dependency is injected by the Spring Framework
+     */
+    public FundingBasketController(FundingBasketFileDAO<FundingBasket> fundingBasketDAO) {
+        super(fundingBasketDAO, Logger.getLogger(FundingBasketController.class.getName()));
         this.fundingBasketDAO = fundingBasketDAO;
     }
     /**
