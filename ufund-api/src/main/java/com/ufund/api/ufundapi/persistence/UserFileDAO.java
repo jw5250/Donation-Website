@@ -164,7 +164,7 @@ public class UserFileDAO implements DataFileDAO<User> {
             User exists = getData(User.getName());
 
             if(exists == null){
-                User newUser = new User(User.getName(), User.getIsManager());
+                User newUser = new User(User.getName(), User.getIsManager(), User.getFundingBasket());
                 Users.put(newUser.getName(),newUser);
                 save(); // may throw an IOException
                 return newUser;

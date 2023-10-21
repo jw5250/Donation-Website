@@ -19,6 +19,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.UserFileDAO;
 
@@ -42,17 +43,21 @@ public class UserFileDAOTest {
     @BeforeEach
     public void setupUserFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
+        Need[] arr = new Need[2];
+        arr[0] = new Need("Thing1", "Type", 10, 4);
+        arr[1] = new Need("Thing2", "Type2", 10, 5);
 
         testUsers = new User[3];
-        testUsers[0] = new User("Bob Bone", true);
-        testUsers[1] = new User("Bob Cone", true);
-        testUsers[2] = new User("Bob Stone", true);
+
+        testUsers[0] = new User("Bob Bone", false, arr);
+        testUsers[1] = new User("Bob Cone", true, null);
+        testUsers[2] = new User("Bob Stone", true, null);
         when(mockObjectMapper
             .readValue(new File("none.txt"),User[].class))
                 .thenReturn(testUsers);
         //Throws a nullpointer exception because it's assumes some file always exists.
         UserFileDAO = new UserFileDAO("none.txt", mockObjectMapper);
-    }   
+    }
 
     /**
      * Tests "getCupboardArray()" function
@@ -62,14 +67,10 @@ public class UserFileDAOTest {
      */
      //Does not work.
     @Test
-    public void testGetCupboardArray() throws IOException{
+    public void testGetUserArray() throws IOException{
         
         User[] testResult = UserFileDAO.getDataArray();
-        //assertArrayEquals(testUsers, testResult, "testGetCupboardArray");
         assertEquals(testUsers[0].getName(), testResult[0].getName());
-        //assertEquals(testUsers[0], testResult[0], "testGetCupboardArray");        
-        //assertEquals(testUsers[1], testResult[1], "testGetCupboardArray");
-        //assertEquals(testUsers[2], testResult[2], "testGetCupboardArray");
     }
 
     /**
@@ -81,7 +82,7 @@ public class UserFileDAOTest {
      //Does not work.
     @Test
     public void testSearchCupboard() throws IOException{
-        User testArray = new User("Bob Stone", true);
+        User testArray = new User("Bob Stone", true, null);
 
         User testResult = UserFileDAO.searchDataArray("St")[0];
 
@@ -96,7 +97,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testGetUser() throws IOException{
-        User testUser = new User("Bob Stone", true);
+        User testUser = new User("Bob Stone", true, null);
         User testResult = UserFileDAO.getData(testUser.getName());
 
         assertEquals(testUser,testResult, "testGetUser");
@@ -113,8 +114,11 @@ public class UserFileDAOTest {
     @Test
     public void testDeleteUser() throws IOException{
         User[] testArray = new User[2];
-        testUsers[0] = new User("Bob Bone", true);
-        testUsers[1] = new User("Bob Stone", true);
+        Need[] arr = new Need[2];
+        arr[0] = new Need("Thing1", "Type", 10, 4);
+        arr[1] = new Need("Thing2", "Type2", 10, 5);
+        testUsers[0] = new User("Bob Bone", false, arr);
+        testUsers[1] = new User("Bob Stone", true, null);
         assertTrue(UserFileDAO.deleteData("Bob Cone"),"testDeleteUser");
 
         User[] testResult = UserFileDAO.getDataArray(); 
@@ -131,7 +135,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testCreateUser() throws IOException{
-        User testUser = new User("Sob Btone", false);
+        User testUser = new User("Sob Btone", false, null);
         User testResult = UserFileDAO.createData(testUser);
         testResult = UserFileDAO.getData("Sob Btone");
         assertNotNull(testResult, "testCreateUser: null result");
@@ -146,7 +150,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testUpdateUser() throws IOException{
-        User testUser = new User("Bob Stone", false);
+        User testUser = new User("Bob Stone", false, null);
         UserFileDAO.updateData(testUser);
         User testResult = UserFileDAO.getData(testUser.getName());
 

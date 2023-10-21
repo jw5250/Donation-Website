@@ -53,7 +53,7 @@ public class UsersControllerTest {
     @Test
     public void testGet() throws IOException {  // getData may throw IOException
 
-        User Data = new User("thing1", false);
+        User Data = new User("thing1", false, null);
 
         //Always have the mock object always return the "correct" value.
         when(mockDataDAO.getData(Data.getName())).thenReturn(Data);
@@ -96,7 +96,7 @@ public class UsersControllerTest {
     //Demarkate this as a test
     @Test
     public void testCreateData() throws IOException {  // createData may throw IOException
-        User Data = new User("thing9", false);
+        User Data = new User("thing9", false, null);
 
         when(mockDataDAO.createData(Data)).thenReturn(Data);
 
@@ -107,7 +107,7 @@ public class UsersControllerTest {
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
         assertEquals(Data,response.getBody());
 
-        Data = new User("thing9", true);
+        Data = new User("thing9", true, null);
 
         when(mockDataDAO.createData(Data)).thenReturn(null);
 
@@ -137,7 +137,7 @@ public class UsersControllerTest {
     @Test
     public void testUpdateData() throws IOException { // updateData may throw IOException
         
-        User Data = new User("thing10", false);
+        User Data = new User("thing10", false, null);
         
         when(mockDataDAO.updateData(Data)).thenReturn(Data);
         ResponseEntity<User> response = DataController.updateData(Data);
@@ -151,7 +151,7 @@ public class UsersControllerTest {
         assertEquals(Data,response.getBody());
 
 
-        Data = new User("thing10", false);
+        Data = new User("thing10", false, null);
         
         when(mockDataDAO.updateData(Data)).thenReturn(null);
 
@@ -179,11 +179,11 @@ public class UsersControllerTest {
      * @throws IOException
     */
     @Test
-    public void testGetCupboard() throws IOException { // getCupboard may throw IOException
+    public void testGetUsers() throws IOException { // getCupboard may throw IOException
 
         User[] Datas = new User[2];
-        Datas[0] = new User("thing10", false);
-        Datas[1] = new User("thing5", true);
+        Datas[0] = new User("thing10", false, null);
+        Datas[1] = new User("thing5", true, null);
 
         when(mockDataDAO.getDataArray()).thenReturn(Datas);
 
@@ -211,8 +211,8 @@ public class UsersControllerTest {
     public void testSearchDatas() throws IOException { // searchDatas may throw IOException
         String searchString = "ing";
         User[] Datas = new User[2];
-        Datas[0] = new User("thing10", false);
-        Datas[1] = new User("thing9", true);
+        Datas[0] = new User("thing10", false, null);
+        Datas[1] = new User("thing9", true, null);
         
         when(mockDataDAO.searchDataArray(searchString)).thenReturn(Datas);
 
