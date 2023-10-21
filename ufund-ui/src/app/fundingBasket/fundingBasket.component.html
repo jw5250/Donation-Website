@@ -1,0 +1,9 @@
+<h2>Funding Basket</h2>
+<div class="fundingBasket-menu">
+  <a *ngFor="let fundingBasket of needs"
+      routerLink="/detail/{{needs.name}}">
+      {{needs.name}}
+  </a>
+</div>
+
+<app-needs-search></app-needs-search>
