@@ -1,6 +1,8 @@
 //Handle Data service injections
-//Repetitive code. Maaybe this can be cut down?
-/*Can be turned into a single generic class with multiple subclasses with respective
+//Repetitive code. Maybe this can be cut down?
+//Problem: Login is not maintained across repeated get requests.
+/*
+Can be turned into a single generic class with multiple subclasses with respective
 links later.
 */
 import { Injectable } from '@angular/core';
@@ -14,7 +16,7 @@ import { User } from './user'
 })
 export class UserService {
 
-  private usersUrl = 'http://localhost:8080/users' ;// URL to web api
+  private usersUrl =  'http://localhost:8080/users';// URL to web api
 
   /*'api/users'*/
   httpOptions = {

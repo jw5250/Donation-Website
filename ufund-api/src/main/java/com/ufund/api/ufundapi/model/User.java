@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User{
     @JsonProperty("name") private String name;
-    @JsonProperty("isManager") private Boolean isManager;
-    public User(@JsonProperty("name") String n, @JsonProperty("isManager") Boolean isMan){
+    @JsonProperty("isManager") private boolean isManager;
+    public User(@JsonProperty("name") String n, @JsonProperty("isManager") boolean isMan){
         name = n;
         isManager = isMan;
     }
@@ -20,7 +20,7 @@ public class User{
         return name;
     }
     //Getter. Probably User to preserve privacy of the account.
-    public Boolean getIsManager(){
+    public boolean getIsManager(){
         return isManager;
     }
     //Equals function.
@@ -28,7 +28,7 @@ public class User{
     public boolean equals(Object o){
         if(o instanceof User){
             User newUser = (User)o;
-            if(newUser.name.equals(name) && newUser.isManager.equals(isManager)){
+            if(newUser.name.equals(name)){
                 return true;
             }else{
                 return false;

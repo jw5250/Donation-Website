@@ -42,17 +42,15 @@ public class NeedFileDAOTest {
     @BeforeEach
     public void setupNeedFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
-
-        Need[] testNeeds = new Need[3];
+        testNeeds = new Need[3];
         testNeeds[0] = new Need("Art", "funding", 10000, 5);
         testNeeds[1] = new Need("Teachers", "volunteer", 0, 10);
         testNeeds[2] = new Need("null", "null", 0, 0);
-
-        File dummy = new File("none.txt");
         when(mockObjectMapper
-            .readValue("none.txt",Need[].class))
+            .readValue(new File("none.txt"),Need[].class))
                 .thenReturn(testNeeds);
-        needFileDAO = new NeedFileDAO("none.txt",mockObjectMapper);
+        //Throws a nullpointer exception because it's assumes some file always exists.
+        needFileDAO = new NeedFileDAO("none.txt", mockObjectMapper);
     }   
 
     /**
