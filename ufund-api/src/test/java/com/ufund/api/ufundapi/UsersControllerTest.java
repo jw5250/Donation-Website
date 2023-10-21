@@ -8,24 +8,27 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
-import com.ufund.api.ufundapi.model.Need;
-import com.ufund.api.ufundapi.persistence.NeedFileDAO;
-import com.ufund.api.ufundapi.controller.NeedsController;
+import com.ufund.api.ufundapi.model.User;
+import com.ufund.api.ufundapi.persistence.UserFileDAO;
+import com.ufund.api.ufundapi.controller.UserController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 /**
- * Test the Data Controller class
- * I worked on the testCreateData test, as I was responsible for finishing the createData user story.
- * @author placeholder
+ * Test the User Controller class.
+ * I did all of these tests for the UserController class. Given the similarities to the 
+ * NeedsController class the only things that had to be changed were the constructors and the types.
+ * However, I am considering to later allow managers to have the same names as helpers so these tests
+ * could change in the future.
+ * @author Justin Wu
  */
 
 @Tag("Controller-tier")
-public class NeedsControllerTest {
-    private NeedsController DataController;
-    private DataFileDAO<Need> mockDataDAO;
+public class UsersControllerTest {
+    private UserController DataController;
+    private DataFileDAO<User> mockDataDAO;
 
     /**
      * Before each test, create a new DataController object and inject
@@ -37,8 +40,8 @@ public class NeedsControllerTest {
     
     public void setupDataController() {
         //mock will fill in class dependencies if they exist with default values and/or compiler based things.
-        mockDataDAO = mock(NeedFileDAO.class);//Use of mock will fill in constructor dependencies.
-        DataController = new NeedsController(mockDataDAO);
+        mockDataDAO = mock(UserFileDAO.class);//Use of mock will fill in constructor dependencies.
+        DataController = new UserController(mockDataDAO);
     }
     /**
      * This function tests if the function for getting some element from a database in the REST api works. Test for:
@@ -50,13 +53,13 @@ public class NeedsControllerTest {
     @Test
     public void testGet() throws IOException {  // getData may throw IOException
 
-        Need Data = new Need("thing1", "type1", 99, 10);
+        User Data = new User("thing1", false);
 
         //Always have the mock object always return the "correct" value.
         when(mockDataDAO.getData(Data.getName())).thenReturn(Data);
 
 
-        ResponseEntity<Need> response = DataController.getData(Data.getName());
+        ResponseEntity<User> response = DataController.getData(Data.getName());
 
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -91,21 +94,20 @@ public class NeedsControllerTest {
      * @throws IOException
     */
     //Demarkate this as a test
-    //Justin Wu's work:
     @Test
     public void testCreateData() throws IOException {  // createData may throw IOException
-        Need Data = new Need("thing9", "type15", 9, 10);
+        User Data = new User("thing9", false);
 
         when(mockDataDAO.createData(Data)).thenReturn(Data);
 
 
-        ResponseEntity<Need> response = DataController.createData(Data);
+        ResponseEntity<User> response = DataController.createData(Data);
 
 
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
         assertEquals(Data,response.getBody());
 
-        Data = new Need("thing9", "type15", 9, 10);
+        Data = new User("thing9", true);
 
         when(mockDataDAO.createData(Data)).thenReturn(null);
 
@@ -135,10 +137,10 @@ public class NeedsControllerTest {
     @Test
     public void testUpdateData() throws IOException { // updateData may throw IOException
         
-        Need Data = new Need("thing10", "type10", 9, 100);
+        User Data = new User("thing10", false);
         
         when(mockDataDAO.updateData(Data)).thenReturn(Data);
-        ResponseEntity<Need> response = DataController.updateData(Data);
+        ResponseEntity<User> response = DataController.updateData(Data);
         Data.setName("thing-1");
 
 
@@ -149,7 +151,7 @@ public class NeedsControllerTest {
         assertEquals(Data,response.getBody());
 
 
-        Data = new Need("thing10", "type10", 9, 100);
+        Data = new User("thing10", false);
         
         when(mockDataDAO.updateData(Data)).thenReturn(null);
 
@@ -179,14 +181,14 @@ public class NeedsControllerTest {
     @Test
     public void testGetCupboard() throws IOException { // getCupboard may throw IOException
 
-        Need[] Datas = new Need[2];
-        Datas[0] = new Need("thing10", "type10", 9, 100);
-        Datas[1] = new Need("thing5", "type0", 1, 1040);
+        User[] Datas = new User[2];
+        Datas[0] = new User("thing10", false);
+        Datas[1] = new User("thing5", true);
 
         when(mockDataDAO.getDataArray()).thenReturn(Datas);
 
 
-        ResponseEntity<Need[]> response = DataController.getDataArray();
+        ResponseEntity<User[]> response = DataController.getDataArray();
 
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -208,14 +210,14 @@ public class NeedsControllerTest {
     @Test
     public void testSearchDatas() throws IOException { // searchDatas may throw IOException
         String searchString = "ing";
-        Need[] Datas = new Need[2];
-        Datas[0] = new Need("thing10", "type10", 9, 100);
-        Datas[1] = new Need("thing9", "type15", 9, 10);
+        User[] Datas = new User[2];
+        Datas[0] = new User("thing10", false);
+        Datas[1] = new User("thing9", true);
         
         when(mockDataDAO.searchDataArray(searchString)).thenReturn(Datas);
 
 
-        ResponseEntity<Need[]> response = DataController.searchDataArray(searchString);
+        ResponseEntity<User[]> response = DataController.searchDataArray(searchString);
 
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
@@ -247,7 +249,7 @@ public class NeedsControllerTest {
         when(mockDataDAO.deleteData(DataId)).thenReturn(true);
 
 
-        ResponseEntity<Need> response = DataController.deleteData(DataId);
+        ResponseEntity<User> response = DataController.deleteData(DataId);
 
 
         assertEquals(HttpStatus.OK,response.getStatusCode());
