@@ -51,8 +51,9 @@ public class UserFileDAO implements DataFileDAO<User> {
      * 
      * @return  The array of {@link User Users}, may be empty
      */
-    private User[] getDataArray() {
-        return getDataArray(null);
+
+    private User[] getUserArray() {
+        return getUserArray(null);
     }
 
     /**
@@ -64,7 +65,8 @@ public class UserFileDAO implements DataFileDAO<User> {
      * 
      * @return  The array of {@link User Users}, may be empty
      */
-    private User[] getDataArray(String containsText) { // if containsText == null, no filter
+
+    private User[] getUserArray(String containsText) { // if containsText == null, no filter
         ArrayList<User> UserArrayList = new ArrayList<>();
 
         for (User User : Users.values()) {
@@ -86,7 +88,8 @@ public class UserFileDAO implements DataFileDAO<User> {
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        User[] UserArray = getDataArray();
+
+        User[] UserArray = getUserArray();
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
@@ -127,7 +130,8 @@ public class UserFileDAO implements DataFileDAO<User> {
     @Override
     public User[] getDataArray()throws IOException  {
         synchronized(Users) {
-            return getDataArray();
+            return getUserArray();
+
         }
     }
 
@@ -137,7 +141,8 @@ public class UserFileDAO implements DataFileDAO<User> {
     @Override
     public User[] searchDataArray(String containsText)throws IOException  {
         synchronized(Users) {
-            return getDataArray(containsText);
+            return getUserArray(containsText);
+
         }
     }
 
