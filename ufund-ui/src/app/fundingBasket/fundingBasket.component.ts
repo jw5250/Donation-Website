@@ -18,8 +18,12 @@ import { MessageService } from '../message.service';
     }
   
     getNeeds(): void {
-      this.needService.getNeeds()
+      this.needService.getCupboard();
         .subscribe(needs => this.needs = needs.slice(1, 5));
+    }
+    add(need: Need): void {
+      this.needs = this.needs.filter(h => h !== need);
+      this.needService.addNeed(need).subscribe();
     }
 
     delete(need: Need): void {
