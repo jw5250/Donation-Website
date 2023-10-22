@@ -16,7 +16,15 @@ export class CupboardComponent {
     private location: Location
   ) {}
 
-  createNeed(name: String, type: String, cost: Number, quantity: Number ): void{
-      const need  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
+  needs: Need[] = [];
+
+  addNeed(name: String, type: String, cost: Number, quantity: Number ): void{
+    name = name.trim();
+    type = type.trim();
+    if (!name || !type) { return; }
+    const need  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
+    this.needService.addNeed(need)
+      .subscribe(need => this.needs.push(need));
+    
   }
 }
