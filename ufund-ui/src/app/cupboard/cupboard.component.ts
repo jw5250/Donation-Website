@@ -25,6 +25,10 @@ export class CupboardComponent {
     const need  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
     this.needService.addNeed(need)
       .subscribe(need => this.needs.push(need));
-    
+  }
+
+  delete(delNeed: Need): void {
+    this.needs = this.needs.filter(need => need !== delNeed);
+    this.needService.deleteNeed(delNeed.name).subscribe();
   }
 }
