@@ -18,6 +18,5 @@ public class Cupboard {
      * ResponseEntity with HTTP status of CONFLICT if {@link Need need} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
-    
 }
 
