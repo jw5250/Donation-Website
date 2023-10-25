@@ -4,7 +4,7 @@
 
 <h1>Your UFund Cupboard</h1>
 <h2>Needs</h2>
-<span> class = "legend">Name Type Cost Quantity</span>
+<h3>Name Type Cost Quantity</h3>
 <ul class = "needs">
     <li *ngFor="let need of needs">
         <button type = "button">
@@ -13,8 +13,18 @@
             <span class = "attr">{{need.cost}}</span>
             <span class = "attr">{{need.quantity}}</span>
             </button>
+            <br>
     </li>
 </ul>
+<br>
+<form>
+    <input type = "text" name = "needInput">
+    <input type = "text" name = "needInput">
+    <input type = "text" name = "needInput">
+    <input type = "text" name = "needInput"> <br>
+    <input type = "submit" value ="Create or Update">
+</form>
+
 
 </body>
 </html>
