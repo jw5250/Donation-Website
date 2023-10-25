@@ -3,6 +3,7 @@ import { Need } from '../need';
 import { NeedService } from '../need.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NEEDS } from '../dummy-needs';
 
 @Component({
   selector: 'app-cupboard',
@@ -19,13 +20,19 @@ import { Location } from '@angular/common';
  * @Author Daniel Arcega
  */
 export class CupboardComponent {
+
+  needs: Need[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private needService: NeedService,
     private location: Location
-  ) {}
+  ) {
+    this.needs = NEEDS;
+  }
 
-  needs: Need[] = [];
+  // TODO: Add a getNeeds function to facilitate getting all
+  // stored needs on startup
   
   /**
    * addNeed(): takes a need object and adds it to data storage
