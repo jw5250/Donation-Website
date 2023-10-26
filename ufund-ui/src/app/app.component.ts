@@ -19,8 +19,7 @@ export class AppComponent implements OnInit{
   }
   getData(person:User){
     this.userData = person;
-    if(this.userData != undefined){
-    }
+    console.log(this.userData);
   }
   //Code below should be refactored accordingly.
   isHelper(){
