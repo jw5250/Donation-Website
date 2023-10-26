@@ -34,6 +34,15 @@ export class CupboardComponent {
   // TODO: Add a getNeeds function to facilitate getting all
   // stored needs on startup
   
+  getNewNeedData(): void{
+    const needData =document.getElementsByName("needInput") as NodeListOf<HTMLInputElement>;
+    if(needData.item(0).value !== "" ){
+    this.editNeed(needData.item(0).value,
+                  needData.item(1).value,
+                  parseInt(needData.item(2).value),
+                  parseInt(needData.item(3).value));
+    }
+  }
   /**
    * addNeed(): takes a need object and adds it to data storage
    * @param need 
