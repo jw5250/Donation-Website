@@ -1,0 +1,21 @@
+<!--Should either load the manager frontend or the helper frontend.-->
+<h1>User Sign in</h1>
+<div>
+    <label for="user-name"> User name: </label>
+    <input id="user-name" [(ngModel)]="signInName" placeholder="name">
+    <button type="button" (click)="signIn()">Sign in</button>
+    <p>{{this.signInErrorMessage}}</p>
+</div>
+
+<h1>User login</h1>
+<div>
+    <label for="user-name"> User name: </label>
+    <input id="user-name" [(ngModel)]="logInName" placeholder="name">
+    <button type="button" (click)="logIn()">Log in</button>
+    <p>{{this.logInErrorMessage}}</p>
+</div>
+
+<h1>Log Out</h1>
+<div>
+    <button type="button" (click)="logOut()">Log out</button>
+</div>
