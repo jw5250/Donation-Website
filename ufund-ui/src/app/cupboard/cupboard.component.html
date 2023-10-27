@@ -2,10 +2,30 @@
 <html>
 <body>
 
-<h1>Needs</h1>
-<ul>
-    
+<h1>Your UFund Cupboard</h1>
+<h2>Needs</h2>
+<label for = "needs">Name Type Cost Quantity</label>
+<ul class = "needs">
+    <li *ngFor="let need of needs">
+        <button type = "button" (click) = "selectNeed(need)">
+            <span class = "attr">{{need.name}}</span>
+            <span class = "attr">{{need.type}}</span>
+            <span class = "attr">{{need.cost}}</span>
+            <span class = "attr">{{need.quantity}}</span>
+            </button>
+        <button type = "button" (click) = "deleteNeed(need)">X</button>
+            <br>
+    </li>
 </ul>
+<br>
+<form id = "needCreate">
+    <input type = "text" name = "needInput" value = {{selectedNeed.name}}>
+    <input type = "text" name = "needInput" value = {{selectedNeed.type}}>
+    <input type = "text" name = "needInput" value = {{selectedNeed.cost}}>
+    <input type = "text" name = "needInput" value = {{selectedNeed.quantity}}> <br>
+    <button type = "button" (click) = "getNewNeedData()">Create or Update</button>
+</form>
+
 
 </body>
 </html>

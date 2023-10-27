@@ -3,6 +3,7 @@ import { Need } from '../need';
 import { NeedService } from '../need.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { NEEDS } from '../dummy-needs';
 
 @Component({
   selector: 'app-cupboard',
@@ -19,14 +20,42 @@ import { Location } from '@angular/common';
  * @Author Daniel Arcega
  */
 export class CupboardComponent {
+
+  needs: Need[] = [];
+  selectedNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
+
   constructor(
     private route: ActivatedRoute,
     private needService: NeedService,
     private location: Location
-  ) {}
+  ) {
+    this.needs = NEEDS;
+  }
 
-  needs: Need[] = [];
-  
+  // TODO: Add a getNeeds function to facilitate getting all
+  // stored needs on startup
+
+  /**
+   * selectNeed(): sets the selected need based on user input
+   * @param need : need that will be selected
+   */
+  selectNeed(need: Need): void{
+    this.selectedNeed = need;
+  }
+  /**
+   * getNewNeedData(): takes data from the UI input and then uses it to
+   * update the needs list
+   * 
+   */
+  getNewNeedData(): void{
+    const needData =document.getElementsByName("needInput") as NodeListOf<HTMLInputElement>;
+    if(needData.item(0).value !== "" ){
+    this.editNeed(needData.item(0).value,
+                  needData.item(1).value,
+                  parseInt(needData.item(2).value),
+                  parseInt(needData.item(3).value));
+    }
+  }
   /**
    * addNeed(): takes a need object and adds it to data storage
    * @param need 
@@ -41,7 +70,7 @@ export class CupboardComponent {
    * @param delNeed : need to delete
    */
   deleteNeed(delNeed: Need): void {
-    this.needs = this.needs.filter(need => need !== delNeed);
+    this.needs = this.needs.filter(need => need.name !== delNeed.name);
     this.needService.deleteNeed(delNeed.name).subscribe();
   }
 
