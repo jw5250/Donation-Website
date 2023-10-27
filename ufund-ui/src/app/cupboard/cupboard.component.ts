@@ -22,6 +22,7 @@ import { NEEDS } from '../dummy-needs';
 export class CupboardComponent {
 
   needs: Need[] = [];
+  selectedNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
 
   constructor(
     private route: ActivatedRoute,
@@ -33,7 +34,19 @@ export class CupboardComponent {
 
   // TODO: Add a getNeeds function to facilitate getting all
   // stored needs on startup
-  
+
+  /**
+   * selectNeed(): sets the selected need based on user input
+   * @param need : need that will be selected
+   */
+  selectNeed(need: Need): void{
+    this.selectedNeed = need;
+  }
+  /**
+   * getNewNeedData(): takes data from the UI input and then uses it to
+   * update the needs list
+   * 
+   */
   getNewNeedData(): void{
     const needData =document.getElementsByName("needInput") as NodeListOf<HTMLInputElement>;
     if(needData.item(0).value !== "" ){
@@ -57,7 +70,7 @@ export class CupboardComponent {
    * @param delNeed : need to delete
    */
   deleteNeed(delNeed: Need): void {
-    this.needs = this.needs.filter(need => need !== delNeed);
+    this.needs = this.needs.filter(need => need.name !== delNeed.name);
     this.needService.deleteNeed(delNeed.name).subscribe();
   }
 
