@@ -46,6 +46,7 @@ public class NeedFileDAOTest {
         testNeeds[0] = new Need("Art", "funding", 10000, 5);
         testNeeds[1] = new Need("Teachers", "volunteer", 0, 10);
         testNeeds[2] = new Need("null", "null", 0, 0);
+
         when(mockObjectMapper
             .readValue(new File("none.txt"),Need[].class))
                 .thenReturn(testNeeds);

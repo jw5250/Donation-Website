@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Need } from '../need';
-import { NeedService } from '../need.service';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
+import { UserService } from '../user.service';
 
 @Component({
     selector: 'app-fundingBasket',
@@ -9,21 +11,33 @@ import { MessageService } from '../message.service';
     styleUrls: [ './fundingBasket.component.css' ]
   })
   export class DashboardComponent implements OnInit {
-    needs: Need[] = [];
-  
-    constructor(private needService: NeedService) { }
+
+    Input() user ?: User;
+    constructor(private loc :Location, private r:ActivatedRoute, private userService: UserService){}
   
     ngOnInit(): void {
-      this.getNeeds();
+      this.getFundingBasket();
     }
-  
-    getNeeds(): void {
-      this.needService.getNeeds()
-        .subscribe(needs => this.needs = needs.slice(1, 5));
+    
+    getFundingBasket(): void {
+      this.userService.getDataArray();
+        .subscribe(user => this.user = user.slice(1, 5));
+    }
+    addFundingBasket(need: Need): void {
+      this.user = this.user.filter(h => h !== need);
+      this.user.addData(need).subscribe();
     }
 
-    delete(need: Need): void {
-        this.needs = this.needs.filter(h => h !== need);
-        this.needService.deleteNeed(need.name).subscribe();
+    deleteFundingBasket(need: Need): void {
+        this.user = this.user.filter(h => h !== need);
+        this.user.deleteData(need.name).subscribe();
+    }
+    save():void{
+      if(this.user != undefined){
+        this.userService.updateData(this.user).subscribe(()=>this.goBack());
+      }
+    }
+    goBack():void{
+      this.loc.back();
     }
 }
