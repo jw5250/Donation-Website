@@ -11,7 +11,7 @@ import { User } from 'app/user';
     templateUrl: './fundingBasket.component.html',
     styleUrls: [ './fundingBasket.component.css' ]
   })
-  export class DashboardComponent implements OnInit {
+  export class FundingBasketComponent implements OnInit {
 
     @Input() user?: User;
     constructor(private loc :Location, private r:ActivatedRoute, private userService: UserService){}
