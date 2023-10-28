@@ -11,7 +11,7 @@ import { User } from 'app/user';
     templateUrl: './fundingBasket.component.html',
     styleUrls: [ './fundingBasket.component.css' ]
   })
-  export class DashboardComponent implements OnInit {
+  export class FundingBasketComponent implements OnInit {
 
     @Input() user?: User;
     constructor(private loc :Location, private r:ActivatedRoute, private userService: UserService){}
@@ -21,17 +21,16 @@ import { User } from 'app/user';
     }
     
     getFundingBasket(): void {
-      this.userService.getDataArray()
-        .subscribe((user:any) => user.slice(1, 5));
+      this.userService.getDataArray();
     }
     addFundingBasket(need: Need): void {
-      this.user = this.user.filter(h => h !== need);
-      this.user.addData(need).subscribe();
+      this.user?.fundingBasket.push(need);
+      this.save();
     }
 
     deleteFundingBasket(need: Need): void {
-        this.user = this.user.filter(h => h !== need);
-        this.user.deleteData(need.name).subscribe();
+        this.userService.deleteData(need.name).subscribe();
+        this.save();
     }
     save():void{
       if(this.user != undefined){
