@@ -21,17 +21,14 @@ import { User } from 'app/user';
     }
     
     getFundingBasket(): void {
-      this.userService.getDataArray()
-        .subscribe((user:any) => user.slice(1, 5));
+      this.userService.getDataArray();
     }
     addFundingBasket(need: Need): void {
-      this.user = this.user.filter(h => h !== need);
-      this.user.addData(need).subscribe();
+      this.user?.fundingBasket.push(need);
     }
 
     deleteFundingBasket(need: Need): void {
-        this.user = this.user.filter(h => h !== need);
-        this.user.deleteData(need.name).subscribe();
+        this.userService.deleteData(need.name).subscribe();
     }
     save():void{
       if(this.user != undefined){
