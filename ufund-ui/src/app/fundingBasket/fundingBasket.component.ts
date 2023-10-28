@@ -25,10 +25,12 @@ import { User } from 'app/user';
     }
     addFundingBasket(need: Need): void {
       this.user?.fundingBasket.push(need);
+      this.save();
     }
 
     deleteFundingBasket(need: Need): void {
         this.userService.deleteData(need.name).subscribe();
+        this.save();
     }
     save():void{
       if(this.user != undefined){
