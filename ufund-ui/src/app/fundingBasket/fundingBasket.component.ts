@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { MessageService } from '../message.service';
 import { UserService } from '../user.service';
+import { User } from '../user';
 
 @Component({
     selector: 'app-fundingBasket',

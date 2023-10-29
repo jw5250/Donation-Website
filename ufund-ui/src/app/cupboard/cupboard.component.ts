@@ -22,20 +22,28 @@ import { NEEDS } from '../dummy-needs';
 export class CupboardComponent {
 
   needs: Need[] = [];
-  voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0}
-  selectedNeed: Need = this.voidNeed;
+  voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
+  selectedNeed?: Need;
 
   constructor(
     private route: ActivatedRoute,
     private needService: NeedService,
     private location: Location
-  ) {
-    this.needs = NEEDS;
+  ) {}
+
+  ngOnInit(): void{
+    this.getNeeds();
+    this.selectNeed(this.voidNeed);
   }
 
-  // TODO: Add a getNeeds function to facilitate getting all
-  // stored needs on startup
-
+  /**
+   * getNeeds(): retrieves all stored need data from the server to display
+   */
+  getNeeds(): void{
+    this.needService.getCupboard()
+      .subscribe(needs => this.needs = needs);
+  }
+  
   /**
    * selectNeed(): sets the selected need based on user input
    * @param need : need that will be selected
