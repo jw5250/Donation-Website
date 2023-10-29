@@ -22,7 +22,8 @@ import { NEEDS } from '../dummy-needs';
 export class CupboardComponent {
 
   needs: Need[] = [];
-  selectedNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
+  voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0}
+  selectedNeed: Need = this.voidNeed;
 
   constructor(
     private route: ActivatedRoute,
@@ -87,6 +88,7 @@ export class CupboardComponent {
     name = name.trim();
     type = type.trim();
     if (!name || !type) { return; }
+    this.selectNeed(this.voidNeed);
     const newNeed  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
     const filtered: Need[] = this.needs.filter(need => need.name !== newNeed.name);
     if(filtered.length === this.needs.length){
