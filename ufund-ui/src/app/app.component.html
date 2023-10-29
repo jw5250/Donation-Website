@@ -2,6 +2,7 @@
 <!--Given an immediate new request...-->
 <!--Automatically authenticate the existing user.-->
 <!--The page components switch and save properly! Just need to figure out how I messed up the mock database.-->
+<!--Rework authentication to hide whether someone is a manager or not.-->
 <h1>{{title}}</h1>
 <nav>
 </nav>
@@ -9,7 +10,7 @@
 <app-signin-login-screen (person)="getData($event)"></app-signin-login-screen>
 <ng-template [ngIf] = "isHelper()"><div><app-helper-screen></app-helper-screen></div></ng-template>
 <ng-template [ngIf] = "isManager()"><div><app-manager-screen></app-manager-screen></div></ng-template>
-<ng-template [ngIf] = "noAccount()"><div>Render nothing.</div></ng-template>
+<ng-template [ngIf] = "noAccount()"><div></div></ng-template>
 <!--When new data is received, possibly automatically change some part of the page.-->
 <!--router-outlet></router-outlet-->
 <!--app-dashboard></app-dashboard-->
