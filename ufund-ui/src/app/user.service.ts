@@ -73,7 +73,7 @@ export class UserService {
   //With users database, breaks.
   updateData(Data: User): Observable<any> {
     //Could be an issue, considering .name is a class exclusive
-    return this.http.put(this.usersUrl, Data, this.httpOptions).pipe(
+    return this.http.put<User>(this.usersUrl, Data, this.httpOptions).pipe(
       tap(_ => this.log(`updated Data name=${Data.name}`)),
       catchError(this.handleError<any>('updateData'))
     );
