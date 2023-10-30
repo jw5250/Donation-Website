@@ -6,13 +6,13 @@ import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HelperScreenComponent } from './accountSystemFrontend/helper-screen/helper-screen.component';
-import { ManagerScreenComponent } from './accountSystemFrontend/manager-screen/manager-screen.component';
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './cupboard/cupboard.component';
 
 //For testing the database.
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { UserDatabaseTestService } from './user-database-test.service';
+import { HelperChoiceInterfaceComponent } from './helper-choice-interface/helper-choice-interface.component';
 
 
 
@@ -21,9 +21,9 @@ import { UserDatabaseTestService } from './user-database-test.service';
     AppComponent,
     MessagesComponent,
     HelperScreenComponent,
-    ManagerScreenComponent,
     SigninLoginScreenComponent,
-    CupboardComponent
+    CupboardComponent,
+    HelperChoiceInterfaceComponent
 
   ],
   imports: [
