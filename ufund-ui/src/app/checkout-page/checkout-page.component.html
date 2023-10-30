@@ -1,0 +1,18 @@
+<h1>Your Funding Basket</h1>
+<h2>Needs</h2>
+<label for = "needs">Name | Type | Cost | Quantity</label>
+<ul class = "needs">
+    <li *ngFor="let need of getFundingBasketNeeds()">
+        <button type = "button">
+            <span class = "attr">{{need.name}}  |   </span>
+            <span class = "attr">{{need.type}}  |   </span>
+            <span class = "attr">{{need.cost}}  |   </span>
+            <span class = "attr">{{need.quantity}}  </span>
+            </button>
+        <button type = "button" (click) = "removeFromBasket(need)">Remove need</button>
+            <br>
+    </li>
+    <button type = "button" (click) = "checkout()">Click to check out</button>
+    <p>{{emptiedDisplay}}</p>
+</ul>
+<br>
