@@ -24,6 +24,9 @@ export class AppComponent{
       return this.userData.name;
     }
   }
+  getUser(){
+    return this.userData;
+  }
   isHelper(){
     return ( (this.userData !== undefined) && (this.userData.isManager === false));
   }
