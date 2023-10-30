@@ -9,20 +9,22 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: placeholder
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Justin Wu
+  * Daniel Arcega
+  * Ricky Yang
+  * John Li
 
 ## Executive Summary
 
 This is a summary of the project.
+This is a website designed for ArtsRoc, an organization which provides music and lego programs for young kids. It takes in donations from others via items which denote where the money spent will go, shows everybody what events the organization will hold in the future, and provides donation rewards for people who give enough. It also allows for members of the organization, given some permissions, to directly modify the events, the list of stuff people can buy from, and the rewards for donating some amount of money.
 
 ### Purpose
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
+This website is for ArtsRoc to help fund its endeavors through outside donations. Users should be able to pick and choose what programs they want to fund and receive rewards for their actions.
 
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
@@ -42,7 +44,7 @@ This section describes the features of the application.
 
 ### Definition of MVP
 > _**[Sprint 2 & 4]** Provide a simple description of the Minimum Viable Product._
-
+The ArtsRoc website that allows people to donate to ArtsRoc's various programs (or/and aspects of said programs). It also allows the people responsible for managing the funds to change what the donors can buy, given the organization wants more funding towards a different set of things than what's there already.
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 
@@ -54,11 +56,11 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](DomainModel.jpg)
 
-> _**[Sprint 2 & 4]** Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+As of now, the helper is a donor who has a set of items they can purchase in order to help ArtsRoc fund its programs (or aspects of them), and in turn, could get a reward given they’ve donated enough. They can also see specific events scheduled by the organizations.
+The Ufund Manager directly modifies what the helper and search through and buy. They also will have full control over the donation rewards and the event schedule.
+The checkout manager helps the user manage the set of orders they want to purchase alongside providing a way for them to do such.
 
 
 ## Architecture and Design
@@ -124,10 +126,21 @@ This section describes the web interface flow; this is how the user views and in
 > _At appropriate places as part of this narrative provide **one** or more updated and **properly labeled**
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 > 
-![Replace with your Model Tier class diagram 1, etc.](model-placeholder.png)
+![Replace with your Model Tier class diagram 1, etc.](ModelTierSWEN261.png)
+
+The model tier is an intermediary between the objects that can be modified by the frontend Angular section and the JSON database. There are two main classes in this tier: User.java and Need.java. User.java represents the individual data of a user, while Need.java represents a need that could be bought by a user. Need.java contains a price, a name which acts as the unique id to prevent duplicates, a tag which can be used to filter out details, and finally a quantity. User.java contains the username, the current items that the user will buy, and if it is an admin or not.
 
 ## OO Design Principles
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
+Open/closed
+
+The way the DAO and Controller objects are designed are under the assumption that there will be similarities in how the data is handled. Specifically, for the DAOs, if all objects serialized and deserialized will have a string as a unique identifier and are organized the same way, then there could be a common interface that is used. The controllers which each handle different types of data(User, etc.), on the other hand, all handle the transmission of data via http the same. Therefore each one inherits a common abstract class with all https methods implemented: the only difference is that each class uses a different path for accessing data and themselves for the logger (in order to show which controllers are called).
+
+Single Responsibility
+
+Each class has a single responsibility. For instance, the User.java class handles data pertaining to individuals who use the website, while the DAO classes each handle deserialization/serialization of a given object. The controller objects each handle a different DAO and link the app to whatever uses the database.
+
+
 
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 
@@ -150,11 +163,22 @@ This section describes the web interface flow; this is how the user views and in
 > have not had any testing yet. Highlight the issues found during
 > acceptance testing and if there are any concerns._
 
+
+
+
 ### Unit Testing and Code Coverage
 > _**[Sprint 4]** Discuss your unit testing strategy. Report on the code coverage
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets._
 
+
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
+
+![Code coverage for the controller tier](tests/controllerTierTests.png)
+
+![Code coverage for the persistence tier](tests/persistenceTierTests.png)
+
+![Code coverage for the model tier](tests/modelTierTests.png)
+Most of the uncovered code are the getters and setters in the Need.java object. Our group thought that if one getter worked, then the others would, given all the untested ones handled primitive values. As of writing, the cupboard.java object has been removed. A branch involving two objects not being equal in the equals function of User.java isn't covered either, mainly because they don't have anythign in particular outside of a return value.
