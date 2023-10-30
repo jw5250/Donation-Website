@@ -3,5 +3,4 @@ export interface Need {
     type: string;
     cost: number;
     quantity: number;
-
   }
