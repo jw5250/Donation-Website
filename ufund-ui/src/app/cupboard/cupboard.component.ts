@@ -23,7 +23,7 @@ export class CupboardComponent {
 
   needs: Need[] = [];
   voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
-  selectedNeed?: Need;
+  selectedNeed: Need = this.voidNeed;
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +43,7 @@ export class CupboardComponent {
     this.needService.getCupboard()
       .subscribe(needs => this.needs = needs);
   }
-  
+
   /**
    * selectNeed(): sets the selected need based on user input
    * @param need : need that will be selected
