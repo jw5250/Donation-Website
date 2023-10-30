@@ -24,6 +24,7 @@ import { User } from 'app/user';
     getFundingBasket(): void {
       this.userService.getDataArray();
     }
+    
     addFundingBasket(need: Need): void {
       this.user?.fundingBasket.push(need);
       this.save();

@@ -13,6 +13,7 @@ import { CupboardComponent } from './cupboard/cupboard.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { UserDatabaseTestService } from './user-database-test.service';
 import { HelperChoiceInterfaceComponent } from './helper-choice-interface/helper-choice-interface.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 
 
 
@@ -23,7 +24,8 @@ import { HelperChoiceInterfaceComponent } from './helper-choice-interface/helper
     HelperScreenComponent,
     SigninLoginScreenComponent,
     CupboardComponent,
-    HelperChoiceInterfaceComponent
+    HelperChoiceInterfaceComponent,
+    CheckoutPageComponent
 
   ],
   imports: [
