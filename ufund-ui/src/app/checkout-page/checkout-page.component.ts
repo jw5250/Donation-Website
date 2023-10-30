@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { UserService } from '.././user.service';
 import { User } from '../user';
 import { Need } from '../need';
@@ -7,25 +7,26 @@ import { Need } from '../need';
   templateUrl: './checkout-page.component.html',
   styleUrls: ['./checkout-page.component.css']
 })
-export class CheckoutPageComponent implements OnInit{
+export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   constructor(private userService: UserService){  
   }
-  @Input() name? : string = undefined;
+  @Input() name? : string;
   user? : User;
   emptied : string = "Emptied Basket!";
   emptiedDisplay : string = '';
   ngOnInit(){
     this.getUser();
   }
-  getFundingBasketNeeds(){
-    if(this.user !== undefined){
-      return this.user.fundingBasket;
-    }else{
+  getFundingBasket(){
+    if(this.user === undefined){
       return [];
+    }else{
+      return this.user.fundingBasket;
     }
   }
   getUser(){
     if(this.name === undefined){
+      console.log("Undefined");
       return;
     }
     this.userService.getData(this.name).subscribe(user => {this.user = user});
@@ -45,6 +46,7 @@ export class CheckoutPageComponent implements OnInit{
       }
     }
     this.userService.updateData(this.user).subscribe();
+    sessionStorage.setItem("userData", JSON.stringify(this.user));
   }
   checkout(){
     if(this.user === undefined){
@@ -56,5 +58,11 @@ export class CheckoutPageComponent implements OnInit{
     }
     this.emptiedDisplay = '';
     this.user.fundingBasket = [];
-  }
+    
+    if(this.user != undefined){
+        this.userService.updateData(this.user).subscribe();
+        sessionStorage.setItem("userData", JSON.stringify(this.user));
+        console.log(this.user);
+      }
+    }
 }
