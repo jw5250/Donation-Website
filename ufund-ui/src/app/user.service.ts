@@ -90,6 +90,16 @@ export class UserService {
     );
   }
 
+
+  emptyFundingBasket(name: string): Observable<User> {
+    const url = `${this.usersUrl}/${name}/emptyFundingBasket`;
+  
+    return this.http.put<User>(url, {}, this.httpOptions).pipe(
+      tap(_ => this.log(`Funding basket emptied for user with ID=${name}`)),
+      catchError(this.handleError<User>('emptyFundingBasket'))
+    );
+  }
+
   /** DELETE: delete the Data from the server */
   deleteData(name: string): Observable<User> {
     const url = `${this.usersUrl}/${name}`;
@@ -130,5 +140,9 @@ export class UserService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  public getUserUrl(){
+    return this.usersUrl;
   }
 }
