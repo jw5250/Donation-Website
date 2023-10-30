@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
+import com.ufund.api.ufundapi.persistence.DataFileDAO;
 import com.ufund.api.ufundapi.persistence.NeedDAO;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.controller.NeedsController;
@@ -25,7 +26,7 @@ import org.springframework.http.ResponseEntity;
 @Tag("Controller-tier")
 public class needControllerTest {
     private NeedsController needController;
-    private NeedDAO mockNeedDAO;
+    private DataFileDAO<Need> mockNeedDAO;
 
     /**
      * Before each test, create a new needController object and inject
@@ -33,7 +34,7 @@ public class needControllerTest {
      */
     @BeforeEach
     public void setupNeedController() {
-        mockNeedDAO = mock(NeedDAO.class);
+        mockNeedDAO = mock(DataFileDAO.class);
         needController = new NeedsController(mockNeedDAO);
     }
     /**

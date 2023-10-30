@@ -8,11 +8,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { HelperScreenComponent } from './accountSystemFrontend/helper-screen/helper-screen.component';
 import { ManagerScreenComponent } from './accountSystemFrontend/manager-screen/manager-screen.component';
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
-
+import { CupboardComponent } from './cupboard/cupboard.component';
 
 //For testing the database.
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { UserDatabaseTestService } from './user-database-test.service';
+
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { UserDatabaseTestService } from './user-database-test.service';
     MessagesComponent,
     HelperScreenComponent,
     ManagerScreenComponent,
-    SigninLoginScreenComponent
+    SigninLoginScreenComponent,
+    CupboardComponent
 
   ],
   imports: [
