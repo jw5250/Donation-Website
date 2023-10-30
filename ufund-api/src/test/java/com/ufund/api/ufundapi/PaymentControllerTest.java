@@ -30,7 +30,7 @@ public class PaymentControllerTest {
     @BeforeEach
     public void setupPaymentController() {
         mockPaymentService = mock(paymentService.class);
-        paymentController = new PaymentController();
+        paymentController = new PaymentController(mockPaymentService);
     }
 
 
@@ -43,7 +43,7 @@ public class PaymentControllerTest {
     @Test
     public void testPaymentRequest() throws StripeException {
         // Mocking the payment service
-        mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment");
+        mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment", "ch_1234567890");
         when(mockPaymentService.getStatus()).thenReturn(Charge.chargeStatus.SUCCESSFUL);
 
         ResponseEntity<paymentService> response = paymentController.getData(mockPaymentService);
