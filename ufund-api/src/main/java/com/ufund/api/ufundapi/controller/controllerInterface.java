@@ -26,7 +26,7 @@ public abstract class controllerInterface<T> {
     //Does not pass IOexception test (Checked exception is invalid for this method)
     @GetMapping("/{name}")
     public ResponseEntity<T> getData(@PathVariable String name) throws IOException{
-        LOG.info("GET /cupboard/" + name);
+        LOG.info("GET /data/" + name);
         try {
             T User = dataDao.getData(name);
             if (User != null)
@@ -39,10 +39,9 @@ public abstract class controllerInterface<T> {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
     @DeleteMapping("/{name}")
     public ResponseEntity<T> deleteData(@PathVariable String name) throws IOException{
-        LOG.info("DELETE /cupboard/" + name);
+        LOG.info("DELETE /data/" + name);
         try{
             boolean UserFound = dataDao.deleteData(name);
             if(UserFound == true){
@@ -55,10 +54,10 @@ public abstract class controllerInterface<T> {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //Does not pass IOexception test (Checked exception is invalid for this method)
+
     @GetMapping("/")
     public ResponseEntity<T[]> searchDataArray(@RequestParam String name) throws IOException{
-        LOG.info("GET /cupboard/?name="+name);
+        LOG.info("GET /data/?name="+name);
         try{
             T[] needs = dataDao.searchDataArray(name);
             return new ResponseEntity<T[]>(needs, HttpStatus.OK);
@@ -67,10 +66,10 @@ public abstract class controllerInterface<T> {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //Does not pass IOexception test (Checked exception is invalid for this method)
+    //None of the repeated get methods take into consider if a user is logged in or not
     @GetMapping("")
     public ResponseEntity<T[]> getDataArray() throws IOException{
-        LOG.info("GET /data");
+        LOG.info("GET /dataArray");
         try{
             T[] needs = dataDao.getDataArray();
             return new ResponseEntity<T[]>(needs, HttpStatus.OK);
@@ -80,10 +79,10 @@ public abstract class controllerInterface<T> {
     }
     
     @PutMapping("")
-    public ResponseEntity<T> updateData(@RequestBody T need) throws IOException{
-        LOG.info("PUT /data " + need);
+    public ResponseEntity<T> updateData(@RequestBody T data) throws IOException{
+        LOG.info("PUT /data " + data);
         try{
-            T updatedUser = dataDao.updateData(need);
+            T updatedUser = dataDao.updateData(data);
             if(updatedUser != null){
                 return new ResponseEntity<T>(updatedUser, HttpStatus.OK);
             }else{
@@ -96,10 +95,10 @@ public abstract class controllerInterface<T> {
     }
     
     @PostMapping("")
-    public ResponseEntity<T> createData(@RequestBody T need) throws IOException{
-        LOG.info("POST /data " + need);
+    public ResponseEntity<T> createData(@RequestBody T data) throws IOException{
+        LOG.info("POST /data " + data);
         try{
-            T newData = dataDao.createData(need);
+            T newData = dataDao.createData(data);
             if(newData == null){
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }else{

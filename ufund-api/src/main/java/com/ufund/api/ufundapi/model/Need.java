@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Represents a Need entity
  * 
  */
-public class Need {
+public class Need{
     //private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
     // Package private for tests
@@ -40,6 +40,17 @@ public class Need {
         this.quantity = quantity;
     }
 
+    public boolean equals(Object T){
+        if(T instanceof Need){
+            Need n = (Need)T;
+            if(n.name.equals(name) && n.type.equals(type) && n.cost == cost && n.quantity == quantity){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
 
     /**
      * Retrieves the name of the need

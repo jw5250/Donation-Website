@@ -126,7 +126,7 @@ public class NeedFileDAO implements DataFileDAO<Need> {
     ** {@inheritDoc}
      */
     @Override
-    public Need[] getDataArray()throws IOException  {
+    public Need[] getDataArray() throws IOException  {
         synchronized(Needs) {
             return getCupboardArray();
         }
