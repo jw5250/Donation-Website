@@ -32,11 +32,26 @@ export class HelperChoiceInterfaceComponent implements OnInit{
           this.needsDisplayed = this.needs;
         });
     }
-    addToFundingBasket(need : Need):void{
+    //Add item to the user's funding basket.
+    addToFundingBasket(needAdded : Need):void{
       if(this.user === undefined){
         return;
       }
-      this.user.fundingBasket.push(need);
+      //If need does not exist
+      if(this.user.fundingBasket.filter( (need) => {return needAdded.name == need.name} ).length === 0){
+        //Deep copy the object.
+        let newNeed : Need = JSON.parse(JSON.stringify(needAdded));
+        newNeed.quantity = 1;
+        this.user.fundingBasket.push(newNeed);
+      }else{
+        for(let i = 0; i < this.user.fundingBasket.length;i++){
+          if(this.user.fundingBasket[i].name === needAdded.name){
+            this.user.fundingBasket[i].quantity++;
+            break;
+          }
+        }
+      }
+
       this.userService.updateData(this.user).subscribe();
     }
     //Get user
