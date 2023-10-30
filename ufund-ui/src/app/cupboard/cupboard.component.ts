@@ -19,7 +19,7 @@ import { NEEDS } from '../dummy-needs';
  * 
  * @Author Daniel Arcega
  */
-export class CupboardComponent {
+export class CupboardComponent implements OnInit {
 
   needs: Need[] = [];
   voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
@@ -59,6 +59,7 @@ export class CupboardComponent {
   getNewNeedData(): void{
     const needData =document.getElementsByName("needInput") as NodeListOf<HTMLInputElement>;
     if(needData.item(0).value !== "" ){
+    this.selectNeed(this.voidNeed);
     this.editNeed(needData.item(0).value,
                   needData.item(1).value,
                   parseInt(needData.item(2).value),
@@ -70,6 +71,7 @@ export class CupboardComponent {
    * @param need 
    */
   addNeed(need: Need): void{
+    this.selectNeed(this.voidNeed);
     this.needService.addNeed(need)
       .subscribe(need => this.needs.push(need));
   }
@@ -80,6 +82,7 @@ export class CupboardComponent {
    */
   deleteNeed(delNeed: Need): void {
     this.needs = this.needs.filter(need => need.name !== delNeed.name);
+    this.selectNeed(this.voidNeed);
     this.needService.deleteNeed(delNeed.name).subscribe();
   }
 
@@ -107,5 +110,6 @@ export class CupboardComponent {
       this.needService.updateNeed(newNeed)
       .subscribe(()=> this.needs.push(newNeed));
     }
+    this.selectNeed(this.voidNeed);
   }
 }

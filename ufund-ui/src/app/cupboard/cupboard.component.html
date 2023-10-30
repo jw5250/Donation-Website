@@ -1,13 +1,13 @@
 <h1>Your UFund Cupboard</h1>
 <h2>Needs</h2>
-<label for = "needs">Name Type Cost Quantity</label>
+<label for = "needs">Name | Type | Cost | Quantity</label>
 <ul class = "needs">
     <li *ngFor="let need of needs">
         <button type = "button" (click) = "selectNeed(need)">
-            <span class = "attr">{{need.name}}</span>
-            <span class = "attr">{{need.type}}</span>
-            <span class = "attr">{{need.cost}}</span>
-            <span class = "attr">{{need.quantity}}</span>
+            <span class = "attr">{{need.name}}  |   </span>
+            <span class = "attr">{{need.type}}  |   </span>
+            <span class = "attr">{{need.cost}}  |   </span>
+            <span class = "attr">{{need.quantity}}  </span>
             </button>
         <button type = "button" (click) = "deleteNeed(need)">X</button>
             <br>
@@ -20,5 +20,5 @@
     <input type = "text" name = "needInput" value = {{selectedNeed.cost}}>
     <input type = "text" name = "needInput" value = {{selectedNeed.quantity}}> 
     <br>
-    <input type = "submit" value = "Submit">
+    <input type = "submit" value = "Create or Update">
 </form>
