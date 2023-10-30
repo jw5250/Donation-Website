@@ -16,6 +16,7 @@ export class SigninLoginScreenComponent implements OnInit{
     private messanger: MessageService
   ) {}
   //Used so this component can communicate with those that use it.
+  //Passes a reference of a user to the parent.
   @Output() person : EventEmitter<User> = new EventEmitter<User>();
   //The input for the sign in name
   @Input() signInName?:string = undefined;
@@ -26,7 +27,7 @@ export class SigninLoginScreenComponent implements OnInit{
   signInErrorMessage : string = "";
   logInErrorMessage : string = "";
   userIdentifier: string = "userData";
-  
+
   ngOnInit(){
     let tokenizedUser : string | null = sessionStorage.getItem(this.userIdentifier);
     if(tokenizedUser != null){

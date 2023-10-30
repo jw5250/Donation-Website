@@ -19,7 +19,6 @@ public class Need{
     @JsonProperty("cost") private int cost;
     @JsonProperty("quantity") private int quantity;
     /**
-
      * Create a need with the given attributes
      * @param name The name of need
      * @param type The type of need
@@ -39,7 +38,9 @@ public class Need{
         this.cost = cost;
         this.quantity = quantity;
     }
-
+    /*
+     * In case two needs need to be compared.
+     */
     public boolean equals(Object T){
         if(T instanceof Need){
             Need n = (Need)T;

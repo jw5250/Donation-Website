@@ -26,7 +26,7 @@ import com.ufund.api.ufundapi.persistence.UserFileDAO;
 /**
  * Test class for UserFileDAO.java.
  * 
- * @author Daniel Arcega
+ * @author Justin Wu
  */
 @Tag("Persistence-tier")
 public class UserFileDAOTest {
