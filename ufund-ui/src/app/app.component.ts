@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './user';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,19 +8,14 @@ import { User } from './user';
 })
 //Possible ideas:
 //Use localstorage to store a json web token.
-export class AppComponent implements OnInit{
+export class AppComponent{
   title : string = "Arts Roc";
   name? : string;
   userData? : User;
   appComponent(){
-    console.log("Variables done");
-  }
-  ngOnInit(){//Called every user refresh
-    console.log("Initialized!");
   }
   getData(person:User){
     this.userData = person;
-    console.log(this.userData);
   }
   //Code below should be refactored accordingly.
   isHelper(){

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { MessageService } from './../../message.service';
 import { UserService } from '../../user.service';
 import { User } from '../../user';
@@ -10,12 +10,13 @@ import { User } from '../../user';
 
 //Neither the signIn or logIn functions are working.
 //Current problem: Can't access the databases.
-export class SigninLoginScreenComponent {
+export class SigninLoginScreenComponent implements OnInit{
   constructor(
     private userService: UserService,
     private messanger: MessageService
   ) {}
   //Used so this component can communicate with those that use it.
+  //Passes a reference of a user to the parent.
   @Output() person : EventEmitter<User> = new EventEmitter<User>();
   //The input for the sign in name
   @Input() signInName?:string = undefined;
@@ -23,22 +24,27 @@ export class SigninLoginScreenComponent {
   @Input() logInName?:string = undefined;
   //The user's data.
   user? : User = undefined;
-
   signInErrorMessage : string = "";
   logInErrorMessage : string = "";
+  userIdentifier: string = "userData";
 
+  ngOnInit(){
+    let tokenizedUser : string | null = sessionStorage.getItem(this.userIdentifier);
+    if(tokenizedUser != null){
+      this.user = JSON.parse(tokenizedUser);
+      this.person.emit(this.user);
+    }
+  }
   //Create a new account in the database.
   signIn(): void {
     this.signInErrorMessage = "";
     if(this.signInName != undefined){
-      //Prevent names with whitespace from existing because of how this stuff is interpreted.
-      if(this.signInName.indexOf(" ") == -1){
-        
+        this.signInName = this.signInName.trim();
         this.userService.addData({name : this.signInName, isManager : false, fundingBasket : []} as User)
-        .subscribe();
-      }else{
-        this.signInErrorMessage = "No whitespace is allowed in names.";
-      }
+        .subscribe( (user) => {
+          user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
+          this.signInErrorMessage = "" ;
+        });
       this.signInName = undefined;
     }
   }
@@ -46,11 +52,17 @@ export class SigninLoginScreenComponent {
   logIn(): void {
     this.logInErrorMessage = "";
     if (this.logInName != undefined) {
+      this.logInName = this.logInName.trim();
       this.userService.getData(this.logInName)
         .subscribe((user) => {
           this.user = user;
           this.person.emit(user);
           if(user != undefined){
+            sessionStorage.setItem(this.userIdentifier, JSON.stringify(user));
+            //add key value pair for session storage
+            //Generate token
+            //Attach user data to token
+            //Send bundled data to server via SessionDataServiceService
             this.messanger.add("Found account:" + user.name);
           }else{
             this.messanger.add("Invalid account!");
@@ -62,12 +74,15 @@ export class SigninLoginScreenComponent {
   }
   //Log out of the account
   logOut(): void{
+  //remove some id if it existed
     if(this.user == undefined){
       return;
     }
     this.userService.updateData(this.user).subscribe(()=>{
+      sessionStorage.removeItem(this.userIdentifier);
       this.person.emit(undefined);
       this.user = undefined;
     });
+    //When logged out, data is no longer there.
   }
 }
