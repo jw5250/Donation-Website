@@ -1,9 +1,12 @@
 <h2>Funding Basket</h2>
 <div class="fundingBasket-menu">
-  <a *ngFor="let fundingBasket of needs"
-      routerLink="/detail/{{needs.name}}">
-      <span class="need">{{need.name}}</span>
-      <button onclick="deleteFundingBasket(need.name)">Delete</button>
-  </a>
+  <li *ngFor="let fundingBasket of needs">
+        <span class = "attr">{{fundingBasket.name}}  |   </span>
+        <span class = "attr">{{fundingBasket.type}}  |   </span>
+        <span class = "attr">{{fundingBasket.cost}}  |   </span>
+        <span class = "attr">{{fundingBasket.quantity}}  </span>
+        <button (click)="deleteFundingBasket(fundingBasket.name)">Delete</button>
+        <br>
+</li>
   <button onclick="checkout()">Checkout</button>
 </div>
