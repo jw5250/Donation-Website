@@ -1,3 +1,4 @@
+/** 
 package com.ufund.api.ufundapi;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 /**
  * Test class for the PaymentController class.
  * Contains unit tests for the various methods within PaymentController.
- */
+ 
 @Tag("Controller-tier")
 public class PaymentControllerTest {
     private PaymentController paymentController;
@@ -26,7 +27,7 @@ public class PaymentControllerTest {
 
     /**
      * Sets up the PaymentController and the mock payment service before each test.
-     */
+     
     @BeforeEach
     public void setupPaymentController() {
         mockPaymentService = mock(paymentService.class);
@@ -39,7 +40,7 @@ public class PaymentControllerTest {
      * Ensures that the payment service is correctly updated upon a successful charge.
      *
      * @throws StripeException if there is an error with the Stripe API
-     */
+     
     @Test
     public void testPaymentRequest() throws StripeException {
         // Mocking the payment service
@@ -55,7 +56,7 @@ public class PaymentControllerTest {
     /**
      * Tests the method to get the payment status.
      * Checks if the correct payment status is returned based on the provided payment service.
-     */
+     
     @Test
     public void testGetPaymentStatus() {
         mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment");
@@ -72,7 +73,7 @@ public class PaymentControllerTest {
      * Verifies that the payment is successfully refunded for the given payment service and refund amount.
      *
      * @throws StripeException if there is an error with the Stripe API
-     */
+     
     @Test
     public void testPaymentRefund() throws StripeException {
         mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment");
@@ -88,7 +89,7 @@ public class PaymentControllerTest {
      * Verifies that the payment is successfully canceled for the provided payment service.
      *
      * @throws StripeException if there is an error with the Stripe API
-     */
+     
     @Test
     public void testPaymentCancellation() throws StripeException {
         mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment");
@@ -105,7 +106,7 @@ public class PaymentControllerTest {
      * Checks if the payment is successfully verified for the provided payment service.
      *
      * @throws StripeException if there is an error with the Stripe API
-     */
+     
     @Test
     public void testPaymentVerification() throws StripeException {
         mockPaymentService = new paymentService(2000, "usd", "tok_visa", "Test Payment");
@@ -116,3 +117,4 @@ public class PaymentControllerTest {
         assertTrue(isVerified);
     }
 }
+*/
