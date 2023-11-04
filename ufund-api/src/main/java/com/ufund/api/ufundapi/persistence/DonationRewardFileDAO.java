@@ -41,7 +41,7 @@ public class DonationRewardFileDAO implements DataFileDAO<DonationReward> {
      * @throws IOException when file cannot be accessed or read from
      */
      //Is the ObjectMapper automatically inserted?
-    public DonationRewardFileDAO(@Value("${DonationRewards.file}") String filename,ObjectMapper objectMapper) throws IOException {
+    public DonationRewardFileDAO(@Value("${donationRewards.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();  // load the DonationRewards from the file
