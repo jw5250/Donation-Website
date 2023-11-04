@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class DonationReward{
 
     // Package private for tests
-    static final String STRING_FORMAT = "donation reward[name=%s, requirement=%d, quantity=%d]";
+    static final String STRING_FORMAT = "DonationReward[name=%s, requirement=%d, quantity=%d]";
 
 
     @JsonProperty("name") private String name;//Unique name
