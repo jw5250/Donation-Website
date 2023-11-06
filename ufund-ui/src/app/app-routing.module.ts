@@ -9,10 +9,10 @@ import { CupboardComponent } from './cupboard/cupboard.component';
 
 const routes: Routes = [
   { path: 'cupboard', component: CupboardComponent },
-  //{ path: 'dashboard', component: DashboardComponent },
-  /*{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },*/
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   //":x" stands for variable x
-  //{ path: 'user/:id', component: NeedDetailComponent },
+  { path: 'user/:name', component: FundingBasketComponent},
+  { path: 'checkout', component: CheckoutPageComponent},
   
   {path:'login', component: SigninLoginScreenComponent}
 ];
