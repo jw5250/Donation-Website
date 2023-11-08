@@ -14,7 +14,6 @@ import { User } from 'app/dataClasses/user';
   export class FundingBasketComponent implements OnInit {
 
     @Input() user?: User;
-    basketRef? : Need[];
     constructor(private loc :Location, private r:ActivatedRoute, private userService: UserService){}
   
     ngOnInit(): void {
@@ -22,11 +21,7 @@ import { User } from 'app/dataClasses/user';
     }
     
     getFundingBasket(): void {
-      if(this.user === undefined){
-        this.basketRef = undefined;
-      }else{
-        this.basketRef = this.user.fundingBasket;
-      }
+      this.userService.getDataArray();
     }
     
     addFundingBasket(need: Need): void {
@@ -38,6 +33,15 @@ import { User } from 'app/dataClasses/user';
         this.userService.deleteData(need.name).subscribe();
         this.save();
     }
+
+    emptyFundingBasket(): void {
+      if (this.user) {
+        this.userService.emptyFundingBasket(this.user.name).subscribe();
+    }
+    this.save(); // Save the updated funding basket
+    }
+
+
     save():void{
       if(this.user != undefined){
         this.userService.updateData(this.user).subscribe(()=>this.goBack());

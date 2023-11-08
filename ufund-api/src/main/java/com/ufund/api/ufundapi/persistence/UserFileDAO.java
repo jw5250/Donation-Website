@@ -173,7 +173,7 @@ public class UserFileDAO implements DataFileDAO<User> {
                 Users.put(newUser.getName(),newUser);
                 save(); // may throw an IOException
                 return newUser;
-            }else{
+            } else{
                 return null;
             }
         }
