@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NeedService } from '../need.service';
-import { UserService } from '../user.service';
-import { User } from '../user';
-import { Need } from '../need';
+import { NeedService } from '../../services/need.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../dataClasses/user';
+import { Need } from '../../dataClasses/need';
 @Component({
   selector: 'app-helper-choice-interface',
   templateUrl: './helper-choice-interface.component.html',

@@ -22,7 +22,7 @@ import com.ufund.api.ufundapi.model.Event;
  * 
  */
 @Component
-public class EventFileDAO implements EventFileDAO<Event> {
+public class EventFileDAO implements DataFileDAO<Event> {
     private static final Logger LOG = Logger.getLogger(EventFileDAO.class.getName());
     Map<String,Event> Events;   // Provides a local cache of the Event objects
                                 // so that we don't Event to read from the file

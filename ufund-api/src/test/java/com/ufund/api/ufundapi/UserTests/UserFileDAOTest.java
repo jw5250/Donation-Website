@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi;
+package com.ufund.api.ufundapi.UserTests;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,9 +49,9 @@ public class UserFileDAOTest {
 
         testUsers = new User[3];
 
-        testUsers[0] = new User("Bob Bone", false, arr);
-        testUsers[1] = new User("Bob Cone", true, null);
-        testUsers[2] = new User("Bob Stone", true, null);
+        testUsers[0] = new User("Bob Bone", false, arr, 0.0, null);
+        testUsers[1] = new User("Bob Cone", true, null, 0.0, null);
+        testUsers[2] = new User("Bob Stone", true, null, 0.0, null);
         when(mockObjectMapper
             .readValue(new File("none.txt"),User[].class))
                 .thenReturn(testUsers);
@@ -81,7 +81,7 @@ public class UserFileDAOTest {
      //Does not work.
     @Test
     public void testSearchCupboard() throws IOException{
-        User testArray = new User("Bob Stone", true, null);
+        User testArray = new User("Bob Stone", true, null, 0.0, null);
 
         User testResult = UserFileDAO.searchDataArray("St")[0];
 
@@ -96,7 +96,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testGetUser() throws IOException{
-        User testUser = new User("Bob Stone", true, null);
+        User testUser = new User("Bob Stone", true, null, 0.0, null);
         User testResult = UserFileDAO.getData(testUser.getName());
 
         assertEquals(testUser,testResult, "testGetUser");
@@ -116,8 +116,8 @@ public class UserFileDAOTest {
         Need[] arr = new Need[2];
         arr[0] = new Need("Thing1", "Type", 10, 4);
         arr[1] = new Need("Thing2", "Type2", 10, 5);
-        testUsers[0] = new User("Bob Bone", false, arr);
-        testUsers[1] = new User("Bob Stone", true, null);
+        testUsers[0] = new User("Bob Bone", false, arr, 0.0, null);
+        testUsers[1] = new User("Bob Stone", true, null, 0.0, null);
         assertTrue(UserFileDAO.deleteData("Bob Cone"),"testDeleteUser");
 
         User[] testResult = UserFileDAO.getDataArray(); 
@@ -134,7 +134,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testCreateUser() throws IOException{
-        User testUser = new User("Sob Btone", false, null);
+        User testUser = new User("Sob Btone", false, null, 0.0, null);
         User testResult = UserFileDAO.createData(testUser);
         testResult = UserFileDAO.getData("Sob Btone");
         assertNotNull(testResult, "testCreateUser: null result");
@@ -149,7 +149,7 @@ public class UserFileDAOTest {
      */
     @Test
     public void testUpdateUser() throws IOException{
-        User testUser = new User("Bob Stone", false, null);
+        User testUser = new User("Bob Stone", false, null, 0.0, null);
         UserFileDAO.updateData(testUser);
         User testResult = UserFileDAO.getData(testUser.getName());
 

@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Need } from '../need';
+import { Need } from '../dataClasses/need';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MessageService } from '../message.service';
-import { UserService } from '../user.service';
-import { User } from 'app/user';
-
+import { MessageService } from '../services/message.service';
+import { UserService } from '../services/user.service';
+import { User } from 'app/dataClasses/user';
 
 @Component({
     selector: 'app-fundingBasket',
@@ -15,7 +14,7 @@ import { User } from 'app/user';
   export class FundingBasketComponent implements OnInit {
 
     @Input() user?: User;
-    constructor(private loc :Location, private r : ActivatedRoute, private userService: UserService){}
+    constructor(private loc :Location, private r:ActivatedRoute, private userService: UserService){}
   
     ngOnInit(): void {
       this.getFundingBasket();

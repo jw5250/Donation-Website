@@ -8,11 +8,11 @@ public class User{
     @JsonProperty("isManager") private boolean isManager;
     @JsonProperty("fundingBasket") private Need[] fundingBasket;
     @JsonProperty("totalDonations") private double totalDonations;
-    @JsonProperty("availableRewards") private Map<String, Boolean> availableRewards;
-    //Key Value pair of the Donation reward's name and requirement/check if it has already been taken.
+    @JsonProperty("availableRewards") private String[] availableRewards;
+    
 
     public User(@JsonProperty("name") String n, @JsonProperty("isManager") boolean isMan, @JsonProperty("fundingBasket") Need[] fundingBask, 
-     @JsonProperty("totalDonations") double moneySpent, @JsonProperty("availableRewards") Map<String, Boolean> availability){
+     @JsonProperty("totalDonations") double moneySpent, @JsonProperty("availableRewards") String[] availability){
         name = n;
         isManager = isMan;
         totalDonations = moneySpent;
@@ -38,7 +38,7 @@ public class User{
         }
     }
 
-    public Map<String, Boolean> getAvailableRewards(){
+    public String[] getAvailableRewards(){
         return availableRewards;
     }
 

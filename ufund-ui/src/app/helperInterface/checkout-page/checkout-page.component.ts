@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { UserService } from '.././user.service';
-import { User } from '../user';
-import { Need } from '../need';
+import { UserService } from '../../services/user.service';
+import { User } from '../../dataClasses/user';
+import { Need } from '../../dataClasses/need';
 @Component({
   selector: 'app-checkout-page',
   templateUrl: './checkout-page.component.html',
@@ -11,6 +11,7 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   constructor(private userService: UserService){  
   }
   @Input() name? : string;
+  //needsRef? : Need[];
   user? : User;
   emptied : string = "Emptied Basket!";
   emptiedDisplay : string = '';
@@ -56,6 +57,10 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
       this.emptiedDisplay = this.emptied;
       return;
     }
+    for(let i = 0; i < this.user.fundingBasket.length;i++){
+      this.user.totalDonations += this.user.fundingBasket[i].cost;
+    }
+    //alert("You got a new reward! Make sure to check it out!");
     this.emptiedDisplay = '';
     this.user.fundingBasket = [];
     

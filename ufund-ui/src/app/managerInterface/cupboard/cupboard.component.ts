@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Need } from '../need';
-import { NeedService } from '../need.service';
+import { Need } from '../../dataClasses/need';
+import { NeedService } from '../../services/need.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { NEEDS } from '../dummy-needs';
+//import { NEEDS } from '../dummy-needs';
 
 @Component({
   selector: 'app-cupboard',

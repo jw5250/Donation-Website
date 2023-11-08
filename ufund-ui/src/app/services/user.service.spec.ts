@@ -1,9 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { UserService } from './user.service';
-import { User } from './user';
-import { Need } from './need';
-import { of } from 'rxjs';
+import { User } from '../dataClasses/user';
 
 
 describe('UserService', () => {
@@ -30,7 +28,9 @@ describe('UserService', () => {
       { name: 'item2', type: 'type2', cost: 20, quantity: 2 },
       { name: 'item3', type: 'type3', cost: 30, quantity: 3 }
       ],
-      isManager: false
+      isManager: false,
+      totalDonations : 0,
+      availableRewards : []
     };
 
     service.emptyFundingBasket(mockUser.name).subscribe(response => {
