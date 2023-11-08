@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'cupboard', component: CupboardComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   //":x" stands for variable x
-  { path: 'user/:name', component: HelperScreenComponent}
+  { path: 'user/:name', component: HelperScreenComponent},
   { path: 'user/:name/basket', component: FundingBasketComponent },
   { path: 'checkout', component: CheckoutPageComponent },
   { path:'login', component: SigninLoginScreenComponent }
