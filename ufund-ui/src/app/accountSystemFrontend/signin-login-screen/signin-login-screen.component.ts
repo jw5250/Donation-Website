@@ -11,7 +11,6 @@ import { DonationReward } from '../../dataClasses/DonationReward';
 })
 
 //Neither the signIn or logIn functions are working.
-//Current problem: Can't access the databases.
 export class SigninLoginScreenComponent implements OnInit{
   constructor(
     private userService: UserService,
@@ -43,20 +42,21 @@ export class SigninLoginScreenComponent implements OnInit{
     this.signInErrorMessage = "";
     if(this.signInName != undefined){
         this.signInName = this.signInName.trim();
-        let donationRewardMap : Map<string, boolean> = new Map();
+        let donationRewards : string[] = [];
         this.donationRewardService.getDonationRewards().subscribe((rewards) => 
         {
           for(let i = 0; i < rewards.length;i++){
-            donationRewardMap.set(rewards[i].name, false);
+            donationRewards.push(rewards[i].name);
           }
           //Async call inside of an async call
-          this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewardMap, totalDonations: 0} as User)
+          this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewards, totalDonations: 0} as User)
         .subscribe( (user) => {
           user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
           this.signInErrorMessage = "" ;
+          this.signInName = undefined;
         });
         });
-      this.signInName = undefined;
+
     }
   }
   //Access some account in the database.

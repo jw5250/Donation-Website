@@ -1,0 +1,20 @@
+<h1>Your UFund Reward List</h1>
+<h2>Rewards for Donations</h2>
+<label for = "donationRewards">Name | Requirement</label>
+<ul class = "donationRewards">
+    <li *ngFor="let reward of donationRewards">
+        <button type = "button" (click) = "selectDonationReward(reward)">
+            <span class = "attr">{{reward.name}}  |   </span>
+            <span class = "attr">{{reward.requirement}}  |   </span>
+            </button>
+        <button type = "button" (click) = "deleteDonationReward(reward)">X</button>
+            <br>
+    </li>
+</ul>
+<br>
+<form id = "donationRewardCreate" (ngSubmit)="getNewDonationRewardData()">
+    <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.name}}>
+    <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.requirement}}>
+    <br>
+    <input type = "submit" value = "Create or Update">
+</form>

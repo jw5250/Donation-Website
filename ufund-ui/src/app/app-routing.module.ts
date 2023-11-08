@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
-import { CupboardComponent } from './cupboard/cupboard.component';
+import { CupboardComponent } from './managerInterface/cupboard/cupboard.component';
 
 const routes: Routes = [
   { path: 'cupboard', component: CupboardComponent },

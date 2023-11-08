@@ -1,10 +1,7 @@
-<h2>Needs</h2>
-<label for="type-search"> Search by type: </label>
-<input id="type-search" [(ngModel)]="searchTerm" placeholder="">
-<button type="button" (click)="filter()">Filter needs</button>
+<h2>Rewards for donations!</h2>
 <label for = "needs">Name | Type | Cost | Quantity</label>
-<ul class = "needs">
-    <li *ngFor="let need of needsDisplayed">
+<ul class = "donations">
+    <li *ngFor="let need of returnUserNeeds()">
         <button type = "button" (click) = "addToFundingBasket(need)">
             <span class = "attr">{{need.name}}  |   </span>
             <span class = "attr">{{need.type}}  |   </span>
@@ -15,3 +12,4 @@
     </li>
 </ul>
 <br>
+<div><app-checkout-page [name] = "name"></app-checkout-page>

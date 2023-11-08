@@ -1,0 +1,8 @@
+<!--Should be able to add a reward or something like that.-->
+<h2>Donation Rewards You Can Get</h2>
+<div class="donationSystem">
+    <!--Calling the getDonations() here causes infinite loop of requests sent. Why?-->
+    <li *ngFor="let donationName of rewardsAvailable">
+        <!--Not updating correctly.-->
+        <button type = "button" (click) = "addDonation(donationName)">{{donationName}}</button>
+</div>
