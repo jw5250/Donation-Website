@@ -44,9 +44,9 @@ public class DonationRewardFileDAOTest {
     public void setupDonationRewardFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testDonationRewards = new DonationReward[3];
-        testDonationRewards[0] = new DonationReward("Art", 10000, 5);
-        testDonationRewards[1] = new DonationReward("Teachers", 0, 10);
-        testDonationRewards[2] = new DonationReward("null", 0, 0);
+        testDonationRewards[0] = new DonationReward("Art", 10000);
+        testDonationRewards[1] = new DonationReward("Teachers", 0);
+        testDonationRewards[2] = new DonationReward("null", 0);
 
         when(mockObjectMapper
             .readValue(new File("none.txt"),DonationReward[].class))
@@ -64,9 +64,9 @@ public class DonationRewardFileDAOTest {
     @Test
     public void testGetDonationRewardArray() throws IOException{
         DonationReward[] testArray = new DonationReward[3];
-        testArray[0] = new DonationReward("Art", 10000, 5);
-        testArray[1] = new DonationReward("Teachers", 0, 10);
-        testArray[2] = new DonationReward("null", 0, 0);
+        testArray[0] = new DonationReward("Art", 10000);
+        testArray[1] = new DonationReward("Teachers", 0);
+        testArray[2] = new DonationReward("null", 0);
 
         DonationReward[] testResult = DonationRewardFileDAO.getDataArray();
 
@@ -82,8 +82,8 @@ public class DonationRewardFileDAOTest {
     @Test
     public void testSearchDonationReward() throws IOException{
         DonationReward[] testArray = new DonationReward[2];
-        testArray[0] = new DonationReward("Art", 10000, 5);
-        testArray[1] = new DonationReward("Teachers", 0, 10);
+        testArray[0] = new DonationReward("Art", 10000);
+        testArray[1] = new DonationReward("Teachers", 0);
 
         DonationReward[] testResult = DonationRewardFileDAO.searchDataArray("r");
 
@@ -98,7 +98,7 @@ public class DonationRewardFileDAOTest {
      */
     @Test
     public void testGetDonationReward() throws IOException{
-        DonationReward testDonationReward = new DonationReward("Art", 10000, 5);
+        DonationReward testDonationReward = new DonationReward("Art", 10000);
         DonationReward testResult = DonationRewardFileDAO.getData("Art");
 
         assertEquals(testDonationReward,testResult, "testGetDonationReward");
@@ -114,8 +114,8 @@ public class DonationRewardFileDAOTest {
     @Test
     public void testDeleteDonationReward() throws IOException{
         DonationReward[] testArray = new DonationReward[2];
-        testArray[0] = new DonationReward("Art", 10000, 5);
-        testArray[1] = new DonationReward("Teachers", 0, 10);
+        testArray[0] = new DonationReward("Art", 10000);
+        testArray[1] = new DonationReward("Teachers", 0);
 
         assertTrue(DonationRewardFileDAO.deleteData("null"),"testDeleteDonationReward");
 
@@ -131,7 +131,7 @@ public class DonationRewardFileDAOTest {
      */
     @Test
     public void testCreateDonationReward() throws IOException{
-        DonationReward testDonationReward = new DonationReward("Garden", 5000, 5);
+        DonationReward testDonationReward = new DonationReward("Garden", 5000);
         DonationReward testResult = DonationRewardFileDAO.createData(testDonationReward);
         testResult = DonationRewardFileDAO.getData("Garden");
         assertNotNull(testResult, "testCreateDonationReward: null result");
@@ -146,11 +146,10 @@ public class DonationRewardFileDAOTest {
      */
     @Test
     public void testUpdateDonationReward() throws IOException{
-        DonationReward testDonationReward = new DonationReward("Art", 6000, 3);
+        DonationReward testDonationReward = new DonationReward("Art", 6000);
         DonationRewardFileDAO.updateData(testDonationReward);
         DonationReward testResult = DonationRewardFileDAO.getData("Art");
 
         assertEquals(testDonationReward,testResult, "testUpdateDonationReward");
     }
-
 }

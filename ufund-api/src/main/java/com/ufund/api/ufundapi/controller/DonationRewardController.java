@@ -9,7 +9,7 @@ import com.ufund.api.ufundapi.model.User;
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
 
 @RestController
-@RequestMapping("donationReward")
+@RequestMapping("donationRewards")
 public class DonationRewardController extends controllerInterface<DonationReward> {
         /**
      * Creates a REST API controller to reponds to requests

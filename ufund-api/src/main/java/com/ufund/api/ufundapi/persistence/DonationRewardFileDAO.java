@@ -165,7 +165,7 @@ public class DonationRewardFileDAO implements DataFileDAO<DonationReward> {
             DonationReward exists = getData(DonationReward.getName());
 
             if(exists == null){
-                DonationReward newDonationReward = new DonationReward(DonationReward.getName(), DonationReward.getRequirement(), DonationReward.getQuantity());
+                DonationReward newDonationReward = new DonationReward(DonationReward.getName(), DonationReward.getRequirement());
                 DonationRewards.put(newDonationReward.getName(),newDonationReward);
                 save(); // may throw an IOException
                 return newDonationReward;

@@ -50,7 +50,7 @@ public class DonationRewardControllerTest {
     @Test
     public void testGet() throws IOException {  // getData may throw IOException
 
-        DonationReward Data = new DonationReward("thing1", 99, 10);
+        DonationReward Data = new DonationReward("thing1", 99);
 
         //Always have the mock object always return the "correct" value.
         when(mockDataDAO.getData(Data.getName())).thenReturn(Data);
@@ -94,7 +94,7 @@ public class DonationRewardControllerTest {
     //Justin Wu's work:
     @Test
     public void testCreateData() throws IOException {  // createData may throw IOException
-        DonationReward Data = new DonationReward("thing9", 9, 10);
+        DonationReward Data = new DonationReward("thing9", 9);
 
         when(mockDataDAO.createData(Data)).thenReturn(Data);
 
@@ -105,7 +105,7 @@ public class DonationRewardControllerTest {
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
         assertEquals(Data,response.getBody());
 
-        Data = new DonationReward("thing9", 9, 10);
+        Data = new DonationReward("thing9", 9);
 
         when(mockDataDAO.createData(Data)).thenReturn(null);
 
@@ -135,7 +135,7 @@ public class DonationRewardControllerTest {
     @Test
     public void testUpdateData() throws IOException { // updateData may throw IOException
         
-        DonationReward Data = new DonationReward("thing10", 9, 100);
+        DonationReward Data = new DonationReward("thing10", 9);
         
         when(mockDataDAO.updateData(Data)).thenReturn(Data);
         ResponseEntity<DonationReward> response = DataController.updateData(Data);
@@ -149,7 +149,7 @@ public class DonationRewardControllerTest {
         assertEquals(Data,response.getBody());
 
 
-        Data = new DonationReward("thing10", 9, 100);
+        Data = new DonationReward("thing10", 9);
         
         when(mockDataDAO.updateData(Data)).thenReturn(null);
 
@@ -180,8 +180,8 @@ public class DonationRewardControllerTest {
     public void testGetCupboard() throws IOException { // getCupboard may throw IOException
 
         DonationReward[] Datas = new DonationReward[2];
-        Datas[0] = new DonationReward("thing10", 9, 100);
-        Datas[1] = new DonationReward("thing5", 1, 1040);
+        Datas[0] = new DonationReward("thing10", 9);
+        Datas[1] = new DonationReward("thing5", 1);
 
         when(mockDataDAO.getDataArray()).thenReturn(Datas);
 
@@ -209,8 +209,8 @@ public class DonationRewardControllerTest {
     public void testSearchDatas() throws IOException { // searchDatas may throw IOException
         String searchString = "ing";
         DonationReward[] Datas = new DonationReward[2];
-        Datas[0] = new DonationReward("thing10", 9, 100);
-        Datas[1] = new DonationReward("thing9", 9, 10);
+        Datas[0] = new DonationReward("thing10", 9);
+        Datas[1] = new DonationReward("thing9", 9);
         
         when(mockDataDAO.searchDataArray(searchString)).thenReturn(Datas);
 

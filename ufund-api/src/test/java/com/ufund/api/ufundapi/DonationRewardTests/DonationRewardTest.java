@@ -35,7 +35,7 @@ public class DonationRewardTest {
      */
     @BeforeEach
     public void setupDonationReward() {
-        testDonationReward = new DonationReward("Art", 10000, 5);
+        testDonationReward = new DonationReward("Art", 10000);
     }
 
     /**
@@ -65,7 +65,7 @@ public class DonationRewardTest {
      */
     @Test
     public void testToString(){
-        String testString = "DonationReward[name=Art, requirement=10000, quantity=5]";
+        String testString = "DonationReward[name=Art, requirement=10000]";
         String testResult = testDonationReward.toString();
         assertEquals(testString,testResult, "testToString");
     }
