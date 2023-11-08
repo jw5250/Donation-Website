@@ -7,11 +7,12 @@
 <!--Once MVP is done, change the ngIf statements into links.-->
 </nav>
 <!--Log in interface here! Should get the user data.-->
+<!--
 <app-signin-login-screen (person)="getData($event)"></app-signin-login-screen>
 <ng-template [ngIf] = "isHelper()"><div><app-helper-choice-interface [name] = "getUserName()"></app-helper-choice-interface></div></ng-template>
 <ng-template [ngIf] = "isHelper()"><div><app-checkout-page [name] = "getUserName()"></app-checkout-page></div></ng-template>
 <ng-template [ngIf] = "isManager()"><div><app-cupboard></app-cupboard></div></ng-template>
-<ng-template [ngIf] = "noAccount()"><div></div></ng-template>
-<!--router-outlet></router-outlet-->
+<ng-template [ngIf] = "noAccount()"><div></div></ng-template> -->
+<router-outlet></router-outlet>
 <!--app-dashboard></app-dashboard-->
 <app-messages></app-messages>
