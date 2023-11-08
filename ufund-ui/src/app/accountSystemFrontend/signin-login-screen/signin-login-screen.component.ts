@@ -1,7 +1,9 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { MessageService } from './../../message.service';
-import { UserService } from '../../user.service';
-import { User } from '../../user';
+import { MessageService } from '../../services/message.service';
+import { UserService } from '../../services/user.service';
+import { DonationRewardService } from '../../services/donation-reward.service';
+import { User } from '../../dataClasses/user';
+import { DonationReward } from '../../dataClasses/DonationReward';
 @Component({
   selector: 'app-signin-login-screen',
   templateUrl: './signin-login-screen.component.html',
@@ -13,6 +15,7 @@ import { User } from '../../user';
 export class SigninLoginScreenComponent implements OnInit{
   constructor(
     private userService: UserService,
+    private donationRewardService: DonationRewardService,
     private messanger: MessageService
   ) {}
   //Used so this component can communicate with those that use it.
@@ -40,10 +43,18 @@ export class SigninLoginScreenComponent implements OnInit{
     this.signInErrorMessage = "";
     if(this.signInName != undefined){
         this.signInName = this.signInName.trim();
-        this.userService.addData({name : this.signInName, isManager : false, fundingBasket : []} as User)
+        let donationRewardMap : Map<string, boolean> = new Map();
+        this.donationRewardService.getDonationRewards().subscribe((rewards) => 
+        {
+          for(let i = 0; i < rewards.length;i++){
+            donationRewardMap.set(rewards[i].name, false);
+          }
+          //Async call inside of an async call
+          this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewardMap, totalDonations: 0} as User)
         .subscribe( (user) => {
           user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
           this.signInErrorMessage = "" ;
+        });
         });
       this.signInName = undefined;
     }

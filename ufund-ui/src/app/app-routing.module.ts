@@ -1,10 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-/*
-import { NeedsComponent } from './needs/needs.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { NeedDetailComponent } from './need-detail/need-detail.component';
-*/
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './cupboard/cupboard.component';
 

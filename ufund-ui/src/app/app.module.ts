@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import { HelperScreenComponent } from './accountSystemFrontend/helper-screen/helper-screen.component';
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './cupboard/cupboard.component';
 
@@ -21,7 +20,6 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
   declarations: [
     AppComponent,
     MessagesComponent,
-    HelperScreenComponent,
     SigninLoginScreenComponent,
     CupboardComponent,
     HelperChoiceInterfaceComponent,
