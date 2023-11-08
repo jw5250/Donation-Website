@@ -3,8 +3,8 @@ package com.ufund.api.ufundapi.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
-import com.stripe.param.FeeRefundCreateParams;
-import com.stripe.param.FeeRefundCreateParams.Builder;
+//import com.stripe.param.FeeRefundCreateParams;
+//import com.stripe.param.FeeRefundCreateParams.Builder;
 import com.stripe.model.Charge;
 import com.stripe.model.Refund;
 
