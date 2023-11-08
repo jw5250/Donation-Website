@@ -41,21 +41,22 @@ export class SigninLoginScreenComponent implements OnInit{
   signIn(): void {
     this.signInErrorMessage = "";
     if(this.signInName != undefined){
-        this.signInName = this.signInName.trim();
-        let donationRewards : string[] = [];
-        this.donationRewardService.getDonationRewards().subscribe((rewards) => 
+      this.signInName = this.signInName.trim();
+      let donationRewards : string[] = [];
+      this.donationRewardService.getDonationRewards().subscribe((rewards) => 
+      {
+        for(let i = 0; i < rewards.length;i++){
+          donationRewards.push(rewards[i].name);
+        }
+        //Async call inside of an async call
+        this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewards, totalDonations: 0} as User)
+      .subscribe( (user) => 
         {
-          for(let i = 0; i < rewards.length;i++){
-            donationRewards.push(rewards[i].name);
-          }
-          //Async call inside of an async call
-          this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewards, totalDonations: 0} as User)
-        .subscribe( (user) => {
           user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
           this.signInErrorMessage = "" ;
           this.signInName = undefined;
         });
-        });
+      });
 
     }
   }
