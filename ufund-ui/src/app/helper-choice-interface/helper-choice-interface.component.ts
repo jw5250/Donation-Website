@@ -24,6 +24,13 @@ export class HelperChoiceInterfaceComponent implements OnInit{
       this.getNeeds();
       this.getUser();
     }
+    returnUserNeeds(){
+      if(this.user !== undefined){
+        return this.user.fundingBasket;
+      }else{
+        return [];
+      }
+    }
     //Get list of needs
     getNeeds(): void {
       this.needService.getCupboard()
@@ -53,6 +60,7 @@ export class HelperChoiceInterfaceComponent implements OnInit{
       }
 
       this.userService.updateData(this.user).subscribe();
+      sessionStorage.setItem("userData", JSON.stringify(this.user));
     }
     //Get user
     getUser():void{

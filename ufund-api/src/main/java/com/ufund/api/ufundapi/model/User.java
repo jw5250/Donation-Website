@@ -1,5 +1,5 @@
 package com.ufund.api.ufundapi.model;
-
+import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 //The data class for the users.
 
@@ -7,14 +7,21 @@ public class User{
     @JsonProperty("name") private String name;
     @JsonProperty("isManager") private boolean isManager;
     @JsonProperty("fundingBasket") private Need[] fundingBasket;
-    public User(@JsonProperty("name") String n, @JsonProperty("isManager") boolean isMan, @JsonProperty("fundingBasket") Need[] fundingBask){
+    @JsonProperty("totalDonations") private double totalDonations;
+    @JsonProperty("availableRewards") private Map<String, Boolean> availableRewards;
+    //Key Value pair of the Donation reward's name and requirement/check if it has already been taken.
+
+    public User(@JsonProperty("name") String n, @JsonProperty("isManager") boolean isMan, @JsonProperty("fundingBasket") Need[] fundingBask, 
+     @JsonProperty("totalDonations") double moneySpent, @JsonProperty("availableRewards") Map<String, Boolean> availability){
         name = n;
         isManager = isMan;
+        totalDonations = moneySpent;
         if(fundingBask == null){
             fundingBasket = null;
             return;
         }
         setFundingBasket(fundingBask);
+        availableRewards = availability;
     }
     /**
      * Sets the name of the need - necessary for JSON object to Java object deserialization
@@ -22,12 +29,21 @@ public class User{
      */
     public void setName(String name) {this.name = name;}
 
+    //Is this needed?
     public void setFundingBasket(Need[] fundingBask){
         fundingBasket = new Need[fundingBask.length];
         //Deep copy.
         for(int i = 0; i < fundingBasket.length;i++){
             fundingBasket[i] = new Need(fundingBask[i].getName(), fundingBask[i].getType(), fundingBask[i].getCost(), fundingBask[i].getQuantity());
         }
+    }
+
+    public Map<String, Boolean> getAvailableRewards(){
+        return availableRewards;
+    }
+
+    public double getTotalDonations(){
+        return totalDonations;
     }
     //Also a getter.
     public String getName(){

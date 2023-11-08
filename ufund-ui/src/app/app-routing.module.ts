@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { FundingBasketComponent } from './fundingBasket/fundingBasket.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
-import { HelperScreenComponent } from './accountSystemFrontend/helper-screen/helper-screen.component';
+
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './cupboard/cupboard.component';
 import { EventComponent } from './event/event.component';
@@ -13,7 +13,6 @@ const routes: Routes = [
   { path:'login', component: SigninLoginScreenComponent },
   { path: 'cupboard', component: CupboardComponent },
   //":x" stands for variable x
-  { path: 'user/:name', component: HelperScreenComponent},
   { path: 'user/:name/basket', component: FundingBasketComponent },
   { path: 'checkout', component: CheckoutPageComponent },
   { path: 'events', component: EventComponent}

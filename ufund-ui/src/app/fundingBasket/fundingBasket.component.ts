@@ -46,6 +46,7 @@ import { User } from 'app/user';
     save():void{
       if(this.user != undefined){
         this.userService.updateData(this.user).subscribe(()=>this.goBack());
+        sessionStorage.setItem("userData", JSON.stringify(this.user));
       }
     }
     goBack():void{
