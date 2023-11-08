@@ -1,3 +1,27 @@
+commit c087a6e16389208fc8a1a4444f13700d8f9bdf78
+Author: jl2476 <123974333+jl2476@users.noreply.github.com>
+Date:   Thu Sep 28 00:14:28 2023 -0400
+
+    name
+
+commit 1538c8f4049c2e713c80da78698520465ee0b168
+Author: dra7835 <dra7835@rit.edu>
+Date:   Wed Sep 27 23:38:04 2023 -0400
+
+    ~
+
+commit f0a74b605d4f453e683ad9f04cd318f7e4a28511
+Author: dra7835 <dra7835@rit.edu>
+Date:   Wed Sep 27 23:36:49 2023 -0400
+
+    This should be the last commit for now, hopefully
+
+commit 9f5503a34e5ea4ef94de76b51af22c680da6a329
+Author: dra7835 <dra7835@rit.edu>
+Date:   Wed Sep 27 23:33:19 2023 -0400
+
+    Done with creating team repo, although one of our members fell asleep probably
+
 commit bf53b6bed02410218e05bb09a7f05822e20f826c
 Author: Ricky Yang <ry8467@rit.edu>
 Date:   Wed Sep 27 21:55:57 2023 -0400

@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.ufund.api.ufundapi.model.Need;
+import com.ufund.api.ufundapi.model.User;
 
 /**
- * The unit test suite for the Hero class
+ * The unit test suite for the Need class
  * 
  * @author Ricky Yang
  */
@@ -52,4 +53,5 @@ public class FundingBasketTest {
         // Analyze
         assertEquals(expected_name,Data.getName());
     }
+
 }
