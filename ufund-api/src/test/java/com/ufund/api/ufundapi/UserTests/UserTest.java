@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi;
+package com.ufund.api.ufundapi.UserTests;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class UserTest {
         Need[] arr = new Need[2];
         arr[0] = new Need("Thing1", "Type", 10, 4);
         arr[1] = new Need("Thing2", "Type2", 10, 5);
-        testUser = new User("Art", true, arr);
+        testUser = new User("Art", true, arr, 0.0, null);
     }
 
     /**
@@ -72,14 +72,14 @@ public class UserTest {
     public void testEquals(){
         Need[] test = new Need[1];
         test[0] = new Need("a", "b", 0, 1);
-        User testUser1 = new User("Bob", true, null);
-        User testUser2 = new User("Bob", false, test);
+        User testUser1 = new User("Bob", true, null, 0.0, null);
+        User testUser2 = new User("Bob", false, test, 0.0, null);
         assertEquals(testUser1, testUser2, "testSetName");
     }
 
     @Test
     public void testGetIsManager(){
-        User testUser = new User("Bob", true, null);
+        User testUser = new User("Bob", true, null, 0.0, null);
         assertEquals(testUser.getIsManager(), true);
     }
 }
