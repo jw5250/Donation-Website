@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { DonationRewardService } from '../../services/donation-reward.service';
 import { UserService } from '../../services/user.service';
 import { DonationReward } from '../../dataClasses/DonationReward';
+//Test change
 @Component({
   selector: 'app-manager-donation-rewards-interface',
   templateUrl: './manager-donation-rewards-interface.component.html',
