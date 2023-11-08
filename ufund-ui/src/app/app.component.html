@@ -8,6 +8,7 @@
 <!--Once MVP is done, change the ngIf statements into links.-->
 </nav>
 <!--Log in interface here! Should get the user data.-->
+<!--Changing accounts after logging into an account breaks the UI. Fix-->
 <app-signin-login-screen (person)="getData($event)"></app-signin-login-screen>
 <ng-template [ngIf] = "isHelper()"><div><app-helper-choice-interface [name] = "getUserName()"></app-helper-choice-interface></div></ng-template>
 <!--Part below is nonfunctional. What went wrong?-->

@@ -3,7 +3,6 @@ import { MessageService } from '../../services/message.service';
 import { UserService } from '../../services/user.service';
 import { DonationRewardService } from '../../services/donation-reward.service';
 import { User } from '../../dataClasses/user';
-import { DonationReward } from '../../dataClasses/DonationReward';
 @Component({
   selector: 'app-signin-login-screen',
   templateUrl: './signin-login-screen.component.html',
@@ -80,9 +79,10 @@ export class SigninLoginScreenComponent implements OnInit{
             this.messanger.add("Invalid account!");
             this.logInErrorMessage = "Account does not exist.";
           }
+          this.logInName = undefined;
         });
     }
-    this.logInName = undefined;
+
   }
   //Log out of the account
   logOut(): void{
@@ -90,6 +90,7 @@ export class SigninLoginScreenComponent implements OnInit{
     if(this.user == undefined){
       return;
     }
+    
     this.userService.updateData(this.user).subscribe(()=>{
       sessionStorage.removeItem(this.userIdentifier);
       this.person.emit(undefined);
