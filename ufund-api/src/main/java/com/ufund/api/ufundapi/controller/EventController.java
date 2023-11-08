@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
-import com.ufund.api.ufundapi.persistence.EventFileDAOFileDAO;
+import com.ufund.api.ufundapi.persistence.EventFileDAO;
 import com.ufund.api.ufundapi.model.Event;
 
 /**
@@ -22,7 +22,7 @@ import com.ufund.api.ufundapi.model.Event;
 @RestController
 //Maps this class to a certain url.
 @RequestMapping("Event")
-public class EventsController extends controllerInterface<Event> {
+public class EventController extends controllerInterface<Event> {
     //private DataFileDAO<Event> eventDao;
     
     /**
@@ -32,8 +32,8 @@ public class EventsController extends controllerInterface<Event> {
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public EventsController(DataFileDAO<Event> eventDao) {
-        super(eventDao, Logger.getLogger(EventsController.class.getName()));
+    public EventController(DataFileDAO<Event> eventDao) {
+        super(eventDao, Logger.getLogger(EventController.class.getName()));
         //this.eventDao = eventDao;
     }
     /**

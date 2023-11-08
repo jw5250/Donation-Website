@@ -38,10 +38,10 @@ public class PaymentController {
         return paymentService.authorizeUser(username, password);
     }
 
-    @GetMapping("/{source}")
+    /*@GetMapping("/{source}")
     public ResponseEntity<paymentService> getData(@PathVariable String source) {
         // Logic for getting data from the payment service
-        Log.info("GET /payment/" + source);
+        this.Log.info("GET /payment/" + source);
         try {
             if(paymentService != null){
                 return new ResponseEntity<paymentService>(paymentService,HttpStatus.OK);
@@ -52,7 +52,7 @@ public class PaymentController {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
     
 
     public String getPaymentStatus(paymentService mockPaymentService) {
