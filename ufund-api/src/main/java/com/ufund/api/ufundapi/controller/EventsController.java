@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.logging.Logger;
 import com.ufund.api.ufundapi.persistence.DataFileDAO;
-import com.ufund.api.ufundapi.persistence.EventFileDAOFileDAO;
+import com.ufund.api.ufundapi.persistence.EventFileDAO;
 import com.ufund.api.ufundapi.model.Event;
 
 /**
