@@ -65,11 +65,14 @@ export class ManagerDonationRewardsInterfaceComponent {
         if(reward !== undefined){
           this.donationRewards.push(reward);
         }
+        console.log("Informing users...");
         this.userService.getDataArray().subscribe(
         (users)=>{
           for(let i = 0; i < users.length;i++){
-            users[i].availableRewards.push(reward.name);
-            this.userService.updateData(users[i]);
+            if(users[i].isManager == false){
+              users[i].availableRewards.push(reward.name);
+              this.userService.updateData(users[i]).subscribe();
+            }
           }
         }
         );
@@ -83,24 +86,20 @@ export class ManagerDonationRewardsInterfaceComponent {
    * deleteDonationReward: deletes the given DonationReward from data storage
    * @param delDonationReward : DonationReward to delete
    */
-  deleteDonationReward(delDonationReward: DonationReward): void {
-    this.donationRewards = this.donationRewards.filter(DonationReward => {return DonationReward.name !== delDonationReward.name;});
+  deleteDonationReward(delDonationReward: string): void {
+    this.donationRewards = this.donationRewards.filter(DonationReward => {return DonationReward.name !== delDonationReward;});
     this.selectDonationReward(this.voidDonationReward);
-    this.donationRewardService.deleteDonationReward(delDonationReward.name).subscribe(
-    (removed) => {
-        if(removed !== undefined){
-          this.donationRewards = this.donationRewards.filter((reward)=>{return reward.name !== removed.name});
+    this.userService.getDataArray().subscribe(
+      (users)=>{
+      for(let i = 0; i < users.length;i++){
+        if(users[i].isManager == false){
+          users[i].availableRewards = users[i].availableRewards.filter((rewardName)=>{return rewardName !== delDonationReward});
+          this.userService.updateData(users[i]).subscribe();
         }
-        this.userService.getDataArray().subscribe(
-        (users)=>{
-          for(let i = 0; i < users.length;i++){
-            users[i].availableRewards = users[i].availableRewards.filter((rewardName)=>{return rewardName !== removed.name});
-            this.userService.updateData(users[i]);
-          }
-        }
-        );
-    }
-    );
+      }
+      this.donationRewards = this.donationRewards.filter((reward)=>{return reward.name !== delDonationReward});
+      this.donationRewardService.deleteDonationReward(delDonationReward).subscribe();
+    });
   }
 
   
@@ -118,9 +117,10 @@ export class ManagerDonationRewardsInterfaceComponent {
   
 
     if(filtered.length !== this.donationRewards.length){
+      //Considering string of IDs is used for users. don't need to worry about editting requirements,
+      //UI is not updating properly once again.
       this.donationRewardService.updateDonationReward(newDonationReward)
       .subscribe();
-
     }
     else{
       this.addDonationReward(newDonationReward);

@@ -1,13 +1,13 @@
-<h2>Rewards for donations!</h2>
-<label for = "needs">Name | Type | Cost | Quantity</label>
-<ul class = "donations">
-    <li *ngFor="let need of returnUserNeeds()">
+<ul class = "needs">
+    <h3>Click on the needs to add them to your funding basket.</h3>
+    <label for = "needs">Name | Type | Cost | Quantity</label>
+    <li *ngFor="let need of needsDisplayed">
         <button type = "button" (click) = "addToFundingBasket(need)">
             <span class = "attr">{{need.name}}  |   </span>
             <span class = "attr">{{need.type}}  |   </span>
             <span class = "attr">{{need.cost}}  |   </span>
             <span class = "attr">{{need.quantity}}  </span>
-            </button>
+            </button>   
             <br>
     </li>
 </ul>

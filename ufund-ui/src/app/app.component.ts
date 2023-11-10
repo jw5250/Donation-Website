@@ -24,6 +24,13 @@ export class AppComponent{
       return this.userData.name;
     }
   }
+  getWelcome(){
+    if(this.userData !== undefined){
+      return "Weclome " + this.userData.name +  "!";
+    }else{
+      return "";    
+    }
+  }
   getUser(){
     return this.userData;
   }
