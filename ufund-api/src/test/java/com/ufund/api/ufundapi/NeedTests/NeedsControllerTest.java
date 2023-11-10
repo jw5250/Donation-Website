@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi;
+package com.ufund.api.ufundapi.NeedTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;

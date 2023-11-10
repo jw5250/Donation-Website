@@ -1,4 +1,4 @@
-package com.ufund.api.ufundapi;
+package com.ufund.api.ufundapi.UserTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
@@ -53,7 +53,7 @@ public class UsersControllerTest {
     @Test
     public void testGet() throws IOException {  // getData may throw IOException
 
-        User Data = new User("thing1", false, null);
+        User Data = new User("thing1", false, null, 0.0, null);
 
         //Always have the mock object always return the "correct" value.
         when(mockDataDAO.getData(Data.getName())).thenReturn(Data);
@@ -96,7 +96,7 @@ public class UsersControllerTest {
     //Demarkate this as a test
     @Test
     public void testCreateData() throws IOException {  // createData may throw IOException
-        User Data = new User("thing9", false, null);
+        User Data = new User("thing9", false, null, 0.0, null);
 
         when(mockDataDAO.createData(Data)).thenReturn(Data);
 
@@ -107,7 +107,7 @@ public class UsersControllerTest {
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
         assertEquals(Data,response.getBody());
 
-        Data = new User("thing9", true, null);
+        Data = new User("thing9", true, null, 0.0, null);
 
         when(mockDataDAO.createData(Data)).thenReturn(null);
 
@@ -139,7 +139,7 @@ public class UsersControllerTest {
     @Test
     public void testUpdateData() throws IOException { // updateData may throw IOException
         
-        User Data = new User("thing10", false, null);
+        User Data = new User("thing10", false, null, 0.0, null);
         
         when(mockDataDAO.updateData(Data)).thenReturn(Data);
         ResponseEntity<User> response = DataController.updateData(Data);
@@ -153,7 +153,7 @@ public class UsersControllerTest {
         assertEquals(Data,response.getBody());
 
 
-        Data = new User("thing10", false, null);
+        Data = new User("thing10", false, null, 0.0, null);
         
         when(mockDataDAO.updateData(Data)).thenReturn(null);
 
@@ -184,8 +184,8 @@ public class UsersControllerTest {
     public void testGetUsers() throws IOException { // getCupboard may throw IOException
 
         User[] Datas = new User[2];
-        Datas[0] = new User("thing10", false, null);
-        Datas[1] = new User("thing5", true, null);
+        Datas[0] = new User("thing10", false, null, 0.0, null);
+        Datas[1] = new User("thing5", true, null, 0.0, null);
 
         when(mockDataDAO.getDataArray()).thenReturn(Datas);
 
@@ -213,8 +213,8 @@ public class UsersControllerTest {
     public void testSearchDatas() throws IOException { // searchDatas may throw IOException
         String searchString = "ing";
         User[] Datas = new User[2];
-        Datas[0] = new User("thing10", false, null);
-        Datas[1] = new User("thing9", true, null);
+        Datas[0] = new User("thing10", false, null, 0.0, null);
+        Datas[1] = new User("thing9", true, null, 0.0, null);
         
         when(mockDataDAO.searchDataArray(searchString)).thenReturn(Datas);
 

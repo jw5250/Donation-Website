@@ -1,4 +1,4 @@
-import {Need} from "./need";
+import {Need} from "./dataClasses/need";
 
 export const NEEDS: Need[] = [
     {name: "need1", type: "Fundraiser", cost: 10000, quantity: 1},

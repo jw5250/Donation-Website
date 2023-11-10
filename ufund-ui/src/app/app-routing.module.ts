@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { FundingBasketComponent } from './fundingBasket/fundingBasket.component';
-import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { CheckoutPageComponent } from './helperInterface/checkout-page/checkout-page.component';
 
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
-import { CupboardComponent } from './cupboard/cupboard.component';
+import { CupboardComponent } from './managerInterface/cupboard/cupboard.component';
 import { EventComponent } from './event/event.component';
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
   //":x" stands for variable x
   { path: 'user/:name/basket', component: FundingBasketComponent },
   { path: 'checkout', component: CheckoutPageComponent },
-  { path: 'events', component: EventComponent}
+  //{ path: 'events', component: EventComponent}
   
 ];
 

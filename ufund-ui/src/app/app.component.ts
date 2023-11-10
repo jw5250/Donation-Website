@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './user';
+import { User } from './dataClasses/user';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +24,13 @@ export class AppComponent{
       return this.userData.name;
     }
   }
+  getWelcome(){
+    if(this.userData !== undefined){
+      return "Weclome " + this.userData.name +  "!";
+    }else{
+      return "";    
+    }
+  }
   getUser(){
     return this.userData;
   }
@@ -32,8 +39,5 @@ export class AppComponent{
   }
   isManager(){
     return ( (this.userData !== undefined) && (this.userData.isManager === true));
-  }
-  noAccount(){
-    return this.userData === undefined;
   }
 }

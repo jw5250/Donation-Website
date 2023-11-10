@@ -1,16 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NeedService } from '../need.service';
-import { UserService } from '../user.service';
-import { User } from '../user';
-import { Need } from '../need';
+import { NeedService } from '../../services/need.service';
+import { UserService } from '../../services/user.service';
+import { User } from '../../dataClasses/user';
+import { Need } from '../../dataClasses/need';
 @Component({
   selector: 'app-helper-choice-interface',
   templateUrl: './helper-choice-interface.component.html',
   styleUrls: ['./helper-choice-interface.component.css']
 })
 export class HelperChoiceInterfaceComponent implements OnInit{
-    needs? : Need[];
-    needsDisplayed? : Need[];
+    needs : Need[] = [];
+    needsDisplayed : Need[] = [];
     @Input() searchTerm : string = '';
     @Input() name? : string;
     user? : User;

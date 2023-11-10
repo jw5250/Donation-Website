@@ -1,6 +1,6 @@
 <h2>Funding Basket</h2>
 <div class="fundingBasket-menu">
-  <a *ngFor="let fundingBasket of needs"
+  <a *ngFor="let fundingBasket of basketRef"
       routerLink="/needs/{{needs.name}}">
       <span class="need">{{need.name}}</span>
       <button onclick="deleteFundingBasket(need.name)">Delete</button>

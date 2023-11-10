@@ -3,7 +3,6 @@ import { MessageService } from '../../services/message.service';
 import { UserService } from '../../services/user.service';
 import { DonationRewardService } from '../../services/donation-reward.service';
 import { User } from '../../dataClasses/user';
-import { DonationReward } from '../../dataClasses/DonationReward';
 @Component({
   selector: 'app-signin-login-screen',
   templateUrl: './signin-login-screen.component.html',
@@ -11,7 +10,6 @@ import { DonationReward } from '../../dataClasses/DonationReward';
 })
 
 //Neither the signIn or logIn functions are working.
-//Current problem: Can't access the databases.
 export class SigninLoginScreenComponent implements OnInit{
   constructor(
     private userService: UserService,
@@ -42,21 +40,23 @@ export class SigninLoginScreenComponent implements OnInit{
   signIn(): void {
     this.signInErrorMessage = "";
     if(this.signInName != undefined){
-        this.signInName = this.signInName.trim();
-        let donationRewardMap : Map<string, boolean> = new Map();
-        this.donationRewardService.getDonationRewards().subscribe((rewards) => 
+      this.signInName = this.signInName.trim();
+      let donationRewards : string[] = [];
+      this.donationRewardService.getDonationRewards().subscribe((rewards) => 
+      {
+        for(let i = 0; i < rewards.length;i++){
+          donationRewards.push(rewards[i].name);
+        }
+        //Async call inside of an async call
+        this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewards, totalDonations: 0} as User)
+      .subscribe( (user) => 
         {
-          for(let i = 0; i < rewards.length;i++){
-            donationRewardMap.set(rewards[i].name, false);
-          }
-          //Async call inside of an async call
-          this.userService.addData({name : this.signInName, isManager : false, fundingBasket : [], availableRewards: donationRewardMap, totalDonations: 0} as User)
-        .subscribe( (user) => {
           user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
           this.signInErrorMessage = "" ;
+          this.signInName = undefined;
         });
-        });
-      this.signInName = undefined;
+      });
+
     }
   }
   //Access some account in the database.
@@ -79,9 +79,10 @@ export class SigninLoginScreenComponent implements OnInit{
             this.messanger.add("Invalid account!");
             this.logInErrorMessage = "Account does not exist.";
           }
+          this.logInName = undefined;
         });
     }
-    this.logInName = undefined;
+
   }
   //Log out of the account
   logOut(): void{
@@ -89,6 +90,7 @@ export class SigninLoginScreenComponent implements OnInit{
     if(this.user == undefined){
       return;
     }
+    
     this.userService.updateData(this.user).subscribe(()=>{
       sessionStorage.removeItem(this.userIdentifier);
       this.person.emit(undefined);

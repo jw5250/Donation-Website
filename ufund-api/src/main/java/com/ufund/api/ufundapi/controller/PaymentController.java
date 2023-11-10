@@ -1,3 +1,4 @@
+/* 
 package com.ufund.api.ufundapi.controller;
 
 import com.ufund.api.ufundapi.model.paymentService;
@@ -38,7 +39,7 @@ public class PaymentController {
         return paymentService.authorizeUser(username, password);
     }
 
-    /*@GetMapping("/{source}")
+    @GetMapping("/{source}")
     public ResponseEntity<paymentService> getData(@PathVariable String source) {
         // Logic for getting data from the payment service
         this.Log.info("GET /payment/" + source);
@@ -52,7 +53,7 @@ public class PaymentController {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }*/
+    }
     
 
     public String getPaymentStatus(paymentService mockPaymentService) {
@@ -75,3 +76,4 @@ public class PaymentController {
         return false; // Placeholder for actual logic
     }
 }
+*/
