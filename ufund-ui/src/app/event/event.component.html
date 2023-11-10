@@ -1,10 +1,10 @@
 <h2>Event Schedule</h2>
 <div class="Event">
   <ul>
-  <a *ngFor="let Event of Event"
+  <a *ngFor="let Event of events"
     routerLink="'/Event/' + Event.name">
     <span class="Event">{{Event.name}}</span>
-    <button (click)="deleteEvent(Event.name)">Delete</button>
+    <button (click)="deleteEvent(Event)">Delete</button>
   </a>
 </ul>
   <button onclick="checkout()">Checkout</button>

@@ -7,16 +7,18 @@
 <nav>
 <!--Once MVP is done, change the ngIf statements into links.-->
 </nav>
-<!--Log in interface here! Should get the user data.-->
-<!--Changing accounts after logging into an account breaks the UI. Fix-->
+<!--
+<!--Log in interface here! Should get the user data.
+<!--Changing accounts after logging into an account breaks the UI. Fix
 <ng-template [ngIf] = "(userData !== undefined)"><div><h2>{{this.getWelcome()}}</h2></div></ng-template>
 <app-signin-login-screen (person)="getData($event)"></app-signin-login-screen>
 
 <ng-template [ngIf] = "isHelper()"><div><app-helper-choice-interface [name] = "getUserName()"></app-helper-choice-interface></div></ng-template>
-<!--Part below is nonfunctional. What went wrong?-->
+<!--Part below is nonfunctional. What went wrong?
 <ng-template [ngIf] = "isHelper()"><div><app-helper-donation-rewards-interface [name] = "getUserName()"></app-helper-donation-rewards-interface></div></ng-template>
 <ng-template [ngIf] = "isManager()"><div><app-cupboard></app-cupboard></div></ng-template>
-<ng-template [ngIf] = "isManager()"><div><app-manager-donation-rewards-interface></app-manager-donation-rewards-interface></div></ng-template> -->
+<ng-template [ngIf] = "isManager()"><div><app-manager-donation-rewards-interface></app-manager-donation-rewards-interface></div></ng-template>
+-->
 <router-outlet></router-outlet>
-<!--app-dashboard></app-dashboard-->
+
 <app-messages></app-messages>
