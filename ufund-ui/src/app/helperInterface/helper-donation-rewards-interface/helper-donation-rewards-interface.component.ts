@@ -3,6 +3,7 @@ import { DonationReward } from '../../dataClasses/DonationReward';
 import { User } from '../../dataClasses/user';
 import { UserService } from '../../services/user.service';
 import { DonationRewardService } from '../../services/donation-reward.service';
+
 @Component({
   selector: 'app-helper-donation-rewards-interface',
   templateUrl: './helper-donation-rewards-interface.component.html',
@@ -12,13 +13,14 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
   @Input() name? : string = undefined;
   user? : User = undefined;
   rewardsAvailable : string[] = [];
+  allRewards : DonationReward[] = [];
   constructor(private userService: UserService,
   private donationRewardService : DonationRewardService
   ){}
   
   ngOnInit(){
     this.getUser();
-    
+    this.getAllDonationRewards();
   }
 
   getUser(){
@@ -31,6 +33,24 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
     //Send a request to display all rewards and if they are claimed or not. Nothing more.
     this.rewardsAvailable = user.availableRewards;
     });
+  }
+  getAllDonationRewards(){
+    this.donationRewardService.getDonationRewards().subscribe(
+    (rewards)=>{
+      this.allRewards = rewards;
+    });
+  }
+
+  displayReward(donationReward : DonationReward){
+    return "Name: " + donationReward.name + " | Dollars:" + donationReward.requirement;
+  }
+  displayTotalDonated(){
+    if(this.user === undefined){
+      return "";
+    }else{
+      return "Total money donated: " + this.user.totalDonations;
+    }
+
   }
   updateDonation(donationRewardToBeAdded:DonationReward){
     if(this.user === undefined || this.user.availableRewards === undefined || this.user.totalDonations < donationRewardToBeAdded.requirement){

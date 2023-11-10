@@ -9,8 +9,8 @@ import { Need } from '../../dataClasses/need';
   styleUrls: ['./helper-choice-interface.component.css']
 })
 export class HelperChoiceInterfaceComponent implements OnInit{
-    needs? : Need[];
-    needsDisplayed? : Need[];
+    needs : Need[] = [];
+    needsDisplayed : Need[] = [];
     @Input() searchTerm : string = '';
     @Input() name? : string;
     user? : User;

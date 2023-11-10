@@ -1,21 +1,24 @@
 <!--Should either load the manager frontend or the helper frontend.-->
-<h1>User Sign up</h1>
-<div>
+
+<ng-template [ngIf] = "(this.user === undefined)"><div>
+    <h1>User Sign up</h1>
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="signInName" placeholder="name">
     <button type="button" (click)="signIn()">Sign up</button>
     <p>{{this.signInErrorMessage}}</p>
-</div>
+</div></ng-template>
 
-<h1>User login</h1>
-<div>
+
+<ng-template [ngIf] = "(this.user === undefined)"><div>
+    <h1>User login</h1>
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="logInName" placeholder="name">
     <button type="button" (click)="logIn()">Log in</button>
     <p>{{this.logInErrorMessage}}</p>
-</div>
+</div></ng-template>
 
-<h1>Log Out</h1>
-<div>
+
+<ng-template [ngIf] = "(this.user !== undefined)"><div>
+    <h1>Log Out</h1>
     <button type="button" (click)="logOut()">Log out</button>
-</div>
+</div></ng-template>
