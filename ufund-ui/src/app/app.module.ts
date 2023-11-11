@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './managerInterface/cupboard/cupboard.component';
+import { EventComponent } from './event/event.component';
 
 //For testing the database.
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -27,7 +28,8 @@ import { ManagerDonationRewardsInterfaceComponent } from './managerInterface/man
     HelperChoiceInterfaceComponent,
     CheckoutPageComponent,
     HelperDonationRewardsInterfaceComponent,
-    ManagerDonationRewardsInterfaceComponent
+    ManagerDonationRewardsInterfaceComponent,
+    EventComponent
 
   ],
   imports: [

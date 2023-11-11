@@ -39,7 +39,6 @@ public class PaymentController {
         return paymentService.authorizeUser(username, password);
     }
 
-    /* 
     @GetMapping("/{source}")
     public ResponseEntity<paymentService> getData(@PathVariable String source) {
         // Logic for getting data from the payment service
