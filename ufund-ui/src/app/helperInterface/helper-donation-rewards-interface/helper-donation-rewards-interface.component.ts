@@ -20,7 +20,6 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
   
   ngOnInit(){
     this.getUser();
-    this.getAllDonationRewards();
   }
 
   getUser(){
@@ -29,15 +28,34 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
       return;
     }
     this.userService.getData(this.name).subscribe(user => {
-    this.user = user;
-    //Send a request to display all rewards and if they are claimed or not. Nothing more.
-    this.rewardsAvailable = user.availableRewards;
+      this.user = user;
+      if(user === undefined){
+        return;
+      }
+      //Send a request to display all rewards and if they are claimed or not. Nothing more.
+      this.rewardsAvailable = [];
+      this.getAllDonationRewards();
+      //As a result of sorting from highest to lowest, rewardsAvailable is automatically sorted as well.
+      for(let i = 0; i < this.allRewards.length;i++){
+        for(let j = 0; j < user.availableRewards.length;i++){
+          if(this.allRewards[i].name === user.availableRewards[i]){
+            this.rewardsAvailable.push(this.allRewards[i].name);
+          }
+        }
+      }
     });
   }
   getAllDonationRewards(){
     this.donationRewardService.getDonationRewards().subscribe(
     (rewards)=>{
-      this.allRewards = rewards;
+      this.allRewards = rewards.sort(
+      (n1, n2)=>{
+        if(n1.requirement > n2.requirement){
+          return 1;
+        }else{
+          return -1;
+        }
+      });
     });
   }
 

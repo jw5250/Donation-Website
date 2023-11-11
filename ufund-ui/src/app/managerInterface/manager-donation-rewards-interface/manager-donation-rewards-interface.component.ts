@@ -30,9 +30,18 @@ export class ManagerDonationRewardsInterfaceComponent {
   /**
    * getDonationRewards(): retrieves all stored DonationReward data from the server to display
    */
+   //Test this.
   getDonationRewards(): void{
     this.donationRewardService.getDonationRewards()
-      .subscribe(DonationRewards => this.donationRewards = DonationRewards);
+      .subscribe(DonationRewards => this.donationRewards = DonationRewards.sort(
+      (n1, n2)=>{
+        if(n1.requirement > n2.requirement){
+          return 1;
+        }else{
+          return -1;
+        }
+      }
+      ));
   }
 
   /**
@@ -65,7 +74,6 @@ export class ManagerDonationRewardsInterfaceComponent {
         if(reward !== undefined){
           this.donationRewards.push(reward);
         }
-        console.log("Informing users...");
         this.userService.getDataArray().subscribe(
         (users)=>{
           for(let i = 0; i < users.length;i++){
@@ -125,7 +133,7 @@ export class ManagerDonationRewardsInterfaceComponent {
     else{
       this.addDonationReward(newDonationReward);
     }
-    
+    this.getDonationRewards();
     //Does not update the screen, but it does change the backend data.
     this.selectDonationReward(this.voidDonationReward);
   }

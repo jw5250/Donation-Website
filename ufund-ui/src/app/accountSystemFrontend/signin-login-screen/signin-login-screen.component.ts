@@ -75,6 +75,21 @@ export class SigninLoginScreenComponent implements OnInit{
             //Attach user data to token
             //Send bundled data to server via SessionDataServiceService
             this.messanger.add("Found account:" + user.name);
+            this.donationRewardService.getDonationRewards().subscribe((donationRewards)=>
+            {
+              if(this.user == undefined){
+                return;
+              }
+              for(let i = 0; i < this.user.availableRewards.length;i++){
+                for(let j = 0; j < donationRewards.length;j++){
+                  if(donationRewards[j].name === this.user.availableRewards[i] &&
+                  donationRewards[j].requirement <= this.user.totalDonations){
+                    alert("You got a new reward: " + donationRewards[j].name +"! Make sure to check it out!");
+                  }
+                }
+              }
+            }
+            );
           }else{
             this.messanger.add("Invalid account!");
             this.logInErrorMessage = "Account does not exist.";
