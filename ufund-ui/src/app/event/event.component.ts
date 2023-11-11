@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { EventService } from '../event.service';
-import { User } from '../user';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '../dataClasses/user';
 import { Event } from '../event';
 @Component({
     selector: 'app-event',
@@ -10,7 +11,7 @@ import { Event } from '../event';
   export class EventComponent implements OnInit {
 
   events: Event[] = [];
-  voidEvent: Event = {name: "", type: "", cost: 0, quantity: 0};
+  voidEvent: Event = {name: "", date: "", time: 0};
   selectedEvent: Event = this.voidEvent;
 
   constructor(
@@ -50,7 +51,7 @@ import { Event } from '../event';
     this.selectEvent(this.voidEvent);
     this.editEvent(eventData.item(0).value,
                   eventData.item(1).value,
-                  parseInt(eventData.item(2).value),
+                  parseInt(eventData.item(2).value))
     }
   }
   /**
@@ -81,11 +82,11 @@ import { Event } from '../event';
    * @param type : type of event
    * @param cost : cost of event
    */
-  editEvent(name: String, data: String, time: Number): void{
+  editEvent(name: String, date: String, time: Number): void{
     name = name.trim();
     if (!name) { return; }
     this.selectEvent(this.voidEvent);
-    const newEvent  = <Event>({name: name, data: data, time: time});
+    const newEvent  = <Event>({name: name, date: date, time: time});
     const filtered: Event[] = this.events.filter(event => event.name !== newEvent.name);
     if(filtered.length === this.events.length){
       this.addEvent(newEvent);
