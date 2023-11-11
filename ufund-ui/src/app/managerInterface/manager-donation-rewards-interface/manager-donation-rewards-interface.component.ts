@@ -83,9 +83,7 @@ export class ManagerDonationRewardsInterfaceComponent {
             }
           }
         }
-        );
-
-        
+        );        
       }
       );
   }
