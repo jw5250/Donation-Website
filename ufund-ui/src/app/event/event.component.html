@@ -1,14 +1,18 @@
 <h2>Event Schedule</h2>
 <div class="Event">
-  <ul>
-  <a *ngFor="let Event of events"
-    routerLink="'/Event/' + Event.name">
-    <span class="Event">{{Event.name}}</span>
-    <button (click)="deleteEvent(Event)">Delete</button>
-  </a>
-</ul>
-  <button onclick="checkout()">Checkout</button>
-</div>
+  <label for = "Event">Name | date | time</label>
+  <ul class = "events">
+      <li *ngFor="let event of events">
+          <button type = "button" (click) = "selectEvent(event)">
+              <span class = "attr">{{event.name}}  |   </span>
+              <span class = "attr">{{event.date}}  |   </span>
+              <span class = "attr">{{event.time}}  |   </span>
+              </button>
+          <button type = "button" (click) = "deleteEvent(event)">X</button>
+              <br>
+      </li>
+  </ul>
+  <br>
 <br>
 <form id = "EventCreate" (ngSubmit)="getNewEventData()">
     <input type = "text" name = "needInput" value = {{selectedEvent.name}}>
