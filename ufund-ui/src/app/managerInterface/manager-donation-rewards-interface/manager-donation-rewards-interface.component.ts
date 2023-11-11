@@ -27,21 +27,28 @@ export class ManagerDonationRewardsInterfaceComponent {
     this.selectDonationReward(this.voidDonationReward);
   }
 
+  sortByPrice(rewards : DonationReward[]) {
+    rewards = rewards.sort(
+      (n1, n2)=>{
+        if(n1.requirement > n2.requirement){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+    return rewards;
+  }
+
   /**
    * getDonationRewards(): retrieves all stored DonationReward data from the server to display
    */
-   //Test this.
   getDonationRewards(): void{
     this.donationRewardService.getDonationRewards()
-      .subscribe(DonationRewards => this.donationRewards = DonationRewards.sort(
-      (n1, n2)=>{
-        if(n1.requirement > n2.requirement){
-          return 1;
-        }else{
-          return -1;
+      .subscribe((DonationRewards) => {
+          this.donationRewards = this.sortByPrice(DonationRewards);
         }
-      }
-      ));
+      
+      );
   }
 
   /**
@@ -133,6 +140,7 @@ export class ManagerDonationRewardsInterfaceComponent {
     }
     this.getDonationRewards();
     //Does not update the screen, but it does change the backend data.
+    this.donationRewards = this.sortByPrice(this.donationRewards);
     this.selectDonationReward(this.voidDonationReward);
   }
 }

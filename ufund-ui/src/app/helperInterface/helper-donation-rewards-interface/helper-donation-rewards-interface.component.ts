@@ -45,17 +45,22 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
       }
     });
   }
+  sortByPrice(rewards : DonationReward[]) {
+    rewards = rewards.sort(
+      (n1, n2)=>{
+        if(n1.requirement > n2.requirement){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+    return rewards;
+  }
+
   getAllDonationRewards(){
     this.donationRewardService.getDonationRewards().subscribe(
     (rewards)=>{
-      this.allRewards = rewards.sort(
-      (n1, n2)=>{
-        if(n1.requirement > n2.requirement){
-          return 1;
-        }else{
-          return -1;
-        }
-      });
+      this.allRewards =this.sortByPrice(rewards);
     });
   }
 
