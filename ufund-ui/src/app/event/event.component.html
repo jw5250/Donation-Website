@@ -1,16 +1,16 @@
 <h2>Event Schedule</h2>
 <div class="Event">
   <label for = "Event">Name | date | time</label>
-  <ul class = "events">
-      <li *ngFor="let event of events">
-          <button type = "button" (click) = "selectEvent(event)">
-              <span class = "attr">{{event.name}}  |   </span>
-              <span class = "attr">{{event.date}}  |   </span>
-              <span class = "attr">{{event.time}}  |   </span>
-              </button>
-          <button type = "button" (click) = "deleteEvent(event)">X</button>
-              <br>
-      </li>
+  <ul class = "Event">
+    <li *ngFor="let event of events">
+        <button type = "button" (click) = "selectEvent(event)">
+            <span class = "attr">{{event.name}}  |   </span>
+            <span class = "attr">{{event.date}}  |   </span>
+            <span class = "attr">{{event.time}}  |   </span>
+            </button>
+        <button type = "button" (click) = "deleteEvent(event)">X</button>
+            <br>
+    </li>
   </ul>
   <br>
 <br>
