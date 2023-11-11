@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class EventService {
-  private needsUrl = 'http://localhost:8080/cupboard'  // URL to web api
+  private needsUrl = 'http://localhost:8080/event'  // URL to web api
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
