@@ -53,9 +53,6 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
         }
       });
       this.getAllDonationRewards(user);
-      //As a result of sorting from highest to lowest, rewardsAvailable is automatically sorted as well.
-      //console.log(this.allRewards.length);
-      //console.log(this.rewardsAvailable);
     });
   }
   sortByPrice(rewards : DonationReward[]) {
