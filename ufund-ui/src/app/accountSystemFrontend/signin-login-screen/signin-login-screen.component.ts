@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from '../../services/message.service';
 import { UserService } from '../../services/user.service';
 import { DonationRewardService } from '../../services/donation-reward.service';
@@ -14,15 +15,16 @@ export class SigninLoginScreenComponent implements OnInit{
   constructor(
     private userService: UserService,
     private donationRewardService: DonationRewardService,
-    private messanger: MessageService
+    private messanger: MessageService,
+    private router: Router
   ) {}
   //Used so this component can communicate with those that use it.
   //Passes a reference of a user to the parent.
   @Output() person : EventEmitter<User> = new EventEmitter<User>();
   //The input for the sign in name
-  @Input() signInName?:string = undefined;
+  @Input() signInName:string | undefined | null = undefined;
   //The input for the log in name.
-  @Input() logInName?:string = undefined;
+  @Input() logInName?:string | undefined | null = undefined;
   //The user's data.
   user? : User = undefined;
   signInErrorMessage : string = "";
@@ -39,7 +41,7 @@ export class SigninLoginScreenComponent implements OnInit{
   //Create a new account in the database.
   signIn(): void {
     this.signInErrorMessage = "";
-    if(this.signInName != undefined){
+    if(this.signInName != undefined || this.signInName != null){
       this.signInName = this.signInName.trim();
       let donationRewards : string[] = [];
       this.donationRewardService.getDonationRewards().subscribe((rewards) => 
@@ -62,22 +64,19 @@ export class SigninLoginScreenComponent implements OnInit{
   //Access some account in the database.
   logIn(): void {
     this.logInErrorMessage = "";
-    if (this.logInName != undefined) {
+    if (this.logInName != undefined && this.logInName != null) {
       this.logInName = this.logInName.trim();
       this.userService.getData(this.logInName)
         .subscribe((user) => {
           this.user = user;
           this.person.emit(user);
-          if(user != undefined){
+          if(user != undefined && user != null){
             sessionStorage.setItem(this.userIdentifier, JSON.stringify(user));
-            //add key value pair for session storage
-            //Generate token
-            //Attach user data to token
-            //Send bundled data to server via SessionDataServiceService
             this.messanger.add("Found account:" + user.name);
+            this.router.navigate(["user", user.name]);
             this.donationRewardService.getDonationRewards().subscribe((donationRewards)=>
             {
-              if(this.user == undefined){
+              if(this.user == undefined && this.user == null){
                 return;
               }
               for(let i = 0; i < this.user.availableRewards.length;i++){
@@ -97,7 +96,6 @@ export class SigninLoginScreenComponent implements OnInit{
           this.logInName = undefined;
         });
     }
-
   }
   //Log out of the account
   logOut(): void{
@@ -110,6 +108,7 @@ export class SigninLoginScreenComponent implements OnInit{
       sessionStorage.removeItem(this.userIdentifier);
       this.person.emit(undefined);
       this.user = undefined;
+      this.router.navigate(['']);
     });
     //When logged out, data is no longer there.
   }

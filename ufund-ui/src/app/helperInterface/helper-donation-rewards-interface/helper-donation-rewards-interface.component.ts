@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DonationReward } from '../../dataClasses/DonationReward';
 import { User } from '../../dataClasses/user';
 import { UserService } from '../../services/user.service';
@@ -10,20 +11,24 @@ import { DonationRewardService } from '../../services/donation-reward.service';
   styleUrls: ['./helper-donation-rewards-interface.component.css']
 })
 export class HelperDonationRewardsInterfaceComponent implements OnInit{
-  @Input() name? : string = undefined;
+  @Input() name? : string | null = undefined;
   user? : User = undefined;
   rewardsAvailable : string[] = [];
   allRewards : DonationReward[] = [];
   constructor(private userService: UserService,
-  private donationRewardService : DonationRewardService
+  private donationRewardService : DonationRewardService,
+  private r : ActivatedRoute
   ){}
-  
   ngOnInit(){
+    if(this.r.parent === null){
+      return;
+    }
+    this.name = this.r.parent.snapshot.paramMap.get('name');
     this.getUser();
   }
 
   getUser(){
-    if(this.name === undefined){
+    if(this.name === null || this.name === undefined){
       console.log("Undefined User");
       return;
     }
@@ -34,15 +39,23 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
       }
       //Send a request to display all rewards and if they are claimed or not. Nothing more.
       this.rewardsAvailable = [];
-      this.getAllDonationRewards();
-      //As a result of sorting from highest to lowest, rewardsAvailable is automatically sorted as well.
-      for(let i = 0; i < this.allRewards.length;i++){
-        for(let j = 0; j < user.availableRewards.length;i++){
-          if(this.allRewards[i].name === user.availableRewards[i]){
-            this.rewardsAvailable.push(this.allRewards[i].name);
+      this.donationRewardService.getDonationRewards().subscribe(
+      (rewards)=>{
+        this.allRewards = this.sortByPrice(rewards);
+        console.log(this.allRewards);
+        console.log(user.availableRewards);
+        for(let i = 0; i < this.allRewards.length;i++){
+          for(let j = 0; j < user.availableRewards.length;j++){
+            if(this.allRewards[i].name === user.availableRewards[j]){
+              this.rewardsAvailable.push(this.allRewards[i].name);
+            }
           }
         }
-      }
+      });
+      this.getAllDonationRewards(user);
+      //As a result of sorting from highest to lowest, rewardsAvailable is automatically sorted as well.
+      //console.log(this.allRewards.length);
+      //console.log(this.rewardsAvailable);
     });
   }
   sortByPrice(rewards : DonationReward[]) {
@@ -57,11 +70,8 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
     return rewards;
   }
 
-  getAllDonationRewards(){
-    this.donationRewardService.getDonationRewards().subscribe(
-    (rewards)=>{
-      this.allRewards =this.sortByPrice(rewards);
-    });
+  getAllDonationRewards(user : User){
+
   }
 
   displayReward(donationReward : DonationReward){
