@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { DonationReward } from '../../dataClasses/DonationReward';
 import { User } from '../../dataClasses/user';
 import { UserService } from '../../services/user.service';
@@ -10,35 +11,64 @@ import { DonationRewardService } from '../../services/donation-reward.service';
   styleUrls: ['./helper-donation-rewards-interface.component.css']
 })
 export class HelperDonationRewardsInterfaceComponent implements OnInit{
-  @Input() name? : string = undefined;
+  @Input() name? : string | null = undefined;
   user? : User = undefined;
   rewardsAvailable : string[] = [];
   allRewards : DonationReward[] = [];
   constructor(private userService: UserService,
-  private donationRewardService : DonationRewardService
+  private donationRewardService : DonationRewardService,
+  private r : ActivatedRoute
   ){}
-  
   ngOnInit(){
+    if(this.r.parent === null){
+      return;
+    }
+    this.name = this.r.parent.snapshot.paramMap.get('name');
     this.getUser();
-    this.getAllDonationRewards();
   }
 
   getUser(){
-    if(this.name === undefined){
+    if(this.name === null || this.name === undefined){
       console.log("Undefined User");
       return;
     }
     this.userService.getData(this.name).subscribe(user => {
-    this.user = user;
-    //Send a request to display all rewards and if they are claimed or not. Nothing more.
-    this.rewardsAvailable = user.availableRewards;
+      this.user = user;
+      if(user === undefined){
+        return;
+      }
+      //Send a request to display all rewards and if they are claimed or not. Nothing more.
+      this.rewardsAvailable = [];
+      this.donationRewardService.getDonationRewards().subscribe(
+      (rewards)=>{
+        this.allRewards = this.sortByPrice(rewards);
+        console.log(this.allRewards);
+        console.log(user.availableRewards);
+        for(let i = 0; i < this.allRewards.length;i++){
+          for(let j = 0; j < user.availableRewards.length;j++){
+            if(this.allRewards[i].name === user.availableRewards[j]){
+              this.rewardsAvailable.push(this.allRewards[i].name);
+            }
+          }
+        }
+      });
+      this.getAllDonationRewards(user);
     });
   }
-  getAllDonationRewards(){
-    this.donationRewardService.getDonationRewards().subscribe(
-    (rewards)=>{
-      this.allRewards = rewards;
-    });
+  sortByPrice(rewards : DonationReward[]) {
+    rewards = rewards.sort(
+      (n1, n2)=>{
+        if(n1.requirement > n2.requirement){
+          return -1;
+        }else{
+          return 1;
+        }
+      });
+    return rewards;
+  }
+
+  getAllDonationRewards(user : User){
+
   }
 
   displayReward(donationReward : DonationReward){

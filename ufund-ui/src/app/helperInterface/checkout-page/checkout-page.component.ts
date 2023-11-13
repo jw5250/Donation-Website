@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { User } from '../../dataClasses/user';
 import { Need } from '../../dataClasses/need';
@@ -8,14 +9,18 @@ import { Need } from '../../dataClasses/need';
   styleUrls: ['./checkout-page.component.css']
 })
 export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
-  constructor(private userService: UserService){  
+  constructor(private userService: UserService,
+  private r: ActivatedRoute){  
   }
-  @Input() name? : string;
-  //needsRef? : Need[];
+  @Input() name? : string | null;
   user? : User;
   emptied : string = "Emptied Basket!";
   emptiedDisplay : string = '';
   ngOnInit(){
+    if(this.r.parent === null){
+      return;
+    }
+    this.name = this.r.parent.snapshot.paramMap.get('name');
     this.getUser();
   }
   getFundingBasket(){
@@ -26,7 +31,7 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     }
   }
   getUser(){
-    if(this.name === undefined){
+    if(this.name === undefined || this.name === null){
       console.log("Undefined");
       return;
     }
