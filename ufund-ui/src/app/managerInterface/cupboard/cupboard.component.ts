@@ -98,7 +98,7 @@ export class CupboardComponent implements OnInit {
   editNeed(name: String, type: String, cost: Number, quantity: Number ): void{
     name = name.trim();
     type = type.trim();
-    if (!name || !type) { return; }
+    if (!name || !type || (cost.valueOf() < 0) ) { return; }
     this.selectNeed(this.voidNeed);
     const newNeed  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
     const filtered: Need[] = this.needs.filter(need => need.name !== newNeed.name);

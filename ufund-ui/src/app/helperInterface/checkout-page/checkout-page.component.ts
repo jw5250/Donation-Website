@@ -43,12 +43,20 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
       return;
     }
     //If need does not exist
+    /*
     for(let i = 0; i < this.user.fundingBasket.length;i++){
       if( (this.user.fundingBasket[i].name === needRemoved.name) && (this.user.fundingBasket[i].quantity > 1)){
         this.user.fundingBasket[i].quantity--;
         break;
       }else{
         this.user.fundingBasket = this.user.fundingBasket.filter((need)=>{return need.name != needRemoved.name});
+      }
+    }
+    */
+    for(let i = 0; i < this.user.fundingBasket.length;i++){
+      if(needRemoved.name === this.user.fundingBasket[i].name){
+        this.user.fundingBasket.splice(i, 1);
+        break;
       }
     }
     this.userService.updateData(this.user).subscribe();
