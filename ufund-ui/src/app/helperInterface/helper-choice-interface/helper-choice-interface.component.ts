@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NeedService } from '../../services/need.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../dataClasses/user';
@@ -12,15 +13,20 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     needs : Need[] = [];
     needsDisplayed : Need[] = [];
     @Input() searchTerm : string = '';
-    @Input() name? : string;
+    @Input() name? : null | string;
     user? : User;
     constructor(
     private needService : NeedService,
-    private userService : UserService
+    private userService : UserService,
+    private r : ActivatedRoute
     ){
     }
     
     ngOnInit(): void {
+    if(this.r.parent === null){
+        return;
+      }
+      this.name = this.r.parent.snapshot.paramMap.get('name');
       this.getNeeds();
       this.getUser();
     }
@@ -64,7 +70,7 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     }
     //Get user
     getUser():void{
-      if(this.name === undefined){
+      if(this.name === undefined || this.name === null){
         return;
       }
       this.userService.getData(this.name).subscribe(
