@@ -1,5 +1,8 @@
 <h1>Your UFund Reward List</h1>
 <h2>Rewards for Donations</h2>
+<div *ngFor = "let error of this.donationManagementErrorMessage">
+    <h4>{{error}}</h4>
+</div>
 <label for = "donationRewards">Name | Requirement</label>
 <ul class = "donationRewards">
     <li *ngFor="let reward of donationRewards">

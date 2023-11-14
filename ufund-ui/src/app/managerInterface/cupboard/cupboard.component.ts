@@ -20,7 +20,8 @@ import { Location } from '@angular/common';
  * @Author Daniel Arcega
  */
 export class CupboardComponent implements OnInit {
-
+  MAXLEN: number = 30;
+  cupboardErrorMessage : string[] = [];
   needs: Need[] = [];
   voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
   selectedNeed: Need = this.voidNeed;
@@ -96,9 +97,36 @@ export class CupboardComponent implements OnInit {
    * @param quantity : quantity of need
    */
   editNeed(name: String, type: String, cost: Number, quantity: Number ): void{
+    this.cupboardErrorMessage = [];
+    let foundError : boolean = false;
+    if (name === "" || type === ""){
+      this.cupboardErrorMessage.push("Name and type must be defined.");
+      return;
+    }
+
     name = name.trim();
     type = type.trim();
-    if (!name || !type || (cost.valueOf() < 0) ) { return; }
+    if(name.length > this.MAXLEN ){
+      this.cupboardErrorMessage.push("Length of name is greater than " + this.MAXLEN + " characters.");
+      foundError = true;
+    }
+    if(type.length > this.MAXLEN){
+      this.cupboardErrorMessage.push("Length of type is greater than " + this.MAXLEN + " characters.");  
+      foundError = true;
+    }
+    if(Number.isNaN(cost) || Number.isNaN(quantity)){
+      this.cupboardErrorMessage.push("One of the numeric inputs (quantity or cost) are not valid numbers."); 
+      foundError = true;
+    }
+    if(cost.valueOf() < 0){
+      this.cupboardErrorMessage.push("Cost can't be less than zero."); 
+      foundError = true;
+    }
+    if(quantity.valueOf() <= 0){
+      this.cupboardErrorMessage.push("Cost can't be less than or equal to zero."); 
+      foundError = true;
+    }
+    if (foundError === true) { return; }
     this.selectNeed(this.voidNeed);
     const newNeed  = <Need>({name: name, type: type, cost: cost, quantity: quantity});
     const filtered: Need[] = this.needs.filter(need => need.name !== newNeed.name);
