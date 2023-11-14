@@ -16,8 +16,17 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   }
   @Input() name? : string | null;
   user? : User;
-  emptied : string = "Emptied Basket!";
+  emptied : string = "Nothing here! To buy things, click on the \"Needs\" tab.";
   emptiedDisplay : string = '';
+  total : number = 0;
+  getTotalBasketValue(){
+    if(this.user === undefined){
+      return;
+    }
+    for(let i = 0; i < this.user.fundingBasket.length;i++){
+      this.total += this.user.fundingBasket[i].cost;
+    }
+  }
   ngOnInit(){
     if(this.r.parent === null){
       return;
@@ -37,7 +46,10 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
       console.log("Undefined");
       return;
     }
-    this.userService.getData(this.name).subscribe(user => {this.user = user});
+    this.userService.getData(this.name).subscribe(user => {
+      this.user = user;
+      this.getTotalBasketValue();
+    });
   }
     //Add item to the user's funding basket.
   removeFromBasket(needRemoved : Need):void{
@@ -49,6 +61,7 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
         this.needService.getNeed(needRemoved.name).subscribe((need)=>
         {
           need.quantity++;
+          this.total -= need.cost;
           this.needService.updateNeed(need).subscribe();
         });
         this.user.fundingBasket.splice(i, 1);
@@ -60,7 +73,6 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   }
   checkout(){
     if(this.user === undefined){
-      console.log("Undefined user.");
       return;
     }else if(this.user.fundingBasket.length === 0){
       this.emptiedDisplay = this.emptied;
@@ -76,7 +88,6 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     if(this.user != undefined){
         this.userService.updateData(this.user).subscribe();
         sessionStorage.setItem("userData", JSON.stringify(this.user));
-        console.log(this.user);
       }
     }
 }

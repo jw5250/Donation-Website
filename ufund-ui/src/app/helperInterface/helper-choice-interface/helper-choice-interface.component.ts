@@ -12,7 +12,7 @@ import { Need } from '../../dataClasses/need';
 export class HelperChoiceInterfaceComponent implements OnInit{
     needs : Need[] = [];
     needsDisplayed : Need[] = [];
-    @Input() searchTerm : string = '';
+    searchTerm : string = '';
     @Input() name? : null | string;
     user? : User;
     constructor(
@@ -91,14 +91,12 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     }
     //Filter the needs list.
     filter():void{
-      this.needsDisplayed = this.needs;
-      if(this.needsDisplayed === undefined || this.searchTerm === ''){
+      this.updateNeedsAvailable();
+      if(this.needsDisplayed === undefined || this.searchTerm === ""){
         return;
       }
-
-      //Does not check if the type is undefined or not. Oh well
       this.needsDisplayed = this.needsDisplayed.filter((need) => {return need.type.includes(this.searchTerm) });
-      this.searchTerm = '';
+      this.searchTerm = "";
     }
 
 
