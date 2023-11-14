@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { NeedService } from '../../services/need.service';
 import { User } from '../../dataClasses/user';
 import { Need } from '../../dataClasses/need';
 @Component({
@@ -10,6 +11,7 @@ import { Need } from '../../dataClasses/need';
 })
 export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   constructor(private userService: UserService,
+  private needService : NeedService,
   private r: ActivatedRoute){  
   }
   @Input() name? : string | null;
@@ -42,19 +44,13 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     if(this.user === undefined){
       return;
     }
-    //If need does not exist
-    /*
-    for(let i = 0; i < this.user.fundingBasket.length;i++){
-      if( (this.user.fundingBasket[i].name === needRemoved.name) && (this.user.fundingBasket[i].quantity > 1)){
-        this.user.fundingBasket[i].quantity--;
-        break;
-      }else{
-        this.user.fundingBasket = this.user.fundingBasket.filter((need)=>{return need.name != needRemoved.name});
-      }
-    }
-    */
     for(let i = 0; i < this.user.fundingBasket.length;i++){
       if(needRemoved.name === this.user.fundingBasket[i].name){
+        this.needService.getNeed(needRemoved.name).subscribe((need)=>
+        {
+          need.quantity++;
+          this.needService.updateNeed(need).subscribe();
+        });
         this.user.fundingBasket.splice(i, 1);
         break;
       }
