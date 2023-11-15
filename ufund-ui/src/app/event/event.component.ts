@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { EventService } from '../services/event.service';
-import { User } from '../dataClasses/user';
 import { Event } from '../dataClasses/event';
 @Component({
     selector: 'app-event',
@@ -10,9 +9,10 @@ import { Event } from '../dataClasses/event';
     styleUrls: [ './event.component.css' ]
   })
   export class EventComponent implements OnInit {
-
+  MAXLEN: number = 30;
   events: Event[] = [];
-  voidEvent: Event = {name: "", date: "", time: 0};
+  eventManagementErrorMessage : string[] = [];
+  voidEvent: Event = {name: "", date: "", time: ""};
   selectedEvent: Event = this.voidEvent;
 
   constructor(
@@ -52,7 +52,7 @@ import { Event } from '../dataClasses/event';
     this.selectEvent(this.voidEvent);
     this.editEvent(eventData.item(0).value,
                   eventData.item(1).value,
-                  parseInt(eventData.item(2).value))
+                  eventData.item(2).value);
     }
   }
   /**
@@ -81,22 +81,46 @@ import { Event } from '../dataClasses/event';
    *  depending on if it exists within the system.
    * @param name : name of event to be updated
    * @param type : type of event
-   * @param cost : cost of event
+   * @param time : time of event
    */
-  editEvent(name: string, date: string, time: number): void{
-    name = name.trim();
-    if (!name) { return; }
-    this.selectEvent(this.voidEvent);
-    const newEvent  = <Event>({name: name, date: date, time: time});
-    const filtered: Event[] = this.events.filter(event => event.name !== newEvent.name);
-    if(filtered.length === this.events.length){
-      this.addEvent(newEvent);
+  editEvent(eventName: String, eventDate: String, eventTime: String): void{
+      let foundError : boolean = false;
+      this.eventManagementErrorMessage = [];
+      eventName = eventName.trim();
+      eventDate = eventDate.trim();
+      eventTime = eventTime.trim();
+      if (!eventName || !eventDate || !eventTime) { return; }
+      if(eventName.length > this.MAXLEN){
+        this.eventManagementErrorMessage.push("Name is greater than " + this.MAXLEN + " characters.");
+        foundError = true;
+      }
+      if(eventDate.length > this.MAXLEN){
+        this.eventManagementErrorMessage.push("Date is greater than " + this.MAXLEN + " characters.");
+        foundError = true;
+      }
+      if(eventTime.length > this.MAXLEN){
+        this.eventManagementErrorMessage.push("Time is greater than " + this.MAXLEN + " characters.");
+        foundError = true;
+      }
+      this.selectEvent(this.voidEvent);
+      const eventData =document.getElementsByName("eventInput") as NodeListOf<HTMLInputElement>;
+      for(let i = 0; i < eventData.length;i++){
+        eventData.item(i).value = "";
+      }
+      if(foundError === true){
+        return;
+      }
+
+      const newEvent : Event = <Event>({name: eventName, date: eventDate, time: eventTime});
+      console.log(newEvent);
+      const filtered: Event[] = this.events.filter(event => event.name !== newEvent.name);
+      if(filtered.length === this.events.length){
+        this.addEvent(newEvent);
+      }else{
+        this.events = filtered;
+        this.eventService.updateEvent(newEvent)
+        .subscribe(()=> this.events.push(newEvent));
+      }
+      this.selectEvent(this.voidEvent);
     }
-    else{
-      this.events = filtered;
-      this.eventService.updateEvent(newEvent)
-      .subscribe(()=> this.events.push(newEvent));
-    }
-    this.selectEvent(this.voidEvent);
-  }
   }

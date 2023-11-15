@@ -52,8 +52,8 @@ public class EventFileDAO implements DataFileDAO<Event> {
      * 
      * @return  The array of {@link Event Events}, may be empty
      */
-    private Event[] getEventArray() {
-        return getEventArray(null);
+    private Event[] getEventsArray() {
+        return searchEventsArray(null);
     }
 
     /**
@@ -65,7 +65,7 @@ public class EventFileDAO implements DataFileDAO<Event> {
      * 
      * @return  The array of {@link Event Events}, may be empty
      */
-    private Event[] getEventArray(String containsText) { // if containsText == null, no filter
+    private Event[] searchEventsArray(String containsText) { // if containsText == null, no filter
         ArrayList<Event> EventArrayList = new ArrayList<>();
 
         for (Event Event : Events.values()) {
@@ -87,7 +87,7 @@ public class EventFileDAO implements DataFileDAO<Event> {
      * @throws IOException when file cannot be accessed or written to
      */
     private boolean save() throws IOException {
-        Event[] EventArray = getEventArray();
+        Event[] EventArray = getEventsArray();
         // Serializes the Java Objects to JSON objects into the file
         // writeValue will thrown an IOException if there is an issue
         // with the file or reading from the file
@@ -128,7 +128,7 @@ public class EventFileDAO implements DataFileDAO<Event> {
     @Override
     public Event[] getDataArray() throws IOException  {
         synchronized(Events) {
-            return getEventArray();
+            return getEventsArray();
         }
     }
 
@@ -138,7 +138,7 @@ public class EventFileDAO implements DataFileDAO<Event> {
     @Override
     public Event[] searchDataArray(String containsText)throws IOException {
         synchronized(Events) {
-            return getEventArray(containsText);
+            return searchEventsArray(containsText);
         }
     }
 

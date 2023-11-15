@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { NeedService } from '../../services/need.service';
 import { User } from '../../dataClasses/user';
 import { Need } from '../../dataClasses/need';
 @Component({
@@ -10,12 +11,36 @@ import { Need } from '../../dataClasses/need';
 })
 export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   constructor(private userService: UserService,
+  private needService : NeedService,
   private r: ActivatedRoute){  
   }
   @Input() name? : string | null;
   user? : User;
-  emptied : string = "Emptied Basket!";
-  emptiedDisplay : string = '';
+  emptied : string = "Nothing here! To buy things, click on the \"Needs\" tab.";
+  totalCostDisplay : string = "";
+  emptiedDisplay : string = "";
+  total : number = 0;
+  getTotalBasketValue(){
+    if(this.user === undefined){
+      return;
+    }
+    for(let i = 0; i < this.user.fundingBasket.length;i++){
+      this.total += this.user.fundingBasket[i].cost;
+    }
+  }
+  displayTotalCost(){
+    if(this.user === undefined){
+      return;
+    }
+    this.total = 0;
+    this.getTotalBasketValue();
+    if(this.user.fundingBasket.length > 0){
+      this.totalCostDisplay = "Total cost: " + this.total;
+    }else{
+      this.emptiedDisplay = this.emptied;
+      this.totalCostDisplay = "";
+    }
+  }
   ngOnInit(){
     if(this.r.parent === null){
       return;
@@ -35,28 +60,35 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
       console.log("Undefined");
       return;
     }
-    this.userService.getData(this.name).subscribe(user => {this.user = user});
+    this.userService.getData(this.name).subscribe(user => {
+      this.user = user;
+      this.displayTotalCost();
+    });
   }
     //Add item to the user's funding basket.
   removeFromBasket(needRemoved : Need):void{
     if(this.user === undefined){
       return;
     }
-    //If need does not exist
     for(let i = 0; i < this.user.fundingBasket.length;i++){
-      if( (this.user.fundingBasket[i].name === needRemoved.name) && (this.user.fundingBasket[i].quantity > 1)){
-        this.user.fundingBasket[i].quantity--;
+      if(needRemoved.name === this.user.fundingBasket[i].name){
+        this.needService.getNeed(needRemoved.name).subscribe((need)=>
+        {
+          need.quantity++;
+          this.total -= need.cost;
+          this.needService.updateNeed(need).subscribe();
+        });
+        this.user.fundingBasket.splice(i, 1);
         break;
-      }else{
-        this.user.fundingBasket = this.user.fundingBasket.filter((need)=>{return need.name != needRemoved.name});
       }
+
     }
+    this.displayTotalCost();
     this.userService.updateData(this.user).subscribe();
     sessionStorage.setItem("userData", JSON.stringify(this.user));
   }
   checkout(){
     if(this.user === undefined){
-      console.log("Undefined user.");
       return;
     }else if(this.user.fundingBasket.length === 0){
       this.emptiedDisplay = this.emptied;
@@ -65,14 +97,12 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     for(let i = 0; i < this.user.fundingBasket.length;i++){
       this.user.totalDonations += this.user.fundingBasket[i].cost;
     }
-    //alert("You got a new reward! Make sure to check it out!");
-    this.emptiedDisplay = '';
     this.user.fundingBasket = [];
-    
+    this.totalCostDisplay = "";
+    this.emptiedDisplay = "Checked out!";
     if(this.user != undefined){
         this.userService.updateData(this.user).subscribe();
         sessionStorage.setItem("userData", JSON.stringify(this.user));
-        console.log(this.user);
       }
     }
 }

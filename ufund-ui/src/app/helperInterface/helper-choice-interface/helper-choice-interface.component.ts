@@ -12,7 +12,8 @@ import { Need } from '../../dataClasses/need';
 export class HelperChoiceInterfaceComponent implements OnInit{
     needs : Need[] = [];
     needsDisplayed : Need[] = [];
-    @Input() searchTerm : string = '';
+    searchTerm : string = "";
+    choiceErrorMessage : string = "";
     @Input() name? : null | string;
     user? : User;
     constructor(
@@ -21,7 +22,14 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     private r : ActivatedRoute
     ){
     }
-    
+    updateNeedsAvailable(){
+      this.needsDisplayed = [];
+      for(let i = 0; i < this.needs.length;i++){
+        if(this.needs[i].quantity > 0){
+          this.needsDisplayed.push(this.needs[i]);
+        }
+      }
+    }
     ngOnInit(): void {
     if(this.r.parent === null){
         return;
@@ -43,30 +51,32 @@ export class HelperChoiceInterfaceComponent implements OnInit{
         .subscribe(needs => {
           this.needs = needs;
           this.needsDisplayed = this.needs;
+          this.updateNeedsAvailable();
         });
     }
     //Add item to the user's funding basket.
     addToFundingBasket(needAdded : Need):void{
-      if(this.user === undefined){
-        return;
-      }
-      //If need does not exist
-      if(this.user.fundingBasket.filter( (need) => {return needAdded.name == need.name} ).length === 0){
-        //Deep copy the object.
-        let newNeed : Need = JSON.parse(JSON.stringify(needAdded));
-        newNeed.quantity = 1;
-        this.user.fundingBasket.push(newNeed);
-      }else{
-        for(let i = 0; i < this.user.fundingBasket.length;i++){
-          if(this.user.fundingBasket[i].name === needAdded.name){
-            this.user.fundingBasket[i].quantity++;
-            break;
-          }
+      
+      this.needService.getNeed(needAdded.name).subscribe(
+      (need)=>{
+        if(this.user === undefined){
+          return;
+        }
+        if(need.quantity >= 0){
+          this.choiceErrorMessage = "";
+          this.user.fundingBasket.push(needAdded);
+          needAdded.quantity--;
+          this.needService.updateNeed(needAdded).subscribe();
+          this.userService.updateData(this.user).subscribe();
+          sessionStorage.setItem("userData", JSON.stringify(this.user));
+          this.updateNeedsAvailable();          
+        }else{
+          this.choiceErrorMessage = "Need added is not available.";
         }
       }
+      );
 
-      this.userService.updateData(this.user).subscribe();
-      sessionStorage.setItem("userData", JSON.stringify(this.user));
+
     }
     //Get user
     getUser():void{
@@ -79,14 +89,12 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     }
     //Filter the needs list.
     filter():void{
-      this.needsDisplayed = this.needs;
-      if(this.needsDisplayed === undefined || this.searchTerm === ''){
+      this.updateNeedsAvailable();
+      if(this.needsDisplayed === undefined || this.searchTerm === ""){
         return;
       }
-
-      //Does not check if the type is undefined or not. Oh well
       this.needsDisplayed = this.needsDisplayed.filter((need) => {return need.type.includes(this.searchTerm) });
-      this.searchTerm = '';
+      this.searchTerm = "";
     }
 
 

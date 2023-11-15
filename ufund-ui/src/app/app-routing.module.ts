@@ -8,6 +8,7 @@ import { ManagerDonationRewardsInterfaceComponent } from './managerInterface/man
 import { SigninLoginScreenComponent } from './accountSystemFrontend/signin-login-screen/signin-login-screen.component';
 import { CupboardComponent } from './managerInterface/cupboard/cupboard.component';
 import { EventComponent } from './event/event.component';
+import { EventDisplayComponent } from './event-display/event-display.component'
 import { MainBodyComponent } from './main-body/main-body.component';
 
 const routes: Routes = [
@@ -17,10 +18,13 @@ const routes: Routes = [
   { path: 'choices', component: HelperChoiceInterfaceComponent },
   { path: 'reward', component: HelperDonationRewardsInterfaceComponent },
   { path: 'checkout', component: CheckoutPageComponent },
-  { path: 'login', component: SigninLoginScreenComponent}]},
+  { path: 'login', component: SigninLoginScreenComponent},
+  { path: 'eventManagement', component: EventComponent },
+  { path: 'eventDisplay', component: EventDisplayComponent}
+  ]},
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: SigninLoginScreenComponent},
-  { path: 'events', component: EventComponent }
+  
 ];
 
 @NgModule({

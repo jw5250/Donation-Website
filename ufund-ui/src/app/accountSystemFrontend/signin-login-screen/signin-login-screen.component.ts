@@ -26,7 +26,9 @@ export class SigninLoginScreenComponent implements OnInit{
   //The input for the log in name.
   @Input() logInName?:string | undefined | null = undefined;
   //The user's data.
+  MAXLEN : number = 20;
   user? : User = undefined;
+  
   signInErrorMessage : string = "";
   logInErrorMessage : string = "";
   userIdentifier: string = "userData";
@@ -43,6 +45,11 @@ export class SigninLoginScreenComponent implements OnInit{
     this.signInErrorMessage = "";
     if(this.signInName != undefined || this.signInName != null){
       this.signInName = this.signInName.trim();
+      if(this.signInName.length > this.MAXLEN){
+        this.signInErrorMessage = "User name can only be " + this.MAXLEN + " characters long.";
+        this.signInName = undefined;
+        return;
+      }
       let donationRewards : string[] = [];
       this.donationRewardService.getDonationRewards().subscribe((rewards) => 
       {
@@ -54,7 +61,7 @@ export class SigninLoginScreenComponent implements OnInit{
       .subscribe( (user) => 
         {
           user == undefined ? this.signInErrorMessage = "Issue with getting in name." :
-          this.signInErrorMessage = "" ;
+          this.signInErrorMessage = "User created!" ;
           this.signInName = undefined;
         });
       });

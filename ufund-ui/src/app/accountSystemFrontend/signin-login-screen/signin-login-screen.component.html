@@ -2,6 +2,7 @@
 
 <ng-template [ngIf] = "(this.user === undefined)"><div>
     <h1>User Sign up</h1>
+    <h2>Max character length: {{this.MAXLEN}}</h2>
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="signInName" placeholder="name">
     <button type="button" (click)="signIn()">Sign up</button>

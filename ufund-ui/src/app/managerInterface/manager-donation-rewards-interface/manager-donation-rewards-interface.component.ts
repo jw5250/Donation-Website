@@ -11,6 +11,8 @@ import { DonationReward } from '../../dataClasses/DonationReward';
   styleUrls: ['./manager-donation-rewards-interface.component.css']
 })
 export class ManagerDonationRewardsInterfaceComponent {
+  MAXLEN: number = 30;
+  donationManagementErrorMessage : string[] = [];
   donationRewards: DonationReward[] = [];
   voidDonationReward: DonationReward = {name: "", requirement: 0};
   selectedDonationReward: DonationReward = this.voidDonationReward;
@@ -122,10 +124,28 @@ export class ManagerDonationRewardsInterfaceComponent {
    * @param name : name of donation reward to be updated
    * @param cost : cost of donation reward
    */
-  editDonationReward(name: String, cost: Number): void{
+  editDonationReward(name: String, req: Number): void{
+    this.donationManagementErrorMessage = [];
+    let foundError : boolean = false;
     name = name.trim();
-    if (!name) { return; }
-    const newDonationReward = <DonationReward>({name: name, requirement: cost});
+    if(name === null){
+      this.donationManagementErrorMessage.push("Name is not defined.");
+      foundError = true;
+    }
+    if(name.length > this.MAXLEN){
+      this.donationManagementErrorMessage.push("Name is greater than " + this.MAXLEN + " characters.");
+      foundError = true;
+    }
+    if(Number.isNaN(req)){
+      this.donationManagementErrorMessage.push("Required points is not a number.");
+      foundError = true;
+    }
+    if(req.valueOf() < 0){
+      this.donationManagementErrorMessage.push("Donation requirement must be greater than or equal to 0.");
+      foundError = true;
+    }
+    if (foundError === true) { return; }
+    const newDonationReward = <DonationReward>({name: name, requirement: req});
     const filtered: DonationReward[] = this.donationRewards.filter(donationReward => {return newDonationReward.name !== donationReward.name;});    
   
 
