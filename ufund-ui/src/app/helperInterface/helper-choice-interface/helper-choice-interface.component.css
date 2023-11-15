@@ -1,0 +1,17 @@
+h3{
+    text-align: center;
+    color: firebrick;
+    font-size: 160%;
+}
+#needs-list{
+    text-align: center;
+}
+#need-button{
+    outline-style: solid;
+    outline-width: 3px;
+    outline-color: black;
+}
+
+.needs{
+    list-style-type: none;
+}

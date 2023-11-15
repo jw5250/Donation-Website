@@ -8,6 +8,9 @@ a.helper-link{
     background-size: 150%;
     text-decoration: none;
     color: deepskyblue;
+    outline-style: solid;
+    outline-color: firebrick;
+    outline-width: 5px;
     
 }
 a.helper-link:hover{

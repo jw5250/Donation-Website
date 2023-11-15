@@ -6,6 +6,10 @@
     text-align: center;
 }
 
+#user-name{
+    height: 50px;
+    font-size: larger;
+}
 h2{
     margin-bottom: 0px;
     margin-top: 70px;
