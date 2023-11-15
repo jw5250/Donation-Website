@@ -1,9 +1,14 @@
 <h1>Your UFund Reward List</h1>
 <h2>Rewards for Donations</h2>
+
+<div *ngFor = "let error of this.donationManagementErrorMessage">
+    <h4>{{error}}</h4>
+</div>
 <div class = donation-rewards>
 <label for = current-list>Name | Cost Requirement</label>
-<ul class = current-list>
+<ul class = "current-list">
     <li *ngFor="let reward of donationRewards" class = "current-list">
+
         <button type = "button" (click) = "selectDonationReward(reward)">
             <span class = "attr">{{reward.name}}  |   </span>
             <span class = "attr">{{reward.requirement}}     </span>

@@ -112,7 +112,6 @@ public class UserFileDAOTest {
      //Does not work.
     @Test
     public void testDeleteUser() throws IOException{
-        User[] testArray = new User[2];
         Need[] arr = new Need[2];
         arr[0] = new Need("Thing1", "Type", 10, 4);
         arr[1] = new Need("Thing2", "Type2", 10, 5);

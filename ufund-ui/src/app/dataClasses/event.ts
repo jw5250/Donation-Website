@@ -1,5 +1,5 @@
 export interface Event {
     name: string;
     date: string;
-    time: number;
+    time: string;
   }
