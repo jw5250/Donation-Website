@@ -95,7 +95,7 @@ export class CupboardComponent implements OnInit {
    * @param cost : cost of need
    * @param quantity : quantity of need
    */
-  editNeed(name: String, type: String, cost: Number, quantity: Number ): void{
+  editNeed(name: string, type: string, cost: num  ber, quantity: number ): void{
     name = name.trim();
     type = type.trim();
     if (!name || !type) { return; }

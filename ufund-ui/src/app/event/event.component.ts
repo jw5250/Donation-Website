@@ -83,7 +83,7 @@ import { Event } from '../dataClasses/event';
    * @param type : type of event
    * @param cost : cost of event
    */
-  editEvent(name: String, date: String, time: Number): void{
+  editEvent(name: string, date: string, time: number): void{
     name = name.trim();
     if (!name) { return; }
     this.selectEvent(this.voidEvent);
