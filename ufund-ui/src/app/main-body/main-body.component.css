@@ -1,0 +1,18 @@
+a.helper-link{
+    background-size: 30px;
+    font-size: 180%;
+    background-color: #3d3d3d;
+    margin-right: 30px;
+    border-radius: 7px;
+    border-width: 25px;
+    background-size: 150%;
+    text-decoration: none;
+    color: deepskyblue;
+    
+}
+a.helper-link:hover{
+    color: indianred;
+}
+#helper-page{
+    background-size: 300px;
+}

@@ -1,16 +1,14 @@
 <!--Should either load the manager frontend or the helper frontend.-->
-<h1 id = "title">Welcome to ArtsROC's Ufund!</h1>
-<ng-template [ngIf] = "(this.user === undefined)"><div id = login>
-    <h2>User Sign up</h2>
+
+<ng-template [ngIf] = "(this.user === undefined)"><div class = login>
+    <h1 id = "title">Welcome to ArtsROC's Ufund!</h1>
+    <h2>User Sign Up</h2>
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="signInName" placeholder="name">
     <button type="button" id="login-button" (click)="signIn()">Sign up</button>
     <p>{{this.signInErrorMessage}}</p>
-</div></ng-template>
 
-
-<ng-template [ngIf] = "(this.user === undefined)"><div id = login>
-    <h2>User login</h2>
+    <h2>User Login</h2>
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="logInName" placeholder="name">
     <button type="button" id="login-button" (click)="logIn()">Log in</button>
