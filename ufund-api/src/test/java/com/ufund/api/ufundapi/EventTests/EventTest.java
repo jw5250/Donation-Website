@@ -30,7 +30,7 @@ public class EventTest {
      */
     @BeforeEach
     public void setupEvent() {
-        testEvent = new Event("Art", "Jan 1", 1000);
+        testEvent = new Event("Art", "Jan 1", "1000");
     }
 
     /**

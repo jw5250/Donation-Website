@@ -43,7 +43,7 @@ public class EventsControllerTest {
     @Test
     public void testGet() throws IOException {  // getData may throw IOException
 
-        Event Data = new Event("thing10", "dec", 1200);
+        Event Data = new Event("thing10", "dec", "1200");
 
         //Always have the mock object always return the "correct" value.
         when(mockDataDAO.getData(Data.getName())).thenReturn(Data);
@@ -87,7 +87,7 @@ public class EventsControllerTest {
     //Justin Wu's work:
     @Test
     public void testCreateData() throws IOException {  // createData may throw IOException
-        Event Data = new Event("thing10", "dec", 1200);
+        Event Data = new Event("thing10", "dec", "1200");
 
         when(mockDataDAO.createData(Data)).thenReturn(Data);
 
@@ -98,7 +98,7 @@ public class EventsControllerTest {
         assertEquals(HttpStatus.CREATED,response.getStatusCode());
         assertEquals(Data,response.getBody());
 
-        Data = new Event("thing10", "dec", 1200);
+        Data = new Event("thing10", "dec", "1200");
 
         when(mockDataDAO.createData(Data)).thenReturn(null);
 
@@ -128,7 +128,7 @@ public class EventsControllerTest {
     @Test
     public void testUpdateData() throws IOException { // updateData may throw IOException
         
-        Event Data = new Event("thing10", "dec", 1200);
+        Event Data = new Event("thing10", "dec", "1200");
         
         when(mockDataDAO.updateData(Data)).thenReturn(Data);
         ResponseEntity<Event> response = DataController.updateData(Data);
@@ -142,7 +142,7 @@ public class EventsControllerTest {
         assertEquals(Data,response.getBody());
 
 
-        Data = new Event("thing10", "dec", 1200);
+        Data = new Event("thing10", "dec", "1200");
         
         when(mockDataDAO.updateData(Data)).thenReturn(null);
 
@@ -173,8 +173,8 @@ public class EventsControllerTest {
     public void testGetCupboard() throws IOException { // getCupboard may throw IOException
 
         Event[] Datas = new Event[2];
-        Datas[0] = new Event("thing10", "mar", 1900);
-        Datas[1] = new Event("thing5", "may", 1040);
+        Datas[0] = new Event("thing10", "mar", "1900");
+        Datas[1] = new Event("thing5", "may", "1040");
 
         when(mockDataDAO.getDataArray()).thenReturn(Datas);
 
@@ -202,8 +202,8 @@ public class EventsControllerTest {
     public void testSearchDatas() throws IOException { // searchDatas may throw IOException
         String searchString = "ing";
         Event[] Datas = new Event[2];
-        Datas[0] = new Event("thing10", "jan", 1000);
-        Datas[1] = new Event("thing9", "feb", 1030);
+        Datas[0] = new Event("thing10", "jan", "1000");
+        Datas[1] = new Event("thing9", "feb", "1030");
         
         when(mockDataDAO.searchDataArray(searchString)).thenReturn(Datas);
 
