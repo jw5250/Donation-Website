@@ -8,7 +8,7 @@ public class Event {
     //private static final Logger LOG = Logger.getLogger(Need.class.getName());
 
     // Package private for tests
-    static final String STRING_FORMAT = "Event[name=%s, date=%s, time=%d]";
+    static final String STRING_FORMAT = "Event[name=%s, date=%s, time=%s]";
      
     @JsonProperty("name") private String name;//Unique name
     @JsonProperty("date") private String date;
