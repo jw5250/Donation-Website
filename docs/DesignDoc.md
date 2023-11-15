@@ -130,7 +130,7 @@ This section describes the web interface flow; this is how the user views and in
 > 
 ![Replace with your Model Tier class diagram 1, etc.](ModelTierSWEN261.png)
 ​
-The model tier is an intermediary between the objects that can be modified by the frontend Angular section and the JSON database. There are two main classes in this tier: User.java and Need.java. User.java represents the individual data of a user, while Need.java represents a need that could be bought by a user. Need.java contains a price, a name which acts as the unique id to prevent duplicates, a tag which can be used to filter out details, and finally a quantity. User.java contains the username, the current items that the user will buy, if it is an admin or not, the total amount of money they spent, and a list of donation rewards they can get given some amount of . DonationReward.java represents the reward that a user can get, given some amount of money they've spent in total. It contains a name and a number representing the amount of money needed to get it.
+The model tier is an intermediary between the objects that can be modified by the frontend Angular section and the JSON database. There are two main classes in this tier: User.java and Need.java. User.java represents the individual data of a user, while Need.java represents a need that could be bought by a user. Need.java contains a price, a name which acts as the unique id to prevent duplicates, a tag which can be used to filter out details, and finally a quantity. User.java contains the username, the current items that the user will buy, if it is an admin or not, the total amount of money they spent, and a list of donation rewards they can get given some amount of points. DonationReward.java represents the reward that a user can get, given some amount of money they've spent in total. It contains a name and a number representing the amount of money needed to get it. Event.java contains data pertaining to an event the organization may hold, such as the name and the date and time it will occur.
 ​
 ## OO Design Principles
 > _**[Sprint 2, 3 & 4]** Will eventually address upto **4 key OO Principles** in your final design. Follow guidance in augmenting those completed in previous Sprints as indicated to you by instructor. Be sure to include any diagrams (or clearly refer to ones elsewhere in your Tier sections above) to support your claims._
@@ -142,9 +142,14 @@ The way the DAO and Controller objects are designed are under the assumption tha
 ​
 <h5>Single Responsibility</h5>
 ​<p>
-Each class has a single responsibility. For instance, the User.java class handles data pertaining to individuals who use the website, while the DAO classes each handle deserialization/serialization of a given object. The controller objects each handle a different DAO and link the app to whatever uses the database.
+Each class has a single responsibility. For instance, the User.java class handles data pertaining to individuals who use the website, while the DAO classes each handle deserialization/serialization of a given object. The controller objects each handle a different DAO and link the app to whatever uses the database. Each class in the model tier is purposed to handling some unique data, be it a user, which contains admin permissions, the name, and the items in their basket, or a Need, which has a cost, name, quantity, and type. As a result, the program needs less time to decipher what data it needs to look at.
 </p>
-​
+
+<h5>Pure Fabrication</h5>
+
+<p>
+Each class in the backend has some specific responsibilty despite not having a defined role in the domain diagram. For instance, the use of controller and DAO (data persistence oriented) classes help abstract the translation of json objects to java objects(and vice versa) from the handling of http requests. This is also exemplified in the front end, where services prevent the repetition of code needed to send http requests and process http responses.
+​</p>
 
 ​
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
@@ -195,6 +200,6 @@ The majority of the user stories passed without much issues and all the unit tes
 ![Code coverage for the controller tier](tests/controllerTierTests.png)
 ​
 ![Code coverage for the persistence tier](tests/persistenceTierTests.png)
-​
+​The persistence tests do not test for failures. We did not think this was needed, given they work anyways in the live testing area.
 ![Code coverage for the model tier](tests/modelTierTests.png)
-Most of the uncovered code are the getters and setters in the Need.java object. Our group thought that if one getter worked, then the others would, given all the untested ones handled primitive values. As of writing, the cupboard.java object has been removed. A branch involving two objects not being equal in the equals function of User.java isn't covered either, mainly because they don't have anythign in particular outside of a return value.
+Most of the uncovered code are the getters and setters in the Need.java object. Our group thought that if one getter worked, then the others would, given all the untested ones handled primitive values. As of writing, the cupboard.java object has been removed. A branch involving two objects not being equal in the equals function of User.java isn't covered either, mainly because they don't have anythign in particular outside of a return value. As of now, the charge object does not have any tests.
