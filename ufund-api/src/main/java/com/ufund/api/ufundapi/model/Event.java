@@ -12,13 +12,13 @@ public class Event {
      
     @JsonProperty("name") private String name;//Unique name
     @JsonProperty("date") private String date;
-    @JsonProperty("time") private int time;
+    @JsonProperty("time") private String time;
 
 
     /**
      * Create a need with the given attributes
      * @param name The name of Event
-     * @param date The datw of Event
+     * @param date The date of Event
      * @param time The time of Event
      * {@literal @}JsonProperty is used in serialization and deserialization
      * of the JSON object to the Java object in mapping the fields.  If a field
@@ -26,7 +26,7 @@ public class Event {
      * value, i.e. 0 for int
      */
     public Event(@JsonProperty("name") String name, @JsonProperty("date") String date,
-    @JsonProperty("time") int time) {
+    @JsonProperty("time") String time) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -73,13 +73,13 @@ public class Event {
      * Retrieves the time of the Event
      * @return The time of the Event
      */
-    public int getTime() {return time;}
+    public String getTime() {return time;}
 
     /**
      * Sets the time of the Event - necessary for JSON object to Java object deserialization
      * @param time The time of the Need
      */
-    public void setTime(int time) {this.time = time;}
+    public void setTime(String time) {this.time = time;}
 
     /**
      * {@inheritDoc}

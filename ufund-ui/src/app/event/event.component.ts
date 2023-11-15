@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { EventService } from '../event.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { EventService } from '../services/event.service';
 import { User } from '../dataClasses/user';
-import { Event } from '../event';
+import { Event } from '../dataClasses/event';
 @Component({
     selector: 'app-event',
     templateUrl: './event.component.html',
