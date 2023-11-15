@@ -46,7 +46,9 @@ h3 {
     color: #aaa;
     cursor: auto;
   }
-  
+#needs-list{
+    text-align: center;
+}
   /* everywhere else */
   * {
     font-family: Arial, Helvetica, sans-serif;

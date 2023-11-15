@@ -3,9 +3,7 @@ h3{
     color: firebrick;
     font-size: 160%;
 }
-#needs-list{
-    text-align: center;
-}
+
 #need-button{
     outline-style: solid;
     outline-width: 3px;

@@ -1,8 +1,8 @@
 <h1>Your Funding Basket</h1>
-<h2>Needs</h2>
-<label for = "needs">Name | Type | Cost | Quantity</label>
+<div id="needs-list">
+<label for = "needs" class = "need-label">Name | Type | Cost | Quantity</label>
 <ul class = "needs">
-    <li *ngFor="let need of getFundingBasket()">
+    <li *ngFor="let need of getFundingBasket()" class>
         <button type = "button">
             <span class = "attr">{{need.name}}  |   </span>
             <span class = "attr">{{need.type}}  |   </span>
@@ -14,6 +14,8 @@
     </li>
     <p>Refresh page to see your updated funding basket.</p>
     <button type = "button" (click) = "checkout()" routerLink="">Click to check out</button>
+    
     <p>{{emptiedDisplay}}</p>
 </ul>
+</div>
 <br>
