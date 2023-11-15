@@ -14,6 +14,7 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
   @Input() name? : string | null = undefined;
   user? : User = undefined;
   rewardsAvailable : string[] = [];
+  helperRewardsErrorMessage : string = "";
   allRewards : DonationReward[] = [];
   constructor(private userService: UserService,
   private donationRewardService : DonationRewardService,
@@ -42,8 +43,6 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
       this.donationRewardService.getDonationRewards().subscribe(
       (rewards)=>{
         this.allRewards = this.sortByPrice(rewards);
-        console.log(this.allRewards);
-        console.log(user.availableRewards);
         for(let i = 0; i < this.allRewards.length;i++){
           for(let j = 0; j < user.availableRewards.length;j++){
             if(this.allRewards[i].name === user.availableRewards[j]){
@@ -52,7 +51,7 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
           }
         }
       });
-      this.getAllDonationRewards(user);
+      //this.getAllDonationRewards(user);
     });
   }
   sortByPrice(rewards : DonationReward[]) {
@@ -67,24 +66,25 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
     return rewards;
   }
 
-  getAllDonationRewards(user : User){
-
-  }
 
   displayReward(donationReward : DonationReward){
     return "Name: " + donationReward.name + " | Dollars:" + donationReward.requirement;
   }
+
+
   displayTotalDonated(){
     if(this.user === undefined){
       return "";
     }else{
       return "Total money donated: " + this.user.totalDonations;
     }
-
   }
   updateDonation(donationRewardToBeAdded:DonationReward){
-    if(this.user === undefined || this.user.availableRewards === undefined || this.user.totalDonations < donationRewardToBeAdded.requirement){
+    this.helperRewardsErrorMessage = "";
+    if(this.user === undefined || this.user.availableRewards === undefined){
       return;
+    }else if(this.user.totalDonations < donationRewardToBeAdded.requirement){
+      this.helperRewardsErrorMessage = "Not enough funding. Points you still need: " + (donationRewardToBeAdded.requirement-this.user.totalDonations);
     }else{
       this.user.availableRewards = this.user.availableRewards.filter(donationRewardName => {return donationRewardToBeAdded.name  !== donationRewardName;});
       this.rewardsAvailable = this.user.availableRewards;
@@ -92,6 +92,7 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
     this.userService.updateData(this.user).subscribe();
     sessionStorage.setItem("userData", JSON.stringify(this.user));
   }
+
   addDonation(addedDonationRewardName : string){
     this.donationRewardService.getDonationReward(addedDonationRewardName).subscribe( (reward) =>{
       this.updateDonation(reward);
