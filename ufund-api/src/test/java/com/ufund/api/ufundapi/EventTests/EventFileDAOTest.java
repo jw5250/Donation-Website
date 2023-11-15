@@ -49,7 +49,7 @@ public class EventFileDAOTest {
     }   
 
     /**
-     * Tests "getCupboardArray()" function
+     * Tests "testGetEventArray()" function
      * Asserts that the function returns the correct objects in the correct order.
      * 
      * @throws IOException
@@ -67,20 +67,20 @@ public class EventFileDAOTest {
     }
 
     /**
-     * Tests "getCupboardArray(String containsString)" function
+     * Tests "testSearchEvent(String containsString)" function
      * Asserts that the function returns the correct Events that match the parameter
      * 
      * @throws IOException
      */
     @Test
-    public void testSearchCupboard() throws IOException{
+    public void testSearchEvent() throws IOException{
         Event[] testArray = new Event[2];
         testArray[0] = new Event("Art", "nov", 900);
         testArray[1] = new Event("Teachers", "nov", 1000);
 
         Event[] testResult = needFileDAO.searchDataArray("r");
 
-        assertArrayEquals(testArray, testResult, "testSearchCupboardArray");
+        assertArrayEquals(testArray, testResult, "testSearchEvent");
     }
 
     /**
