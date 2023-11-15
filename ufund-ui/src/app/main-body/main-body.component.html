@@ -2,15 +2,15 @@
 <nav>
     <ng-template [ngIf] = "(manager === true)">
         <div id = manager-page>
-            <a routerLink="{{this.getDonationManagement()}}">Rewards Management</a>
-            <a routerLink="{{this.getCupboard()}}">Need Management</a>
+            <a routerLink="{{this.getDonationManagement()}}" class= user-link>Rewards Management</a>
+            <a routerLink="{{this.getCupboard()}}" class = user-link>Need Management</a>
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
         <div id = helper-page>
-            <a routerLink="{{this.getChoices()}}" class = helper-link>Needs</a>
-            <a routerLink="{{this.getCheckout()}}" class = helper-link>Checkout</a>
-            <a routerLink="{{this.getReward()}}" class = helper-link>Rewards</a>
+            <a routerLink="{{this.getChoices()}}" class = user-link>Needs</a>
+            <a routerLink="{{this.getCheckout()}}" class = user-link>Checkout</a>
+            <a routerLink="{{this.getReward()}}" class = user-link>Rewards</a>
         </div>
     </ng-template>
     <!--app-signin-login-screen (person) = "getData($event)"--><!--/app-signin-login-screen-->
