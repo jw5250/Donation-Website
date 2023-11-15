@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 /* Application-wide Styles */
 h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
+    color: firebrick;
+    font-family: Helvetica, Arial, sans-serif;
     font-size: 250%;
   }
   h2, h3 {
