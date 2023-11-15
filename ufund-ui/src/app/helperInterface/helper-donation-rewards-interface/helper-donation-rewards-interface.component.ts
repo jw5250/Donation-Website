@@ -72,7 +72,7 @@ export class HelperDonationRewardsInterfaceComponent implements OnInit{
   }
 
   displayReward(donationReward : DonationReward){
-    return "Name: " + donationReward.name + " | Dollars:" + donationReward.requirement;
+    return "Name: " + donationReward.name + " | Donated amount required: $" + donationReward.requirement;
   }
   displayTotalDonated(){
     if(this.user === undefined){
