@@ -17,6 +17,7 @@ import { CheckoutPageComponent } from './helperInterface/checkout-page/checkout-
 import { HelperDonationRewardsInterfaceComponent } from './helperInterface/helper-donation-rewards-interface/helper-donation-rewards-interface.component';
 import { ManagerDonationRewardsInterfaceComponent } from './managerInterface/manager-donation-rewards-interface/manager-donation-rewards-interface.component';
 import { MainBodyComponent } from './main-body/main-body.component';
+import { EventDisplayComponent } from './event-display/event-display.component';
 
 
 
@@ -31,7 +32,8 @@ import { MainBodyComponent } from './main-body/main-body.component';
     HelperDonationRewardsInterfaceComponent,
     ManagerDonationRewardsInterfaceComponent,
     EventComponent,
-    MainBodyComponent
+    MainBodyComponent,
+    EventDisplayComponent
 
   ],
   imports: [

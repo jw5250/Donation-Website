@@ -5,7 +5,7 @@
         <div>
             <a routerLink="{{this.getDonationManagement()}}">Rewards Management</a>
             <a routerLink="{{this.getCupboard()}}">Need Management</a>
-            
+            <a routerLink="{{this.getEventManagement()}}">Event Management</a>            
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
@@ -13,9 +13,9 @@
             <a routerLink="{{this.getChoices()}}">Needs</a>
             <a routerLink="{{this.getCheckout()}}">Checkout</a>
             <a routerLink="{{this.getReward()}}">Rewards</a>
+            <a routerLink="{{this.getEventDisplay()}}">Current Events</a>
         </div>
     </ng-template>
-    <!--app-signin-login-screen (person) = "getData($event)"--><!--/app-signin-login-screen-->
 </nav>
 <router-outlet></router-outlet>
 <app-messages></app-messages>

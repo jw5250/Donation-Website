@@ -17,7 +17,8 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
   @Input() name? : string | null;
   user? : User;
   emptied : string = "Nothing here! To buy things, click on the \"Needs\" tab.";
-  emptiedDisplay : string = '';
+  totalCostDisplay : string = "";
+  emptiedDisplay : string = "";
   total : number = 0;
   getTotalBasketValue(){
     if(this.user === undefined){
@@ -25,6 +26,19 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     }
     for(let i = 0; i < this.user.fundingBasket.length;i++){
       this.total += this.user.fundingBasket[i].cost;
+    }
+  }
+  displayTotalCost(){
+    if(this.user === undefined){
+      return;
+    }
+    this.total = 0;
+    this.getTotalBasketValue();
+    if(this.user.fundingBasket.length > 0){
+      this.totalCostDisplay = "Total cost: " + this.total;
+    }else{
+      this.emptiedDisplay = this.emptied;
+      this.totalCostDisplay = "";
     }
   }
   ngOnInit(){
@@ -48,7 +62,7 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     }
     this.userService.getData(this.name).subscribe(user => {
       this.user = user;
-      this.getTotalBasketValue();
+      this.displayTotalCost();
     });
   }
     //Add item to the user's funding basket.
@@ -67,7 +81,9 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
         this.user.fundingBasket.splice(i, 1);
         break;
       }
+
     }
+    this.displayTotalCost();
     this.userService.updateData(this.user).subscribe();
     sessionStorage.setItem("userData", JSON.stringify(this.user));
   }
@@ -81,10 +97,9 @@ export class CheckoutPageComponent implements OnInit/*, OnChanges*/{
     for(let i = 0; i < this.user.fundingBasket.length;i++){
       this.user.totalDonations += this.user.fundingBasket[i].cost;
     }
-    //alert("You got a new reward! Make sure to check it out!");
-    this.emptiedDisplay = '';
     this.user.fundingBasket = [];
-    
+    this.totalCostDisplay = "";
+    this.emptiedDisplay = "Checked out!";
     if(this.user != undefined){
         this.userService.updateData(this.user).subscribe();
         sessionStorage.setItem("userData", JSON.stringify(this.user));

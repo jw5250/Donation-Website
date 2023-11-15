@@ -1,23 +1,27 @@
 <h2>Event Schedule</h2>
-<div class="Event">
+<h3>Name, time, and date can only be {{this.MAXLEN}} characters long.</h3>
+<div *ngFor = "let error of this.eventManagementErrorMessage">
+    <h4>{{error}}</h4>
+</div>
+
   <label for = "Event">Name | date | time</label>
   <ul class = "Event">
     <li *ngFor="let event of events">
         <button type = "button" (click) = "selectEvent(event)">
             <span class = "attr">{{event.name}}  |   </span>
             <span class = "attr">{{event.date}}  |   </span>
-            <span class = "attr">{{event.time}}  |   </span>
+            <span class = "attr">{{event.time}}</span>
             </button>
         <button type = "button" (click) = "deleteEvent(event)">X</button>
-            <br>
+        <br>
     </li>
   </ul>
   <br>
 <br>
 <form id = "EventCreate" (ngSubmit)="getNewEventData()">
-    <input type = "text" name = "needInput" value = {{selectedEvent.name}}>
-    <input type = "text" name = "needInput" value = {{selectedEvent.date}}>
-    <input type = "text" name = "needInput" value = {{selectedEvent.time}}>
+    <input type = "text" name = "eventInput" value = {{selectedEvent.name}}>
+    <input type = "text" name = "eventInput" value = {{selectedEvent.date}}>
+    <input type = "text" name = "eventInput" value = {{selectedEvent.time}}>
     <br>
     <input type = "submit" value = "Create or Update">
 </form>

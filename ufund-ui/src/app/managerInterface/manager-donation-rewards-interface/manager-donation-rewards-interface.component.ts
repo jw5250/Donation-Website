@@ -128,7 +128,6 @@ export class ManagerDonationRewardsInterfaceComponent {
     this.donationManagementErrorMessage = [];
     let foundError : boolean = false;
     name = name.trim();
-    console.log(name);
     if(name === null){
       this.donationManagementErrorMessage.push("Name is not defined.");
       foundError = true;

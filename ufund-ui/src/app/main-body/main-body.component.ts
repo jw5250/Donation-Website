@@ -39,8 +39,14 @@ export class MainBodyComponent implements OnInit{
   getCupboard(){
     return this.getLink("cupboard");
   }
+  getEventDisplay(){
+    return this.getLink("eventDisplay");
+  }
   getDonationManagement(){
     return this.getLink("donationManagement");
+  }
+  getEventManagement(){
+    return this.getLink("eventManagement");
   }
 
   getLink(path:string){
