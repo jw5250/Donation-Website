@@ -75,7 +75,7 @@ public class EventFileDAOTest {
     @Test
     public void testSearchEvent() throws IOException{
         Event[] testArray = new Event[2];
-        testArray[0] = new Event("Art", "nov", 900);
+        testArray[0] = new Event("Art", "dec", 900);
         testArray[1] = new Event("Teachers", "nov", 1000);
 
         Event[] testResult = needFileDAO.searchDataArray("r");
@@ -107,7 +107,7 @@ public class EventFileDAOTest {
     @Test
     public void testDeleteEvent() throws IOException{
         Event[] testArray = new Event[2];
-        testArray[0] = new Event("Art", "nov", 900);
+        testArray[0] = new Event("Art", "dec", 900);
         testArray[1] = new Event("Teachers", "nov", 1000);
 
         assertTrue(needFileDAO.deleteData("null"),"testDeleteEvent");
