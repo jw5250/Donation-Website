@@ -10,9 +10,9 @@
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
         <div>
-            <a routerLink="{{this.getChoices()}}">Needs</a>
-            <a routerLink="{{this.getCheckout()}}">Checkout</a>
-            <a routerLink="{{this.getReward()}}">Rewards</a>
+            <a routerLink="{{this.getChoices()}}" style="margin-right: 10px;">Needs</a>
+            <a routerLink="{{this.getCheckout()}}" style="margin-right: 10px;">Checkout</a>
+            <a routerLink="{{this.getReward()}}" style="margin-right: 10px;">Rewards</a>
             <a routerLink="{{this.getEventDisplay()}}">Current Events</a>
         </div>
     </ng-template>
