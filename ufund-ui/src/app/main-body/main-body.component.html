@@ -3,9 +3,9 @@
     <a routerLink="{{this.getLogin()}}">Log in</a>
     <ng-template [ngIf] = "(manager === true)">
         <div>
-            <a routerLink="{{this.getDonationManagement()}}">Rewards Management</a>
-            <a routerLink="{{this.getCupboard()}}">Need Management</a>
-            <a routerLink="{{this.getEventManagement()}}">Event Management</a>            
+            <a routerLink="{{this.getDonationManagement()}}" style="margin-right: 10px;">Rewards Management</a>
+            <a routerLink="{{this.getCupboard()}}" style="margin-right: 10px;">Need Management</a>
+            <a routerLink="{{this.getEventManagement()}}" style="margin-right: 10px;">Event Management</a>            
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
@@ -13,7 +13,7 @@
             <a routerLink="{{this.getChoices()}}" style="margin-right: 10px;">Needs</a>
             <a routerLink="{{this.getCheckout()}}" style="margin-right: 10px;">Checkout</a>
             <a routerLink="{{this.getReward()}}" style="margin-right: 10px;">Rewards</a>
-            <a routerLink="{{this.getEventDisplay()}}">Current Events</a>
+            <a routerLink="{{this.getEventDisplay()}}" style="margin-right: 10px;">Current Events</a>
         </div>
     </ng-template>
 </nav>
