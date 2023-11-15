@@ -55,7 +55,7 @@ public class EventFileDAOTest {
      * @throws IOException
      */
     @Test
-    public void testGetCupboardArray() throws IOException{
+    public void testGetEventArray() throws IOException{
         Event[] testArray = new Event[3];
         testArray[0] = new Event("Art", "dec", 900);
         testArray[1] = new Event("Teachers", "nov", 1000);
@@ -63,7 +63,7 @@ public class EventFileDAOTest {
 
         Event[] testResult = needFileDAO.getDataArray();
 
-        assertArrayEquals(testArray, testResult, "testGetCupboardArray");
+        assertArrayEquals(testArray, testResult, "testGetEventArray");
     }
 
     /**
@@ -91,7 +91,7 @@ public class EventFileDAOTest {
      */
     @Test
     public void testGetEvent() throws IOException{
-        Event testEvent = new Event("Art", "nov", 900);
+        Event testEvent = new Event("Art", "dec", 900);
         Event testResult = needFileDAO.getData("Art");
 
         assertEquals(testEvent,testResult, "testGetEvent");

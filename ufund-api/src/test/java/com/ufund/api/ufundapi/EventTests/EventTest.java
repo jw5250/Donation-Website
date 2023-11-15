@@ -60,7 +60,7 @@ public class EventTest {
      */
     @Test
     public void testToString(){
-        String testString = "Event[name=Art, date=Feb, time=2000]";
+        String testString = "Event[name=Art, date=Jan 1, time=1000]";
         String testResult = testEvent.toString();
         assertEquals(testString,testResult, "testToString");
     }
