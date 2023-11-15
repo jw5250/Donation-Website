@@ -1,0 +1,14 @@
+<h2>Event Schedule</h2>
+<div class="Event">
+  <label for = "Event">Name | date | time</label>
+  <ul class = "Event">
+    <li *ngFor="let event of events">
+        <button type = "button" (click) = "selectEvent(event)">
+            <span class = "attr">{{event.name}}  |   </span>
+            <span class = "attr">{{event.date}}  |   </span>
+            <span class = "attr">{{event.time}}  |   </span>
+            </button>
+    </li>
+  </ul>
+  <br>
+<br>
