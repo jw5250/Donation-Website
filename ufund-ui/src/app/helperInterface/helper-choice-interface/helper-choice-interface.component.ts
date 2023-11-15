@@ -12,7 +12,8 @@ import { Need } from '../../dataClasses/need';
 export class HelperChoiceInterfaceComponent implements OnInit{
     needs : Need[] = [];
     needsDisplayed : Need[] = [];
-    searchTerm : string = '';
+    searchTerm : string = "";
+    choiceErrorMessage : string = "";
     @Input() name? : null | string;
     user? : User;
     constructor(
@@ -55,30 +56,27 @@ export class HelperChoiceInterfaceComponent implements OnInit{
     }
     //Add item to the user's funding basket.
     addToFundingBasket(needAdded : Need):void{
-      if(this.user === undefined){
-        return;
-      }
-      this.user.fundingBasket.push(needAdded);
-      //If need does not exist
-      /*
-      if(this.user.fundingBasket.filter( (need) => {return needAdded.name == need.name} ).length === 0){
-        //Deep copy the object.
-        let newNeed : Need = JSON.parse(JSON.stringify(needAdded));
-        newNeed.quantity = 1;
-        this.user.fundingBasket.push(needAdded);
-      }else{
-        for(let i = 0; i < this.user.fundingBasket.length;i++){
-          if(this.user.fundingBasket[i].name === needAdded.name){
-            this.user.fundingBasket[i].quantity++;
-            break;
-          }
+      
+      this.needService.getNeed(needAdded.name).subscribe(
+      (need)=>{
+        if(this.user === undefined){
+          return;
         }
-      }*/
-      needAdded.quantity--;
-      this.needService.updateNeed(needAdded).subscribe();
-      this.userService.updateData(this.user).subscribe();
-      sessionStorage.setItem("userData", JSON.stringify(this.user));
-      this.updateNeedsAvailable();
+        if(need.quantity >= 0){
+          this.choiceErrorMessage = "";
+          this.user.fundingBasket.push(needAdded);
+          needAdded.quantity--;
+          this.needService.updateNeed(needAdded).subscribe();
+          this.userService.updateData(this.user).subscribe();
+          sessionStorage.setItem("userData", JSON.stringify(this.user));
+          this.updateNeedsAvailable();          
+        }else{
+          this.choiceErrorMessage = "Need added is not available.";
+        }
+      }
+      );
+
+
     }
     //Get user
     getUser():void{
