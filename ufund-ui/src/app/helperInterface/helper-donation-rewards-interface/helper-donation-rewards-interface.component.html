@@ -1,20 +1,15 @@
 <!--Should be able to add a reward or something like that.-->
 <h2>Donation Rewards</h2>
-
-<ng-template [ngIf] = "(user !== undefined)"><div id = "donated-amount"><h3>{{this.displayTotalDonated()}}</h3></div></ng-template>
-
+<ng-template [ngIf] = "(user !== undefined)"><div><h3>{{this.displayTotalDonated()}}</h3></div></ng-template>
 <div class="donationSystem">
     <h3>{{this.helperRewardsErrorMessage}}</h3>
-
     <!--Calling the getDonations() here causes infinite loop of requests sent. Why?-->
     <h4>Rewards that currently exist:</h4>
-    <li *ngFor="let donationReward of allRewards" class = "reward-list">
+    <li *ngFor="let donationReward of allRewards">
         <p>{{this.displayReward(donationReward)}}</p>  
     </li>
-
-    <h4>Rewards you can get:</h4>
-    <li *ngFor="let donationName of rewardsAvailable" class = "reward-list">
-
+    <h4>Rewards you can get that you haven't gotten yet:</h4>
+    <li *ngFor="let donationName of rewardsAvailable">
         <button type = "button" (click) = "addDonation(donationName)">{{donationName}}</button>
     </li>
 </div>

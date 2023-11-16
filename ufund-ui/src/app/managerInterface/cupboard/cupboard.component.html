@@ -1,12 +1,9 @@
 <h1>Your UFund Cupboard</h1>
 <h2>Needs</h2>
-
 <h3>Type and Name can only be {{this.MAXLEN}} characters long.</h3>
 <div *ngFor = "let error of this.cupboardErrorMessage">
     <h4>{{error}}</h4>
 </div>
-<div id = manage-needs>
-
 <label for = "needs">Name | Type | Cost | Quantity</label>
 <ul class = "needs">
     <li *ngFor="let need of needs">
@@ -21,9 +18,7 @@
     </li>
 </ul>
 <br>
-<label for = need-ceate>Enter data here to create or edit a need!</label>
-<form id = need-create (ngSubmit)="getNewNeedData()">
-    
+<form id = "needCreate" (ngSubmit)="getNewNeedData()">
     <input type = "text" name = "needInput" value = {{selectedNeed.name}}>
     <input type = "text" name = "needInput" value = {{selectedNeed.type}}>
     <input type = "text" name = "needInput" value = {{selectedNeed.cost}}>
@@ -31,4 +26,3 @@
     <br>
     <input type = "submit" value = "Create or Update">
 </form>
-</div>

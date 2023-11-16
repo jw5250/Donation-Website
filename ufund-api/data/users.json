@@ -1,2 +1,2 @@
 
-    [{"name":"admin","isManager":true,"fundingBasket":[],"totalDonations":0.0,"availableRewards":[]},{"name":"bobJones","isManager":false,"fundingBasket":[],"totalDonations":21.0,"availableRewards":["Reward1","Reward22","Thing2"]},{"name":"jimmy","isManager":false,"fundingBasket":[],"totalDonations":0.0,"availableRewards":["Reward22","Thing2"]}]
+[{"name":"admin","isManager":true,"fundingBasket":[],"totalDonations":0.0,"availableRewards":[]},{"name":"bobJones","isManager":false,"fundingBasket":[],"totalDonations":21.0,"availableRewards":["Reward1","Reward22","Thing2"]},{"name":"jimmy","isManager":false,"fundingBasket":[],"totalDonations":0.0,"availableRewards":["Reward22","Thing2"]}]

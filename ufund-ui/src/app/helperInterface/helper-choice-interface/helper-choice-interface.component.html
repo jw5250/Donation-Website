@@ -1,8 +1,3 @@
-
-<ul class = "needs" >
-    <div id = needs-list>
-    <label for = "needs" id = need-label>Name &emsp;| &emsp;Type  &emsp;|  &emsp;Cost  &emsp;| &emsp;Quantity</label>
-
 <h3>Click on the needs to add them to your funding basket.</h3>
 <h3>The search box below allows you to filter needs based on type.</h3>
 <h3>Submit an empty text box (no text) to see all of your needs again.</h3>
@@ -14,9 +9,8 @@
 <h4>{{this.choiceErrorMessage}}</h4>
 <ul class = "needs">
     <label for = "needs">Name | Type | Cost | Quantity</label>
-
     <li *ngFor="let need of needsDisplayed">
-        <button type = "button" (click) = "addToFundingBasket(need)" class = need-button>
+        <button type = "button" (click) = "addToFundingBasket(need)">
             <span class = "attr">{{need.name}}  |   </span>
             <span class = "attr">{{need.type}}  |   </span>
             <span class = "attr">{{need.cost}}  |   </span>
@@ -24,7 +18,5 @@
         </button>   
         <br>
     </li>
-</ul>
-    </div>
 </ul>
 <br>
