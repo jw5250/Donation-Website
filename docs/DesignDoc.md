@@ -25,7 +25,7 @@ This is a website designed for ArtsRoc, an organization which provides music and
 >  _**[Sprint 2 & 4]** Provide a very brief statement about the project and the most
 > important user group and user goals._
 
-This website is for ArtsRoc to help fund its endeavors through outside donations. Users should be able to pick and choose what programs they want to fund and receive rewards for their actions. U fund managers should be able to edit the data the user interacts with to best suit the organization's needs.
+This website is for ArtsRoc to help fund its endeavors through outside donations. Users should be able to pick and choose what programs they want to fund and receive rewards for their actions.
 ​
 ### Glossary and Acronyms
 > _**[Sprint 2 & 4]** Provide a table of terms and acronyms._
@@ -60,11 +60,11 @@ This section describes the application domain.
 ​
 ![Domain Model](DomainModel.jpg)
 ​
-As of now, the helper is a donor who has a set of items they can purchase in order to help ArtsRoc fund its programs (or aspects of them), and in turn, could get a reward given they’ve donated enough.
+As of now, the helper is a donor who has a set of items they can purchase in order to help ArtsRoc fund its programs (or aspects of them), and in turn, could get a reward given they’ve donated enough. They can also see specific events scheduled by the organizations.
+The Ufund Manager directly modifies what the helper and search through and buy. They also will have full control over the donation rewards and the event schedule.
 The checkout manager helps the user manage the set of orders they want to purchase alongside providing a way for them to do such.
-​The donation system currently notifies users if they have a reward they can get, given some amount of points they earned by buying Needs. They can get each individual reward. The Ufund manager can edit, delet, and create whatever reward they think is the most attractive to helpers.
-The event system currently allows helpers to see current events the organization will host in the future. The Ufund manager can edit, delete, and create what events the user can see.​
-
+​
+​
 ## Architecture and Design
 ​
 This section describes the application architecture.
