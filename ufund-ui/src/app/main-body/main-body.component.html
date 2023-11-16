@@ -1,21 +1,23 @@
 <h2>{{this.getWelcome()}}</h2>
 <nav>
-    <a routerLink="{{this.getLogin()}}">Log in</a>
     <ng-template [ngIf] = "(manager === true)">
-        <div>
-            <a routerLink="{{this.getDonationManagement()}}">Rewards Management</a>
-            <a routerLink="{{this.getCupboard()}}">Need Management</a>
-            <a routerLink="{{this.getEventManagement()}}">Event Management</a>            
+
+        <div id = manager-page>
+            <a routerLink="{{this.getDonationManagement()}}" class= user-link>Rewards Management</a>
+            <a routerLink="{{this.getCupboard()}}" class = user-link>Need Management</a>
+            <a routerLink="{{this.getEventManagement()}}">Event Management</a> 
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
-        <div>
-            <a routerLink="{{this.getChoices()}}">Needs</a>
-            <a routerLink="{{this.getCheckout()}}">Checkout</a>
-            <a routerLink="{{this.getReward()}}">Rewards</a>
+        <div id = helper-page>
+            <a routerLink="{{this.getChoices()}}" class = user-link>Needs</a>
+            <a routerLink="{{this.getCheckout()}}" class = user-link>Checkout</a>
+            <a routerLink="{{this.getReward()}}" class = user-link>Rewards</a>
             <a routerLink="{{this.getEventDisplay()}}">Current Events</a>
+
         </div>
     </ng-template>
 </nav>
 <router-outlet></router-outlet>
+<app-signin-login-screen></app-signin-login-screen>
 <app-messages></app-messages>
