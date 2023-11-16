@@ -1,0 +1,11 @@
+h1,h2{
+    text-align: center;
+}
+
+.needs{
+    list-style-type: none;
+}
+
+#manage-needs{
+    text-align: center;
+}
