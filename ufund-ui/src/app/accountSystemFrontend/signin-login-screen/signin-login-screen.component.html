@@ -1,8 +1,11 @@
 <!--Should either load the manager frontend or the helper frontend.-->
 
-<ng-template [ngIf] = "(this.user === undefined)"><div>
-    <h1>User Sign up</h1>
-    <h2>Max character length: {{this.MAXLEN}}</h2>
+
+<ng-template [ngIf] = "(this.user === undefined)"><div class = login>
+    <h1 id = "title">Welcome to ArtsROC's Ufund!</h1>
+    <h2>User Sign Up</h2>
+    <h3>Max character length: {{this.MAXLEN}}</h3>
+  
     <label for="user-name"> User name: </label>
     <input id="user-name" [(ngModel)]="signInName" placeholder="name">
     <button type="button" (click)="signIn()">Sign up</button>
