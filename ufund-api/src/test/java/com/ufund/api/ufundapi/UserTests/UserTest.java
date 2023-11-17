@@ -74,7 +74,10 @@ public class UserTest {
         test[0] = new Need("a", "b", 0, 1);
         User testUser1 = new User("Bob", true, null, 0.0, null);
         User testUser2 = new User("Bob", false, test, 0.0, null);
-        assertEquals(testUser1, testUser2, "testSetName");
+        assertEquals(testUser1, testUser2, "testEquals");
+        Object testString3 = new Need("Art", "funding", 10000, 5);
+        boolean testResult3 = testUser1.equals(testString3);
+        assertEquals(false,testResult3, "testEquals");
     }
 
     @Test
