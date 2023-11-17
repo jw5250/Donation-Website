@@ -149,4 +149,24 @@ public class EventFileDAOTest {
         assertEquals(testEvent,testResult, "testUpdateEvent");
     }
 
+    @Test
+    public void testDeleteEventNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> eventFileDao.deleteData("Unknown"),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+    }
+
+    @Test
+    public void testUpdateEventNotFound() {
+        Event testNeed = new Event("no", "aug", "6000");
+        // Invoke
+        Event result = assertDoesNotThrow(() -> eventFileDao.updateData(testNeed),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNull(result);
+    }
 }

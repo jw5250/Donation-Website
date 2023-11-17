@@ -155,4 +155,24 @@ public class UserFileDAOTest {
         assertEquals(testUser,testResult, "testUpdateUser");
     }
 
+    @Test
+    public void testDeleteUserNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> UserFileDAO.deleteData("Unknown"),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+    }
+
+    @Test
+    public void testUpdateUserNotFound() {
+        User testNeed = new User("Bob", false, null, 0.0, null);
+        // Invoke
+        User result = assertDoesNotThrow(() -> UserFileDAO.updateData(testNeed),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNull(result);
+    }
 }
