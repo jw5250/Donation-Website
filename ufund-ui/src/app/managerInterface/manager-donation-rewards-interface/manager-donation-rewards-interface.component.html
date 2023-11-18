@@ -6,8 +6,8 @@
 </div>
 <div class = donation-rewards>
 <label for = current-list>Name | Cost Requirement</label>
-<ul class = "current-list">
-    <li *ngFor="let reward of donationRewards" class = "current-list">
+<ul >
+    <li *ngFor="let reward of donationRewards" id = "current-list">
 
         <button type = "button" (click) = "selectDonationReward(reward)">
             <span class = "attr">{{reward.name}}  |   </span>
@@ -17,11 +17,13 @@
             <br>
     </li>
 </ul>
-</div>
+
 <br>
+<form for = donation-rewards>Enter data here to create or edit a reward!</form>
 <form class = donation-rewards (ngSubmit)="getNewDonationRewardData()">
     <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.name}}>
     <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.requirement}}>
     <br>
     <input type = "submit" value = "Create or Update">
 </form>
+</div>
