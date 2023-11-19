@@ -5,7 +5,7 @@
 </div>
 <div id = manager-events>
   <label for = "Event">Name | date | time</label>
-  <ul class = "Event">
+  <ul class = "event">
     <li *ngFor="let event of events">
         <button type = "button" (click) = "selectEvent(event)">
             <span class = "attr">{{event.name}}  |   </span>
@@ -19,7 +19,7 @@
   <br>
 <br>
 <label for = event-create>Enter data below to create or edit an event!</label>
-<h4>Name, time, and date can only be {{this.MAXLEN}} characters long.</h4>
+<h4>Name, date, and time can only be {{this.MAXLEN}} characters long.</h4>
 <form id = "event-create" (ngSubmit)="getNewEventData()">
     <input type = "text" name = "eventInput" value = {{selectedEvent.name}}>
     <input type = "text" name = "eventInput" value = {{selectedEvent.date}}>

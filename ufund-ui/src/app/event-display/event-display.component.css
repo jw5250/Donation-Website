@@ -1,0 +1,13 @@
+h2 {
+    text-align: center;
+}
+#helper-event-display{
+    text-align: center;
+}
+
+.event{
+    list-style-type: none;
+}
+.attr{
+    text-align: center;
+}
