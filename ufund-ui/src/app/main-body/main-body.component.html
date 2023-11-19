@@ -5,7 +5,7 @@
         <div id = manager-page>
             <a routerLink="{{this.getDonationManagement()}}" class= user-link>Rewards Management</a>
             <a routerLink="{{this.getCupboard()}}" class = user-link>Need Management</a>
-            <a routerLink="{{this.getEventManagement()}}">Event Management</a> 
+            <a routerLink="{{this.getEventManagement()}}" class = user-link>Event Management</a> 
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
@@ -13,7 +13,7 @@
             <a routerLink="{{this.getChoices()}}" class = user-link>Needs</a>
             <a routerLink="{{this.getCheckout()}}" class = user-link>Checkout</a>
             <a routerLink="{{this.getReward()}}" class = user-link>Rewards</a>
-            <a routerLink="{{this.getEventDisplay()}}">Current Events</a>
+            <a routerLink="{{this.getEventDisplay()}}" class = user-link>Current Events</a>
 
         </div>
     </ng-template>

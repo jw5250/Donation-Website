@@ -1,7 +1,5 @@
-<h1>Your UFund Cupboard</h1>
-<h2>Needs</h2>
+<h1>Your UFund Needs Cupboard</h1>
 
-<h3>Type and Name can only be {{this.MAXLEN}} characters long.</h3>
 <div *ngFor = "let error of this.cupboardErrorMessage">
     <h4>{{error}}</h4>
 </div>
@@ -21,7 +19,8 @@
     </li>
 </ul>
 <br>
-<label for = need-ceate>Enter data here to create or edit a need!</label>
+<label for = need-create>Enter data below to create or edit a need!</label>
+<h4>Type and Name can only be {{this.MAXLEN}} characters long.</h4>
 <form id = need-create (ngSubmit)="getNewNeedData()">
     
     <input type = "text" name = "needInput" value = {{selectedNeed.name}}>
