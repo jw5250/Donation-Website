@@ -5,7 +5,7 @@
         <div id = manager-page>
             <a routerLink="{{this.getDonationManagement()}}" class= user-link>Rewards Management</a>
             <a routerLink="{{this.getCupboard()}}" class = user-link>Need Management</a>
-            <a routerLink="{{this.getEventManagement()}}">Event Management</a> 
+            <a routerLink="{{this.getEventManagement()}}" class = user-link>Event Management</a> 
         </div>
     </ng-template>
     <ng-template [ngIf] = "(manager === false)">
