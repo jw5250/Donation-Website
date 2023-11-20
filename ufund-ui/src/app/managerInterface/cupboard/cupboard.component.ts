@@ -3,8 +3,6 @@ import { Need } from '../../dataClasses/need';
 import { NeedService } from '../../services/need.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-//import { NEEDS } from '../dummy-needs';
-
 @Component({
   selector: 'app-cupboard',
   templateUrl: './cupboard.component.html',
@@ -21,6 +19,8 @@ import { Location } from '@angular/common';
  */
 export class CupboardComponent implements OnInit {
   MAXLEN: number = 30;
+  MAXCOST: number = 999;
+  MAXITEMS: number = 20;
   cupboardErrorMessage : string[] = [];
   needs: Need[] = [];
   voidNeed: Need = {name: "", type: "", cost: 0, quantity: 0};
@@ -122,8 +122,16 @@ export class CupboardComponent implements OnInit {
       this.cupboardErrorMessage.push("Cost can't be less than zero."); 
       foundError = true;
     }
+    if(cost.valueOf() > this.MAXCOST){
+      this.cupboardErrorMessage.push("Donation requirement must be less than or equal to to " + this.MAXCOST + ".");
+      foundError = true;
+    }
     if(quantity.valueOf() <= 0){
-      this.cupboardErrorMessage.push("Cost can't be less than or equal to zero."); 
+      this.cupboardErrorMessage.push("Quantity can't be less than or equal to zero."); 
+      foundError = true;
+    }
+    if(quantity.valueOf() > this.MAXITEMS){
+      this.cupboardErrorMessage.push("Quantity can't be greater than " + this.MAXITEMS + "."); 
       foundError = true;
     }
     if (foundError === true) { return; }

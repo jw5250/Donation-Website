@@ -12,6 +12,7 @@ import { DonationReward } from '../../dataClasses/DonationReward';
 })
 export class ManagerDonationRewardsInterfaceComponent {
   MAXLEN: number = 30;
+  MAXREQ: number = 999;
   donationManagementErrorMessage : string[] = [];
   donationRewards: DonationReward[] = [];
   voidDonationReward: DonationReward = {name: "", requirement: 0};
@@ -142,6 +143,10 @@ export class ManagerDonationRewardsInterfaceComponent {
     }
     if(req.valueOf() < 0){
       this.donationManagementErrorMessage.push("Donation requirement must be greater than or equal to 0.");
+      foundError = true;
+    }
+    if(req.valueOf() > this.MAXREQ){
+      this.donationManagementErrorMessage.push("Donation requirement must be less than or equal to " + this.MAXREQ + ".");
       foundError = true;
     }
     if (foundError === true) { return; }
