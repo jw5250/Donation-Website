@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ufund.api.ufundapi.model.DonationReward;
+import com.ufund.api.ufundapi.model.Need;
 
 /**
  * Test class for DonationReward.java file.
@@ -58,6 +59,18 @@ public class DonationRewardTest {
         testDonationReward.setName(testName);
         assertEquals(testName, testDonationReward.getName(), "testSetName");
     }
+    
+    /**
+     * Test function for "setRequirement()" function
+     * Asserts that the test DonationReward has its name correctly changed and stored
+     */
+    @Test
+    public void testSetRequirement(){
+        int test = 20;
+        testDonationReward.setRequirement(test);
+        assertEquals(test, testDonationReward.getRequirement(), "testSetRequirement");
+    }
+
 
     /**
      * Test function for DonationReward's "toString()" function
@@ -68,5 +81,22 @@ public class DonationRewardTest {
         String testString = "DonationReward[name=Art, requirement=10000]";
         String testResult = testDonationReward.toString();
         assertEquals(testString,testResult, "testToString");
+    }
+
+    /**
+     * Test function for DonationReward's "equals()" function
+     * Asserts that the test DonationReward's proper string formation is returned
+     */
+    @Test
+    public void testEquals(){
+        Object testString = new DonationReward("Art", 10000);
+        boolean testResult = testDonationReward.equals(testString);
+        assertEquals(true,testResult, "testEquals");
+        Object testString2 = new DonationReward("Art", 20);
+        boolean testResult2 = testDonationReward.equals(testString2);
+        assertEquals(false,testResult2, "testEquals");
+        Object testString3 = new Need("Art", "funding", 10000, 5);
+        boolean testResult3 = testDonationReward.equals(testString3);
+        assertEquals(false,testResult3, "testEquals");
     }
 }

@@ -1,9 +1,13 @@
+<div id = helper-event-display>
 <h2>Events</h2>
-<ul class = "Event">
+<hr>
+<ul class = event>
     <li *ngFor="let event of events">
-        <h4 class = "attr">Name:{{event.name}}</h4>
-        <h5 class = "attr">Date:{{event.date}}</h5>
-        <h5 class = "attr">Time:{{event.time}}</h5>
+        <h4 class = "attr">Name: {{event.name}}</h4>
+        <h4 class = "attr">Date: {{event.date}}</h4>
+        <h4 class = "attr">Time: {{event.time}}</h4>
         <br>
+        <hr> 
     </li>
 </ul>
+</div>

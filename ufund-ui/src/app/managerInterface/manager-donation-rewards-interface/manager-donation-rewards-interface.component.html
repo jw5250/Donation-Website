@@ -1,26 +1,33 @@
 <h1>Your UFund Reward List</h1>
+
 <h2>Rewards for Donations</h2>
 <h3>The requirement of a donation reward must be between 0 and {{this.MAXREQ}} points.</h3>
 <h3>Type and Name can only be {{this.MAXLEN}} characters long.</h3>
+
 <div *ngFor = "let error of this.donationManagementErrorMessage">
     <h4>{{error}}</h4>
 </div>
-<label for = "donationRewards">Name | Requirement</label>
-<ul class = "donationRewards">
-    <li *ngFor="let reward of donationRewards">
+<div class = donation-rewards>
+<label for = current-list>Name | Cost Requirement</label>
+<ul >
+    <li *ngFor="let reward of donationRewards" id = "current-list">
+
         <button type = "button" (click) = "selectDonationReward(reward)">
             <span class = "attr">{{reward.name}}  |   </span>
-            <span class = "attr">{{reward.requirement}}  |   </span>
+            <span class = "attr">{{reward.requirement}}     </span>
             </button>
         <button type = "button" (click) = "deleteDonationReward(reward.name)">X</button>
             <br>
     </li>
 </ul>
+
 <br>
-<form id = "donationRewardCreate" (ngSubmit)="getNewDonationRewardData()">
+<form for = donation-rewards>Enter data below to create or edit a reward!</form>
+<form class = donation-rewards (ngSubmit)="getNewDonationRewardData()">
     <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.name}}>
     <span class = "attr"> | </span>
     <input type = "text" name = "donationRewardInput" value = {{selectedDonationReward.requirement}}>
     <br>
     <input type = "submit" value = "Create or Update">
 </form>
+</div>

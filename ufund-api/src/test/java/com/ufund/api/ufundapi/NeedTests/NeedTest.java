@@ -19,6 +19,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ufund.api.ufundapi.model.Event;
 import com.ufund.api.ufundapi.model.Need;
 import com.ufund.api.ufundapi.persistence.NeedFileDAO;
 
@@ -61,6 +62,39 @@ public class NeedTest {
     }
 
     /**
+     * Test function for "setCost()" function
+     * Asserts that the test Need has its name correctly changed and stored
+     */
+    @Test
+    public void testSetCost(){
+        int testName = 20000;
+        testNeed.setCost(testName);
+        assertEquals(testName, testNeed.getCost(), "testSetType");
+    }
+
+    /**
+     * Test function for "setType()" function
+     * Asserts that the test Need has its name correctly changed and stored
+     */
+    @Test
+    public void testSetType(){
+        String testName = "Y";
+        testNeed.setType(testName);
+        assertEquals(testName, testNeed.getType(), "testSetType");
+    }
+
+    /**
+     * Test function for "setQuantity()" function
+     * Asserts that the test Need has its name correctly changed and stored
+     */
+    @Test
+    public void testSetQuantity(){
+        int testName = 20000;
+        testNeed.setQuantity(testName);
+        assertEquals(testName, testNeed.getQuantity(), "testSetType");
+    }
+
+    /**
      * Test function for Need's "toString()" function
      * Asserts that the test Need's proper string formation is returned
      */
@@ -69,5 +103,28 @@ public class NeedTest {
         String testString = "Need[name=Art, type=funding, cost=10000, quantity=5]";
         String testResult = testNeed.toString();
         assertEquals(testString,testResult, "testToString");
+    }
+
+    /**
+     * Test function for Need's "equals()" function
+     * Asserts that the test Need's proper string formation is returned
+     */
+    @Test
+    public void testEquals(){
+        Object testString = new Event("Art", "Jan 1", "10:00AM");
+        boolean testResult = testNeed.equals(testString);
+        assertEquals(false,testResult, "testEquals");
+        Object testString1 = new Need("h", "funding", 10000, 5);
+        boolean testResult1 = testNeed.equals(testString1);
+        assertEquals(false,testResult1, "testEquals");
+        Object testString2 = new Need("Art", "no", 10000, 5);
+        boolean testResult2 = testNeed.equals(testString2);
+        assertEquals(false,testResult2, "testEquals");
+        Object testString3 = new Need("Art", "funding", 1, 5);
+        boolean testResult3 = testNeed.equals(testString3);
+        assertEquals(false,testResult3, "testEquals");
+        Object testString4 = new Need("Art", "funding", 10000, 1);
+        boolean testResult4 = testNeed.equals(testString4);
+        assertEquals(false,testResult4, "testEquals");
     }
 }

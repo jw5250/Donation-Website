@@ -197,9 +197,9 @@ The majority of the user stories passed without much issues and all the unit tes
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
 ​
-![Code coverage for the controller tier](tests/controllerTierTests.png)
+![Code coverage for the controller tier](tests/controllerTierTest.png)
 ​
-![Code coverage for the persistence tier](tests/persistenceTierTests.png)
+![Code coverage for the persistence tier](tests/persistenceTierTest.png)
 ​The persistence tests do not test for failures. We did not think this was needed, given they work anyways in the live testing area.
-![Code coverage for the model tier](tests/modelTierTests.png)
+![Code coverage for the model tier](tests/modelTierTest.png)
 Most of the uncovered code are the getters and setters in the Need.java object. Our group thought that if one getter worked, then the others would, given all the untested ones handled primitive values. As of writing, the cupboard.java object has been removed. A branch involving two objects not being equal in the equals function of User.java isn't covered either, mainly because they don't have anythign in particular outside of a return value. As of now, the charge object does not have any tests.

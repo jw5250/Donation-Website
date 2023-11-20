@@ -21,6 +21,7 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.ufund.api.ufundapi.model.DonationReward;
+import com.ufund.api.ufundapi.model.Event;
 import com.ufund.api.ufundapi.persistence.DonationRewardFileDAO;
 
 /**
@@ -151,5 +152,26 @@ public class DonationRewardFileDAOTest {
         DonationReward testResult = DonationRewardFileDAO.getData("Art");
 
         assertEquals(testDonationReward,testResult, "testUpdateDonationReward");
+    }
+
+    @Test
+    public void testDeleteEventNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> DonationRewardFileDAO.deleteData("Unknown"),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+    }
+
+    @Test
+    public void testUpdateEventNotFound() {
+        DonationReward testNeed = new DonationReward("Garden", 5000);
+        // Invoke
+        DonationReward result = assertDoesNotThrow(() -> DonationRewardFileDAO.updateData(testNeed),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNull(result);
     }
 }

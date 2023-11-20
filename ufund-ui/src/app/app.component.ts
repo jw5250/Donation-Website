@@ -7,6 +7,6 @@ import { Component, OnInit } from '@angular/core';
 //Possible ideas:
 //Use localstorage to store a json web token.
 export class AppComponent{
-  title : string = "Arts Roc";
+  title : string = "ArtsROC";
   constructor(){}
 }

@@ -1,0 +1,11 @@
+h1,h2{
+    text-align: center;
+}
+
+#current-list{
+    list-style-type: none;
+}
+
+.donation-rewards{
+    text-align: center;
+}

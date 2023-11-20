@@ -152,4 +152,24 @@ public class NeedFileDAOTest {
         assertEquals(testNeed,testResult, "testUpdateNeed");
     }
 
+    @Test
+    public void testDeleteNeedNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> needFileDAO.deleteData("Unknown"),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+    }
+
+    @Test
+    public void testUpdateNeedNotFound() {
+        Need testNeed = new Need("2", "2", 2, 1);
+        // Invoke
+        Need result = assertDoesNotThrow(() -> needFileDAO.updateData(testNeed),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertNull(result);
+    }
 }
