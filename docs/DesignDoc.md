@@ -110,6 +110,37 @@ This section describes the web interface flow; this is how the user views and in
  >* _Correct labeling of relationships with proper notation for the relationship type, multiplicities, and navigation information will be important._
  >* _Include other details such as attributes and method signatures that you think are needed to support the level of detail in your discussion._
 ​
+<p>
+Our view tier is made purely of Angular and utilizes services, directives, and components. The main components consist of two types: the ones that display to the user one thing the organization has (rewards for donations, needs that can be bought, etc.) and the ones that group which ones the user could see based on their status (manager, helper). Both types are connected through a routing system. For instance, the diagram below demonstrates how someone could add a need, starting from the component responsible for showing the user (in this case a manager) edits and adds needs to the database.
+</p>
+![Sequence diagram for editing the cupboard.]
+(AddOrEditNeedsSequenceDiagram.drawio.png)
+<p>
+This diagram skips the part of the manager authenticating themselves through the login screen, which is part of the main page. The HTTP requests associated with this function are PUT and POST, responsible for editing a resource (given the need is already in the database) and creating new ones (given it doesn’t exist yet). Another example of the components responsible for some function is given below:
+</p>
+
+![Sequence diagram associated with how a user can add a new need to their funding basket.]
+(Team8-Ufund-Diagram.png)
+
+<p>
+This diagram above demonstrates how a user can add a new need to the funding basket. This diagram doesn’t include the user authenticating themselves through the login page and later clicking on the link that brings them to where they can add needs to their funding basket. As demonstrated here, the HTTP request associated with this function is PUT, given an existing resource (the user in this case) is updated (to add a new need to their funding basket). In general, for both of the above java classes associated with the functions, the controllers and DAOs that handle the HTTP requests and data respectively have been generalized to resemble the following:
+</p>
+
+![Relationship diagram between the controller and persistence sub-tier.]
+(viewModelModelRelationship.png)
+
+<p>
+ControllerInterace.java and DataFileDAO.java are both generic in order to help them deal with different data classes that all share a unique identifier with the same type(string in this case). Generally, when receiving an HTTP request from the Angular component, the Controller will call the functions of its respective DAO in order to modify the data. It will later return objects of the specified type it has been given (UserController.java will send User.java objects to the front end, etc.). Below is a diagram of how a DAO object in the persistence classes interacts with the database.
+</p>
+
+![Relationship diagram between the persistence subtier, data class sub-tier, and the database.]
+(persistenceDatabaseRelations.png)
+
+<p>
+The “Users” member of the UserFileDAO represents a list of key value pairs, with the name of the resource the key and the actual data the value. This was so the DAO only needed to minimize the amount of reads needed for accessing data. The filename is from where the ObjectMapper will read. The ObjectMapper is what actually reads and writes data to the file (Users.json in this case), with the DAO’s respective data class as the formatting. These members are what all of the DAOs in the system have. The respective data class, which is User.java in this case, will be created and sent to the Controller to later be sent to the frontend.
+The second type more or less consists of two parts: the main application page, which displays the router output (i.e. components such as the ones described in the diagrams above) and the main-body component, which determines which links the user is allowed to see (and ultimately use).
+</p>
+
 ### ViewModel Tier
 > _**[Sprint 4]** Provide a summary of this tier of your architecture. This
 > section will follow the same instructions that are given for the View
@@ -151,6 +182,14 @@ Each class has a single responsibility. For instance, the User.java class handle
 Each class in the backend has some specific responsibilty despite not having a defined role in the domain diagram. For instance, the use of controller and DAO (data persistence oriented) classes help abstract the translation of json objects to java objects(and vice versa) from the handling of http requests. This is also exemplified in the front end, where services prevent the repetition of code needed to send http requests and process http responses.
 ​</p>
 
+
+
+<h5>Dependency Inversion</h5>
+
+<p>
+In the backend, the Controller classes in the view model tier consist of objects in the model tier to function. If said models in the object tier are untested by the controller objects are, then they can be mocked by a testing framework such as Mockito to simulate how it’s supposed to function, so it can therefore be tested without needing to test the DAOs and the data classes first. This also prevents the tester from mistaking bugs in the DAO objects with those in the controller. This also applies to the objects in the persistence layer, which uses an Object Mapper.
+</p>
+
 ​
 > _**[Sprint 3 & 4]** OO Design Principles should span across **all tiers.**_
 ​
@@ -165,7 +204,6 @@ Each class in the backend has some specific responsibilty despite not having a d
 ## Testing
 > _This section will provide information about the testing performed
 > and the results of the testing._
-​
 <p>
 User Stories and Unit Tests: The majority of the user stories were successfully implemented without significant issues. All the unit tests that were executed passed, ensuring the functionality adhered to the predefined criteria. Ufund Manager Story Testing: Testing the ufund manager story demonstrated that all the functionalities met the expected criteria. During live testing, users were able to interact with the cupboard and funding basket, performing operations such as adding items to the funding basket and canceling or reverting actions by clicking outside the designated buttons. Helper Stories Testing: The add and subtract functionalities for the funding basket were tested thoroughly, and both met the acceptance criteria. Live testing confirmed that users could add multiple needs to the funding basket and remove them accordingly. Both the subtract and add operations supported quantity increments and decrements as expected. User Login and Logout Testing: The user login, sign-up, and logout functionalities were found to be satisfactory, considering that the input was not entirely composed of whitespace. The sign-up process ignored usernames that already existed, while the login process verified the credentials against existing records. Successful login granted users access to the funding basket and associated functionalities, and the logout process effectively restricted access to the account until re-login. Search Functionality Testing: The search functionality successfully filtered results from the original list of fundable items, as expected. The fundable items were displayed in a list grid format, consistent with the predefined acceptance criteria. Checkout Functionality Issue: While the checkout functionality seemed to meet the criteria during unit testing, there was an issue with updating or refreshing the funding basket after checkout in the live testing phase. This issue requires further investigation to ensure the funding basket is appropriately updated and refreshed post-checkout.
 </p>
@@ -192,11 +230,18 @@ The majority of the user stories passed without much issues and all the unit tes
 > achieved from unit testing of the code base. Discuss the team's
 > coverage targets, why you selected those values, and how well your
 > code coverage met your targets._
-​
+
+​<p>
+Our unit testing strategy involved testing functions of similar functionality. For instance, if a function for getting and setting a primitive value of a class, then others that do the same thing with different types of primitives don’t need to be tested. For the DAOs in particular, if we know that two branches require the opposite conditions to happen, and if one branch works given a specified output, then there is no need to test the other as it would produce the intended result. The main goal of our code coverage was at least 90%, given that while we wanted to make sure all major features were covered, we didn’t want to waste time on testing functions that we knew would already work, given one or more of the reasons discussed previously.
+</p>​
+
 ​
 >_**[Sprint 2 & 4]** **Include images of your code coverage report.** If there are any anomalies, discuss
 > those._
+
 ​
+
+
 ![Code coverage for the controller tier](tests/controllerTierTest.png)
 ​
 ![Code coverage for the persistence tier](tests/persistenceTierTest.png)
