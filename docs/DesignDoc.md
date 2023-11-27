@@ -60,9 +60,7 @@ This section describes the application domain.
 ​
 ![Domain Model](DomainModel.jpg)
 ​
-As of now, the helper is a donor who has a set of items they can purchase in order to help ArtsRoc fund its programs (or aspects of them), and in turn, could get a reward given they’ve donated enough. They can also see specific events scheduled by the organizations.
-The Ufund Manager directly modifies what the helper and search through and buy. They also will have full control over the donation rewards and the event schedule.
-The checkout manager helps the user manage the set of orders they want to purchase alongside providing a way for them to do such.
+The application domain of our project centers around gathering donations that ArtsRoc can use to improve current and create new programs. According to our domain diagram, the helper is a donor who has a set of items they can purchase in order to help ArtsRoc fund its programs (or aspects of them), and in turn, could get a reward given they’ve donated enough. Said rewards are not automatically provided to the User upon a certain threshold met. They can also see specific events scheduled by the organizations. Said events have a given name, date, and time. The Ufund Manager directly modifies what the helper searches through and buys. They also will have full control over the donation rewards and the event schedule. The checkout manager helps the user manage the set of orders they want to purchase alongside providing a way for them to do such.​​ The authentication system determines who is allowed to log in as a U fund Manager or a helper. The funding basket is something that the user has, and stores all the needs the helper wants. It allows the helper to buy a group of things at once instead of one at a time.
 ​
 ​
 ## Architecture and Design
