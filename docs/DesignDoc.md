@@ -50,9 +50,31 @@ The ArtsRoc website that allows people to donate to ArtsRoc's various programs (
 ### MVP Features
 >  _**[Sprint 4]** Provide a list of top-level Epics and/or Stories of the MVP._
 ​
+<h5>Epic: Account System</h5>
+This Epic focuses on the functionalities related to user account management, encompassing both helpers and U-Fund managers.
+Register as Helper: Helpers can register for the organization to engage in activities like donations. This feature is crucial for onboarding new users and integrating them into the system.
+
+Browse Needs: This feature allows helpers to view a list of needs or causes, enabling them to decide where to contribute. It's essential for user engagement and directing resources effectively.
+U-Fund Manager Abilities/Cupboard Structure: U-Fund managers need access to a 'cupboard' system to create, delete, and update the needs listed. This is pivotal for maintaining and updating the database of needs.
+
+Login to Account: Users, including helpers and managers, can log into their accounts using their username. This access is vital for engaging with personal funding baskets and other features.
+Logout of Account: This allows users to log out of their accounts, facilitating account switching or the creation of new accounts, thereby enhancing user flexibility and security.
+
+<h5>Epic: Funding Basket Management</h5>
+This Epic centers on the management of a 'funding basket,' a key feature for financial transactions and donations within the website, which essentially acts as a shopping cart for supporters
+Subtract from Funding Basket: Helpers have the option to remove items from their funding basket. This feature is important for avoiding accidental purchases and ensuring user control over their donations.
+
+Checkout: This functionality enables users to finalize the items in their funding basket, clearing the basket upon completion. It's a crucial step in the donation process, ensuring a smooth transaction flow.
+
+Add to Funding Basket: Helpers can add multiple fundable items to their basket in a single action. This streamlines the process of selecting and committing to donations.
+
+Browse/Search Needs: Similar to viewing a list of needs, this feature might include more advanced search or filter options to help helpers find specific fundable items or causes.
+
+
 ### Enhancements
 > _**[Sprint 4]** Describe what enhancements you have implemented for the project._
 ​
+When a non-admin user meets a certain number of goals or rather spends enough money on funding these goals by checking out needs, they receive fungible points in a one to one ratio that can be redeemed for rewards. Points are an accurate indicator of the account's total spending and they don't decrease after redeeming rewards. Rather, they are a milestone and they reach the required threshold for any rewards, the said rewards can be retrieved/redeemed with a click of a button. There is a different tab where the rewards can be previewed and claimed. Additionally when signing in, there is a popup alerting the user of any unclaimed available rewards.Next to the rewards tab there is a checkout tab, which is used to view the added needs, which can be individually removed by the user by clicking the button to the right of the need in the checkout. Finally at the very bottom there is a button, checkout, which removes all the needs from the funding basket and displays a message upon successful checkout. When there is no needs, the page displays a unique message remarking on the absence of needs in the funding basket.Next to both of these features is the event tab, which displays the events that has been added by the cupboard manager/ admin.All of the above features can be modified by a cupboard manager/admin who can directly interact with the details of needs, events, and rewards(all features which can be updated or created by the cupboard manager/ admin).
 ​
 ## Application Domain
 ​
