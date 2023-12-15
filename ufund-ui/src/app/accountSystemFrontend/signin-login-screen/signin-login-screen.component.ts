@@ -111,12 +111,13 @@ export class SigninLoginScreenComponent implements OnInit{
       return;
     }
     
-    this.userService.updateData(this.user).subscribe(()=>{
-      sessionStorage.removeItem(this.userIdentifier);
-      this.person.emit(undefined);
-      this.user = undefined;
-      this.router.navigate(['']);
-    });
+    /*this.userService.updateData(this.user).subscribe(()=>{
+      
+    });*/
+    sessionStorage.removeItem(this.userIdentifier);
+    this.person.emit(undefined);
+    this.user = undefined;
+    this.router.navigate(['']);
     //When logged out, data is no longer there.
   }
 }
